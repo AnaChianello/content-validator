@@ -1,0 +1,35 @@
+Estrutura do Carrossel (Artes)
+Frame 1: Capa
+Titulo: RC 18/2025: As 12 dimensoes da qualidade da informacao.
+Subtitulo: Conheca os criterios do Banco Central para garantir a integridade e a confiabilidade dos dados regulatorios.
+
+Frame 2: Acuracia, Acessibilidade e Integridade
+Titulo: A base da confianca regulatoria.
+Conteudo:
+Acuracia: Aderencia fiel dos dados a realidade dos fatos.
+Acessibilidade: Disponibilidade da informacao para usuarios autorizados.
+Integridade: Protecao contra alteracoes indevidas ou inconsistencias.
+Clareza: Definicoes objetivas e ausencia de ambiguidades.
+
+Frame 3: Consistencia, Rastreabilidade e Tempestividade
+Titulo: Visibilidade e controle de ponta a ponta.
+Conteudo:
+Consistencia: Ausencia de divergencias entre sistemas e bases distintas.
+Rastreabilidade: Capacidade de identificar a origem e a transformacao do dado.
+Tempestividade: Entrega das informacoes rigorosamente dentro dos prazos.
+Confiabilidade: Estabilidade e coerencia dos dados ao longo do tempo.
+
+Frame 4: Relevancia, Adaptabilidade e Comparabilidade
+Titulo: Utilidade e evolucao dos dados.
+Conteudo:
+Relevancia: Utilidade efetiva da informacao para a tomada de decisao.
+Completude: Cobertura integral dos dados exigidos nos relatorios.
+Adaptabilidade: Capacidade de ajuste a mudancas regulatorias e operacionais.
+Comparabilidade: Possibilidade de analise entre diferentes periodos e contextos.
+
+Legenda do Post (LinkedIn)
+A Resolucao Conjunta n 18/2025 estabelece um modelo rigoroso para a avaliacao de dados regulatorios atraves de 12 dimensoes especificas de qualidade. Estes criterios estruturam como o Banco Central verifica a consistencia das informacoes, exigindo mecanismos robustos de medicao e controle das instituicoes financeiras.
+
+A conformidade com essas dimensoes transforma a governanca em ativo estrategico para a supervisao prudencial. Da acuracia a rastreabilidade, cada pilar assegura a transparencia operacional em todo o ecossistema, estendendo-se a todas as informacoes fornecidas em atendimento a regulamentacao.
+
+Nosso novo artigo detalha os impactos da RC 18/2025 na politica de qualidade e os passos para a adequacao. Acesse: https://bipbrasil.com.br/resolucao-conjunta-18-2025-banco-central/

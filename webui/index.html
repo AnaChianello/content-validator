@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Validator</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="panel">
+      <p class="eyebrow">Institutional Content Validation</p>
+      <h1>Validate copy against brand and historical tone</h1>
+      <p class="intro">Paste the text, review the local paths and run the validator.</p>
+
+      <label for="text">Content</label>
+      <textarea id="text" placeholder="Paste the post, article or institutional copy here."></textarea>
+
+      <div class="grid">
+        <div>
+          <label for="references">Reference paths</label>
+          <textarea id="references" class="small" placeholder="One path per line"></textarea>
+        </div>
+        <div>
+          <label for="brandbook">Brandbook path</label>
+          <input id="brandbook" type="text" placeholder="C:\path\to\brandbook.pdf">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="validateButton" type="button">Validate</button>
+        <span id="status" class="status"></span>
+      </div>
+    </section>
+
+    <section class="panel result-panel">
+      <div class="result-header">
+        <h2>Result</h2>
+        <div id="scoreBadge" class="score-badge hidden">-</div>
+      </div>
+      <pre id="result">{}</pre>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

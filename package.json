@@ -1,0 +1,16 @@
+{
+  "name": "new-project",
+  "version": "1.0.0",
+  "description": "Projeto em PowerShell com arquitetura modular para validar textos institucionais a partir de:",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,33 @@
+{
+  "tone": "institucional, tecnico, claro e confiavel",
+  "required_traits": [
+    "autoridade tecnica",
+    "clareza argumentativa",
+    "objetividade",
+    "foco em impacto de negocio"
+  ],
+  "recommended_terms": [
+    "governanca",
+    "conformidade",
+    "estrategia",
+    "transformacao",
+    "dados",
+    "regulacao",
+    "eficiencia",
+    "decisao"
+  ],
+  "forbidden_terms": [
+    "galera",
+    "super",
+    "top",
+    "imperdivel",
+    "bombastico"
+  ],
+  "restrictions": [
+    "evitar informalidade excessiva",
+    "evitar redundancias",
+    "priorizar construcao assertiva",
+    "evitar adjetivacao vazia"
+  ],
+  "positioning": "consultoria estrategica com profundidade tecnica e linguagem executiva"
+}
