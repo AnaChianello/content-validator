@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador de Conteúdo</title>
+</head>
+<body>
+  <h1>Validador de Conteúdo</h1>
+
+  <p>Cole abaixo a legenda que deseja validar:</p>
+
+  <textarea id="text" rows="10" cols="60" placeholder="Digite ou cole o texto aqui"></textarea>
+  <br><br>
+
+  <button id="validateButton">Validar</button>
+
+  <h2>Resultado</h2>
+  <pre id="result"></pre>
+
+  <script>
+    const button = document.getElementById("validateButton");
+    const textEl = document.getElementById("text");
+    const resultEl = document.getElementById("result");
+
+    button.addEventListener("click", async () => {
+      resultEl.textContent = "Validando...";
+
+      try {
+        const response = await fetch("/validate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            text: textEl.value
+          })
+        });
+
+        const data = await response.json();
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        resultEl.textContent = "Erro ao validar.";
+      }
+    });
+  </script>
+</body>
+</html>
