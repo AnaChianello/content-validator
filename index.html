@@ -16,19 +16,15 @@
       --bip-red: #DA291C;
       --bip-white: #FFFFFF;
 
-      --blue-700: #0C2340;
       --blue-600: #354159;
       --blue-500: #546579;
       --blue-300: #9DA7B3;
       --blue-100: #DADEE2;
 
-      --red-500: #DA291C;
       --red-400: #ED4239;
-      --red-200: #FCB7B3;
       --red-100: #FFE3E3;
 
       --neutral-bg: #F5F7FA;
-      --neutral-surface: #FFFFFF;
       --neutral-soft: #F1F2F3;
       --text-main: #0C2340;
       --text-soft: #546579;
@@ -44,9 +40,9 @@
       --shadow-sm: 0 8px 20px rgba(12, 35, 64, 0.08);
       --shadow-md: 0 18px 40px rgba(12, 35, 64, 0.10);
 
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --radius-sm: 12px;
+      --radius-lg: 4px;
+      --radius-md: 3px;
+      --radius-sm: 2px;
     }
 
     * {
@@ -56,43 +52,27 @@
     body {
       margin: 0;
       font-family: "Work Sans", Arial, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(218, 41, 28, 0.08), transparent 18%),
-        linear-gradient(180deg, #F7F9FB 0%, #F1F4F8 100%);
+      background: linear-gradient(180deg, #F7F9FB 0%, #F1F4F8 100%);
       color: var(--text-main);
     }
 
     .page {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 32px 20px 56px;
+      padding: 28px 20px 48px;
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
       background: var(--bip-blue);
       color: var(--bip-white);
-      border-radius: 28px;
-      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius-lg);
+      padding: 28px;
       box-shadow: var(--shadow-md);
-      margin-bottom: 24px;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -40px -60px auto;
-      width: 260px;
-      height: 260px;
-      background:
-        radial-gradient(circle, rgba(218, 41, 28, 0.22) 0%, rgba(218, 41, 28, 0.08) 35%, transparent 70%);
-      pointer-events: none;
+      margin-bottom: 20px;
     }
 
     .hero-grid {
-      position: relative;
-      z-index: 1;
       display: grid;
       grid-template-columns: 1.5fr 0.8fr;
       gap: 24px;
@@ -100,30 +80,24 @@
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      font-size: 12px;
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.86);
-    }
-
-    .eyebrow-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--bip-red);
-      border-radius: 2px;
-      display: inline-block;
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .hero h1 {
       margin: 0 0 12px;
-      font-size: 40px;
+      font-size: 38px;
       line-height: 0.95;
       font-weight: 300;
       letter-spacing: -0.02em;
+      text-align: left;
     }
 
     .hero p {
@@ -132,19 +106,19 @@
       color: rgba(255, 255, 255, 0.88);
       line-height: 1.6;
       font-size: 15px;
+      text-align: left;
     }
 
     .hero-panel {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 20px;
-      padding: 20px;
-      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 18px;
     }
 
     .hero-panel-title {
       margin: 0 0 10px;
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: rgba(255, 255, 255, 0.72);
@@ -159,18 +133,18 @@
     .layout {
       display: grid;
       grid-template-columns: 1.12fr 0.88fr;
-      gap: 24px;
+      gap: 20px;
     }
 
     .card {
-      background: var(--neutral-surface);
+      background: var(--bip-white);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
     }
 
     .card-header {
-      padding: 24px 24px 0;
+      padding: 22px 22px 0;
     }
 
     .card-title {
@@ -180,6 +154,7 @@
       font-weight: 300;
       letter-spacing: -0.02em;
       color: var(--bip-blue);
+      text-align: left;
     }
 
     .card-subtitle {
@@ -187,14 +162,15 @@
       color: var(--text-soft);
       font-size: 14px;
       line-height: 1.6;
+      text-align: left;
     }
 
     .card-body {
-      padding: 24px;
+      padding: 22px;
     }
 
     .field {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .field:last-child {
@@ -213,7 +189,7 @@
     .field-label {
       color: var(--bip-blue);
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .field-note {
@@ -226,7 +202,7 @@
       width: 100%;
       min-height: 180px;
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: var(--radius-md);
       padding: 16px 18px;
       font: inherit;
       font-size: 14px;
@@ -235,7 +211,8 @@
       background: #fff;
       resize: vertical;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      text-align: left;
     }
 
     textarea::placeholder {
@@ -244,7 +221,7 @@
 
     textarea:focus {
       border-color: var(--bip-red);
-      box-shadow: 0 0 0 4px rgba(218, 41, 28, 0.10);
+      box-shadow: 0 0 0 3px rgba(218, 41, 28, 0.10);
     }
 
     .actions {
@@ -252,7 +229,7 @@
       gap: 12px;
       align-items: center;
       flex-wrap: wrap;
-      margin-top: 26px;
+      margin-top: 22px;
     }
 
     button {
@@ -261,30 +238,28 @@
 
     .button-primary {
       border: none;
-      border-radius: 999px;
+      border-radius: var(--radius-sm);
       padding: 14px 22px;
       background: var(--bip-red);
       color: var(--bip-white);
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
+      transition: opacity 0.2s ease, background 0.2s ease;
       min-width: 190px;
     }
 
     .button-primary:hover {
-      transform: translateY(-1px);
       background: var(--red-400);
     }
 
     .button-primary:disabled {
       opacity: 0.72;
       cursor: not-allowed;
-      transform: none;
     }
 
     .button-secondary {
       border: 1px solid var(--border);
-      border-radius: 999px;
+      border-radius: var(--radius-sm);
       padding: 14px 20px;
       background: transparent;
       color: var(--bip-blue);
@@ -296,22 +271,23 @@
       font-size: 14px;
       font-weight: 500;
       color: var(--text-soft);
+      text-align: left;
     }
 
     .results-stack {
       display: grid;
-      gap: 16px;
+      gap: 14px;
     }
 
     .score-card {
       background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FB 100%);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
+      border-radius: var(--radius-md);
+      padding: 20px;
     }
 
     .score-label {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-soft);
@@ -319,25 +295,28 @@
     }
 
     .score-value {
-      font-size: 48px;
+      font-size: 46px;
       line-height: 1;
       font-weight: 300;
       color: var(--bip-blue);
       letter-spacing: -0.04em;
+      text-align: left;
     }
 
     .score-meta {
       margin-top: 8px;
       font-size: 13px;
       color: var(--text-soft);
+      text-align: left;
     }
 
     .recommendation {
-      border-radius: 18px;
-      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      padding: 15px 16px;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 500;
       border: 1px solid transparent;
+      text-align: left;
     }
 
     .recommendation.aprovado {
@@ -365,15 +344,16 @@
     .section-box {
       background: var(--neutral-soft);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
+      border-radius: var(--radius-md);
+      padding: 16px;
     }
 
     .section-box h3 {
       margin: 0 0 12px;
       font-size: 15px;
       color: var(--bip-blue);
-      font-weight: 600;
+      font-weight: 500;
+      text-align: left;
     }
 
     .scores-table {
@@ -392,10 +372,10 @@
 
     .scores-table th {
       color: var(--text-soft);
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .scores-table td:last-child,
@@ -409,6 +389,7 @@
       color: var(--text-soft);
       font-size: 14px;
       line-height: 1.6;
+      text-align: left;
     }
 
     .list li + li {
@@ -418,47 +399,42 @@
     .raw-output {
       background: var(--bip-blue);
       color: #E6EDF5;
-      border-radius: 18px;
-      padding: 18px;
+      border-radius: var(--radius-md);
+      padding: 16px;
       font-size: 13px;
       line-height: 1.6;
       white-space: pre-wrap;
       word-break: break-word;
       overflow: auto;
       max-height: 320px;
+      text-align: left;
     }
 
     .microcopy {
       margin-top: 10px;
       font-size: 12px;
       color: var(--text-soft);
+      text-align: left;
     }
 
     .footer-bar {
       margin-top: 18px;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .tag {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 999px;
+      padding: 9px 11px;
+      border-radius: var(--radius-sm);
       background: #fff;
-      border: 1px solid var(--border);
-      color: var(--text-soft);
-      font-size: 12px;
-    }
-
-    .tag-accent {
-      width: 8px;
-      height: 8px;
-      background: var(--bip-red);
-      border-radius: 50%;
-      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.84);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     @media (max-width: 980px) {
@@ -474,7 +450,7 @@
 
     @media (max-width: 640px) {
       .page {
-        padding: 20px 14px 36px;
+        padding: 18px 14px 32px;
       }
 
       .hero,
@@ -485,8 +461,8 @@
       }
 
       .hero {
-        padding-top: 24px;
-        padding-bottom: 24px;
+        padding-top: 22px;
+        padding-bottom: 22px;
       }
 
       .button-primary,
@@ -505,10 +481,7 @@
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            <span>BIP . Content Validation Assistant</span>
-          </div>
+          <div class="eyebrow">BIP . Content Validation Assistant</div>
           <h1>Validador de conteúdo para social media</h1>
           <p>
             Avalie legenda e texto de arte com base em critérios de clareza,
@@ -517,9 +490,9 @@
           </p>
 
           <div class="footer-bar">
-            <div class="tag"><span class="tag-accent"></span>Tom institucional</div>
-            <div class="tag"><span class="tag-accent"></span>Clareza e fluidez</div>
-            <div class="tag"><span class="tag-accent"></span>Legenda + arte</div>
+            <div class="tag">Tom institucional</div>
+            <div class="tag">Clareza e fluidez</div>
+            <div class="tag">Legenda + arte</div>
           </div>
         </div>
 
@@ -788,16 +761,8 @@
           finalScoreEl.textContent = "-";
           statusEl.textContent = "Erro na validação.";
           renderRecommendation(data.error || "Não foi possível concluir a análise.");
-          renderList(
-            positiveListEl,
-            [],
-            "Nenhum resultado disponível."
-          );
-          renderList(
-            improvementListEl,
-            [data.error || "Verifique a configuração do serviço."],
-            "Nenhum resultado disponível."
-          );
+          renderList(positiveListEl, [], "Nenhum resultado disponível.");
+          renderList(improvementListEl, [data.error || "Verifique a configuração do serviço."], "Nenhum resultado disponível.");
           return;
         }
 
@@ -808,16 +773,8 @@
 
         renderRecommendation(data.recomendacao_final || "Avaliação concluída");
         renderScores(data.scores);
-        renderList(
-          positiveListEl,
-          data.pontos_positivos,
-          "Nenhum ponto positivo informado."
-        );
-        renderList(
-          improvementListEl,
-          data.pontos_melhoria,
-          "Nenhum ponto de melhoria informado."
-        );
+        renderList(positiveListEl, data.pontos_positivos, "Nenhum ponto positivo informado.");
+        renderList(improvementListEl, data.pontos_melhoria, "Nenhum ponto de melhoria informado.");
         statusEl.textContent = "Validação concluída com sucesso.";
       } catch (error) {
         finalScoreEl.textContent = "-";
