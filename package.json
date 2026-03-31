@@ -1,17 +1,16 @@
 {
-  "name": "new-project",
+  "name": "content-validator",
   "version": "1.0.0",
-  "description": "Projeto em PowerShell com arquitetura modular para validar textos institucionais a partir de:",
-  "main": "index.js",
-  "directories": {
-    "example": "examples"
-  },
+  "description": "AI content validator",
+  "main": "app.js",
   "scripts": {
-  "start": "node webui/app.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-}
+    "start": "node app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "dependencies": {
+    "express": "^4.21.2",
+    "openai": "^4.0.0"
+  }
 }
