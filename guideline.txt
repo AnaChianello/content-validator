@@ -1,0 +1,186 @@
+DIRETRIZES DE VALIDAÇÃO - CONTEÚDO PARA REDES SOCIAIS
+
+OBJETIVO GERAL:
+Avaliar conteúdos de redes sociais (legenda e texto de arte) com base em critérios de clareza, qualidade, consistência e alinhamento com o tom de voz da marca.
+
+---
+
+CRITÉRIOS DE LEGENDA
+
+1. CLAREZA E FLUIDEZ
+O que avaliar:
+A legenda deve ser clara, fluida e fácil de entender na primeira leitura.
+
+Como avaliar:
+Verificar se o texto possui estrutura lógica e leitura natural.
+
+Sinais positivos:
+- Mensagem clara
+- Estrutura organizada
+- Leitura fluida
+
+Sinais de alerta:
+- Frases muito longas
+- Estrutura confusa
+- Dificuldade de entendimento
+
+---
+
+2. GRAMÁTICA E QUALIDADE TEXTUAL
+O que avaliar:
+A legenda deve estar gramaticalmente correta.
+
+Como avaliar:
+Revisar ortografia, concordância e pontuação.
+
+Sinais positivos:
+- Escrita correta
+- Pontuação adequada
+
+Sinais de alerta:
+- Erros gramaticais
+- Inconsistências na escrita
+
+---
+
+3. CONSISTÊNCIA DAS INFORMAÇÕES
+O que avaliar:
+Todas as informações devem estar corretas e verificadas.
+
+Como avaliar:
+Validar nomes, cargos e dados apresentados.
+
+Sinais positivos:
+- Informações precisas
+- Cargos corretos
+
+Sinais de alerta:
+- Dados incorretos
+- Cargo da pessoa incorreto
+- Informações não verificadas
+
+---
+
+4. TOM DE VOZ
+O que avaliar:
+A legenda deve refletir um tom institucional, consultivo e técnico.
+
+Como avaliar:
+Analisar se a linguagem transmite autoridade, clareza e profissionalismo.
+
+Sinais positivos:
+- Linguagem profissional
+- Tom consultivo
+- Presença de análise ou insight
+
+Sinais de alerta:
+- Linguagem promocional
+- Tom informal
+- Conteúdo genérico ou superficial
+- Uso de termos como "estratégico" sem propósito claro
+
+---
+
+5. QUALIDADE DA REDAÇÃO
+O que avaliar:
+O texto deve evitar redundância e complexidade desnecessária.
+
+Como avaliar:
+Analisar repetição de palavras, redundância e oportunidades de simplificação.
+
+Sinais positivos:
+- Escrita concisa
+- Vocabulário variado
+
+Sinais de alerta:
+- Palavras repetidas próximas
+- Redundância
+- Frases excessivamente complexas
+
+---
+
+6. RELAÇÃO ENTRE LEGENDA E ARTE
+O que avaliar:
+A legenda deve complementar a arte, não repetir o conteúdo do layout.
+
+Como avaliar:
+Comparar legenda e arte para verificar se há valor adicional.
+
+Sinais positivos:
+- A legenda aprofunda a mensagem
+- Complemento entre arte e legenda
+
+Sinais de alerta:
+- Repetição de conteúdo
+- Falta de valor adicional
+
+---
+
+CRITÉRIOS DE ARTE
+
+7. CLAREZA DA MENSAGEM
+O que avaliar:
+A arte deve comunicar claramente o tema do conteúdo.
+
+Como avaliar:
+Verificar se o título deixa evidente o assunto.
+
+Sinais positivos:
+- Título claro
+- Mensagem direta
+
+Sinais de alerta:
+- Título genérico
+- Falta de clareza
+
+---
+
+8. QUANTIDADE DE TEXTO
+O que avaliar:
+O volume de texto deve ser adequado para leitura rápida.
+
+Como avaliar:
+Verificar se o conteúdo está muito denso para um único frame.
+
+Sinais positivos:
+- Texto objetivo
+- Boa distribuição
+
+Sinais de alerta:
+- Texto muito grande
+- Excesso de informação
+
+---
+
+9. CONSISTÊNCIA DAS INFORMAÇÕES NA ARTE
+O que avaliar:
+As informações da arte devem estar corretas.
+
+Como avaliar:
+Revisar dados, nomes e conteúdos.
+
+Sinais positivos:
+- Informações corretas
+
+Sinais de alerta:
+- Dados inconsistentes ou incorretos
+
+---
+
+ESCALA DE AVALIAÇÃO
+
+1 = completamente desalinhado  
+2 = vários problemas relevantes  
+3 = aceitável com melhorias  
+4 = bom com pequenos ajustes  
+5 = excelente e totalmente alinhado  
+
+---
+
+REGRAS OBRIGATÓRIAS
+
+- Evitar redundância entre arte e legenda  
+- Priorizar clareza sobre complexidade  
+- Garantir precisão das informações  
+- Manter consistência com o tom institucional  
+- Evitar uso de termos como "estratégico" sem propósito claro  
