@@ -1,129 +1,945 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Validador BIP</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validador de Conteúdo | BIP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
   <style>
+    :root {
+      --bip-blue: #0C2340;
+      --bip-red: #DA291C;
+      --bip-white: #FFFFFF;
+
+      --blue-700: #0C2340;
+      --blue-600: #354159;
+      --blue-500: #546579;
+      --blue-300: #9DA7B3;
+      --blue-100: #DADEE2;
+
+      --red-500: #DA291C;
+      --red-400: #ED4239;
+      --red-200: #FCB7B3;
+      --red-100: #FFE3E3;
+
+      --neutral-bg: #F5F7FA;
+      --neutral-surface: #FFFFFF;
+      --neutral-soft: #F1F2F3;
+      --text-main: #0C2340;
+      --text-soft: #546579;
+      --border: #DADEE2;
+
+      --success-bg: #EEF7F1;
+      --success-text: #1F6B3B;
+      --warning-bg: #FFF5E8;
+      --warning-text: #9A6700;
+      --danger-bg: #FDEEEE;
+      --danger-text: #A12622;
+
+      --shadow-sm: 0 8px 20px rgba(12, 35, 64, 0.08);
+      --shadow-md: 0 18px 40px rgba(12, 35, 64, 0.10);
+
+      --radius-lg: 4px;
+      --radius-md: 3px;
+      --radius-sm: 2px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: "Work Sans", sans-serif;
-      background: #F5F7FA;
-      color: #0C2340;
+      font-family: "Work Sans", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(218, 41, 28, 0.08), transparent 18%),
+        linear-gradient(180deg, #F7F9FB 0%, #F1F4F8 100%);
+      color: var(--text-main);
     }
 
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
     }
 
-    .box {
-      background: white;
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--bip-blue);
+      color: var(--bip-white);
+      border-radius: 4px;
       padding: 32px;
-      border-radius: 6px;
-      border: 1px solid #DADEE2;
-      width: 320px;
-      text-align: center;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
     }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 12px;
-      border: 1px solid #DADEE2;
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 260px;
+      height: 260px;
+      background:
+        radial-gradient(circle, rgba(218, 41, 28, 0.22) 0%, rgba(218, 41, 28, 0.08) 35%, transparent 70%);
+      pointer-events: none;
     }
 
-    button {
-      margin-top: 16px;
-      padding: 10px;
-      width: 100%;
-      background: #DA291C;
-      color: white;
-      border: none;
-      cursor: pointer;
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr;
+      gap: 24px;
+      align-items: start;
     }
 
-    #app {
-      display: none;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .eyebrow-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--bip-red);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 40px;
+      line-height: 0.95;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 3px;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-panel-title {
+      margin: 0 0 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .hero-panel p {
+      font-size: 14px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--neutral-surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header {
+      padding: 24px 24px 0;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--bip-blue);
+    }
+
+    .card-subtitle {
+      margin: 10px 0 0;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .card-body {
       padding: 24px;
+    }
+
+    .field {
+      margin-bottom: 22px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .field-label {
+      color: var(--bip-blue);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .field-note {
+      color: var(--text-soft);
+      font-size: 12px;
+      font-weight: 400;
     }
 
     textarea {
       width: 100%;
-      margin-top: 10px;
-      padding: 10px;
+      min-height: 180px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 16px 18px;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-main);
+      background: #fff;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    textarea::placeholder {
+      color: var(--blue-500);
+    }
+
+    textarea:focus {
+      border-color: var(--bip-red);
+      box-shadow: 0 0 0 4px rgba(218, 41, 28, 0.10);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .button-primary {
+      border: none;
+      border-radius: 2px;
+      padding: 14px 22px;
+      background: var(--bip-red);
+      color: var(--bip-white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
+      min-width: 190px;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-1px);
+      background: var(--red-400);
+    }
+
+    .button-primary:disabled {
+      opacity: 0.72;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 14px 20px;
+      background: transparent;
+      color: var(--bip-blue);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .status {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    .results-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .score-card {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FB 100%);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 22px;
+    }
+
+    .score-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .score-value {
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 300;
+      color: var(--bip-blue);
+      letter-spacing: -0.04em;
+    }
+
+    .score-scale {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .recommendation {
+      border-radius: 3px;
+      padding: 16px 18px;
+      font-weight: 600;
+      font-size: 15px;
+      border: 1px solid transparent;
+    }
+
+    .recommendation.aprovado {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border-color: #CDE8D6;
+    }
+
+    .recommendation.ajustes {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      border-color: #F0DEB5;
+    }
+
+    .recommendation.reprovado {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border-color: #F2CACA;
+    }
+
+    .section-box {
+      background: var(--neutral-soft);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 18px;
+    }
+
+    .section-box h3 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      color: var(--bip-blue);
+      font-weight: 600;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .list li + li {
+      margin-top: 8px;
+    }
+
+    .scores-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .scores-table th,
+    .scores-table td {
+      text-align: left;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .scores-table th {
+      color: var(--text-soft);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .scores-table td:last-child,
+    .scores-table th:last-child {
+      text-align: right;
+    }
+
+    .raw-output {
+      background: var(--bip-blue);
+      color: #E6EDF5;
+      border-radius: 3px;
+      padding: 18px;
+      font-size: 13px;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer-bar {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #FFFFFF;
+      font-size: 12px;
+    }
+
+    .tag-accent {
+      width: 8px;
+      height: 8px;
+      background: var(--bip-red);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Login overlay */
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(12, 35, 64, 0.36);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: var(--shadow-md);
+      padding: 28px;
+    }
+
+    .login-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bip-blue);
+    }
+
+    .login-eyebrow-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--bip-red);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .login-box h2 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 300;
+      color: var(--bip-blue);
+    }
+
+    .login-box p {
+      margin: 0 0 16px;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .login-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 14px 14px;
+      font: inherit;
+      font-size: 14px;
+      color: var(--text-main);
+      outline: none;
+      margin-bottom: 12px;
+    }
+
+    .login-input:focus {
+      border-color: var(--bip-red);
+      box-shadow: 0 0 0 4px rgba(218, 41, 28, 0.10);
+    }
+
+    .login-button {
+      width: 100%;
+      border: none;
+      border-radius: 2px;
+      padding: 14px 16px;
+      background: var(--bip-red);
+      color: #FFFFFF;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .login-error {
+      margin-top: 12px;
+      min-height: 18px;
+      font-size: 13px;
+      color: var(--bip-red);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 20px 14px 36px;
+      }
+
+      .hero,
+      .card-body,
+      .card-header {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero {
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+
+      .actions {
+        align-items: stretch;
+      }
     }
   </style>
 </head>
-
 <body>
-
-<!-- LOGIN -->
-<div id="login" class="center">
-  <div class="box">
-    <h3>Acesso restrito</h3>
-    <p>Digite a senha</p>
-
-    <input type="password" id="password" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
-
-    <p id="error" style="color:red;"></p>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <div class="login-eyebrow">
+        <span class="login-eyebrow-dot"></span>
+        <span>BIP . Restricted Access</span>
+      </div>
+      <h2>Acesso restrito</h2>
+      <p>Digite a senha para acessar o validador de conteúdo.</p>
+      <input
+        type="password"
+        id="passwordInput"
+        class="login-input"
+        placeholder="Senha"
+        onkeydown="if(event.key==='Enter'){ login(); }"
+      />
+      <button class="login-button" onclick="login()">Entrar</button>
+      <div id="errorMsg" class="login-error"></div>
+    </div>
   </div>
-</div>
 
-<!-- APP -->
-<div id="app">
-  <h2>Validador de conteúdo</h2>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>BIP . Content Validation Assistant</span>
+          </div>
+          <h1>Validador de conteúdo para social media</h1>
+          <p>
+            Avalie legenda e texto de arte com base em critérios de clareza,
+            qualidade textual, consistência das informações, aderência ao tom de
+            voz institucional e complementaridade entre copy e layout.
+          </p>
 
-  <label>Legenda</label>
-  <textarea id="caption"></textarea>
+          <div class="footer-bar">
+            <div class="tag"><span class="tag-accent"></span>Tom institucional</div>
+            <div class="tag"><span class="tag-accent"></span>Clareza e fluidez</div>
+            <div class="tag"><span class="tag-accent"></span>Legenda + arte</div>
+          </div>
+        </div>
 
-  <label>Texto da arte</label>
-  <textarea id="artwork"></textarea>
+        <div class="hero-panel">
+          <div class="hero-panel-title">Como utilizar</div>
+          <p>
+            Preencha a legenda, o texto da arte ou ambos. O sistema retorna
+            avaliação estruturada, nota final, recomendação e comentários de
+            melhoria para apoiar a revisão antes da publicação.
+          </p>
+        </div>
+      </div>
+    </section>
 
-  <br><br>
+    <div class="layout">
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Entrada de conteúdo</h2>
+          <p class="card-subtitle">
+            Insira os elementos que deseja validar. Quando os dois campos forem
+            preenchidos, a análise também considera a relação entre arte e legenda.
+          </p>
+        </div>
 
-  <button onclick="validate()">Validar</button>
+        <div class="card-body">
+          <div class="field">
+            <label for="caption">
+              <span class="field-label">Legenda</span>
+              <span class="field-note">Campo opcional, mas recomendado</span>
+            </label>
+            <textarea
+              id="caption"
+              placeholder="Cole aqui a legenda completa do post"
+            ></textarea>
+          </div>
 
-  <pre id="result"></pre>
-</div>
+          <div class="field">
+            <label for="artworkText">
+              <span class="field-label">Texto da arte</span>
+              <span class="field-note">Campo opcional</span>
+            </label>
+            <textarea
+              id="artworkText"
+              placeholder="Cole aqui o texto que aparece na arte ou no frame"
+            ></textarea>
+          </div>
 
-<script>
-  const PASSWORD = "bip2026"; // 🔑 ALTERE AQUI
+          <div class="actions">
+            <button id="validateButton" class="button-primary">Validar conteúdo</button>
+            <button id="clearButton" class="button-secondary" type="button">Limpar campos</button>
+            <div class="status" id="status">Aguardando envio.</div>
+          </div>
+        </div>
+      </section>
 
-  function login() {
-    const input = document.getElementById("password").value;
+      <aside class="card">
+        <div class="card-header">
+          <h2 class="card-title">Resultado da avaliação</h2>
+          <p class="card-subtitle">
+            A análise é estruturada por critérios e consolidada em uma
+            recomendação final.
+          </p>
+        </div>
 
-    if (input === PASSWORD) {
-      document.getElementById("login").style.display = "none";
-      document.getElementById("app").style.display = "block";
-    } else {
-      document.getElementById("error").innerText = "Senha incorreta";
+        <div class="card-body">
+          <div class="results-stack">
+            <div class="score-card">
+              <div class="score-label">Nota final</div>
+              <div class="score-value" id="finalScore">-</div>
+              <div class="score-scale">Escala de 1 a 5</div>
+            </div>
+
+            <div id="recommendationBox" class="recommendation hidden">
+              <span id="recommendationText"></span>
+            </div>
+
+            <div class="section-box">
+              <h3>Notas por critério</h3>
+              <table class="scores-table">
+                <thead>
+                  <tr>
+                    <th>Critério</th>
+                    <th>Nota</th>
+                  </tr>
+                </thead>
+                <tbody id="scoresTableBody">
+                  <tr>
+                    <td colspan="2" style="color:#5f6b76;">Os resultados aparecerão aqui.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section-box">
+              <h3>Pontos positivos</h3>
+              <ul class="list" id="positiveList">
+                <li>A análise aparecerá aqui após a validação.</li>
+              </ul>
+            </div>
+
+            <div class="section-box">
+              <h3>Pontos de melhoria</h3>
+              <ul class="list" id="improvementList">
+                <li>A análise aparecerá aqui após a validação.</li>
+              </ul>
+            </div>
+
+            <div class="section-box">
+              <h3>Saída bruta</h3>
+              <div class="raw-output" id="rawOutput">O resultado bruto em JSON aparecerá aqui.</div>
+              <div class="footer-note">
+                Use esta seção para checagem técnica e troubleshooting.
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const PASSWORD = "bip2026";
+
+    const captionEl = document.getElementById("caption");
+    const artworkTextEl = document.getElementById("artworkText");
+    const validateButtonEl = document.getElementById("validateButton");
+    const clearButtonEl = document.getElementById("clearButton");
+    const statusEl = document.getElementById("status");
+    const finalScoreEl = document.getElementById("finalScore");
+    const recommendationBoxEl = document.getElementById("recommendationBox");
+    const recommendationTextEl = document.getElementById("recommendationText");
+    const scoresTableBodyEl = document.getElementById("scoresTableBody");
+    const positiveListEl = document.getElementById("positiveList");
+    const improvementListEl = document.getElementById("improvementList");
+    const rawOutputEl = document.getElementById("rawOutput");
+
+    function login() {
+      const value = document.getElementById("passwordInput").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (value === PASSWORD) {
+        document.getElementById("loginScreen").style.display = "none";
+        errorMsg.textContent = "";
+      } else {
+        errorMsg.textContent = "Senha incorreta.";
+      }
     }
-  }
 
-  async function validate() {
-    const caption = document.getElementById("caption").value;
-    const artworkText = document.getElementById("artwork").value;
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
 
-    const res = await fetch("/validate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ caption, artworkText })
+    function renderList(element, items, fallbackText) {
+      if (!Array.isArray(items) || items.length === 0) {
+        element.innerHTML = `<li>${escapeHtml(fallbackText)}</li>`;
+        return;
+      }
+
+      element.innerHTML = items
+        .map((item) => `<li>${escapeHtml(item)}</li>`)
+        .join("");
+    }
+
+    function formatLabel(key) {
+      const map = {
+        clareza: "Clareza",
+        tom_de_voz: "Tom de voz",
+        qualidade_redacao: "Qualidade da redação",
+        consistencia_informacoes: "Consistência das informações",
+        relacao_legenda_arte: "Relação legenda e arte"
+      };
+
+      return map[key] || key;
+    }
+
+    function renderScores(scores) {
+      if (!scores || typeof scores !== "object") {
+        scoresTableBodyEl.innerHTML = `
+          <tr>
+            <td colspan="2" style="color:#5f6b76;">Não foi possível exibir as notas por critério.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      const rows = Object.entries(scores)
+        .map(([key, value]) => {
+          return `
+            <tr>
+              <td>${escapeHtml(formatLabel(key))}</td>
+              <td>${escapeHtml(value)}</td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      scoresTableBodyEl.innerHTML = rows || `
+        <tr>
+          <td colspan="2" style="color:#5f6b76;">Nenhuma nota recebida.</td>
+        </tr>
+      `;
+    }
+
+    function renderRecommendation(text) {
+      if (!text) {
+        recommendationBoxEl.className = "recommendation hidden";
+        recommendationTextEl.textContent = "";
+        return;
+      }
+
+      const normalized = text.toLowerCase();
+      let variantClass = "ajustes";
+
+      if (normalized.includes("aprovado com ajustes")) {
+        variantClass = "ajustes";
+      } else if (normalized.includes("aprovado")) {
+        variantClass = "aprovado";
+      } else if (normalized.includes("reprovado")) {
+        variantClass = "reprovado";
+      }
+
+      recommendationBoxEl.className = `recommendation ${variantClass}`;
+      recommendationTextEl.textContent = text;
+    }
+
+    function resetUI() {
+      finalScoreEl.textContent = "-";
+      renderRecommendation("");
+      scoresTableBodyEl.innerHTML = `
+        <tr>
+          <td colspan="2" style="color:#5f6b76;">Os resultados aparecerão aqui.</td>
+        </tr>
+      `;
+      positiveListEl.innerHTML = "<li>A análise aparecerá aqui após a validação.</li>";
+      improvementListEl.innerHTML = "<li>A análise aparecerá aqui após a validação.</li>";
+      rawOutputEl.textContent = "O resultado bruto em JSON aparecerá aqui.";
+      statusEl.textContent = "Aguardando envio.";
+    }
+
+    clearButtonEl.addEventListener("click", () => {
+      captionEl.value = "";
+      artworkTextEl.value = "";
+      resetUI();
     });
 
-    const data = await res.json();
+    validateButtonEl.addEventListener("click", async () => {
+      const caption = captionEl.value.trim();
+      const artworkText = artworkTextEl.value.trim();
 
-    document.getElementById("result").innerText =
-      JSON.stringify(data, null, 2);
-  }
-</script>
+      if (!caption && !artworkText) {
+        statusEl.textContent = "Preencha pelo menos um dos campos para iniciar a validação.";
+        return;
+      }
 
+      validateButtonEl.disabled = true;
+      statusEl.textContent = "Validando conteúdo...";
+      rawOutputEl.textContent = "";
+      finalScoreEl.textContent = "...";
+      renderRecommendation("");
+      renderScores(null);
+      renderList(positiveListEl, [], "A análise está em processamento.");
+      renderList(improvementListEl, [], "A análise está em processamento.");
+
+      try {
+        const response = await fetch("/validate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            caption,
+            artworkText
+          })
+        });
+
+        const data = await response.json();
+        rawOutputEl.textContent = JSON.stringify(data, null, 2);
+
+        if (!response.ok) {
+          finalScoreEl.textContent = "-";
+          statusEl.textContent = "Erro na validação.";
+          renderRecommendation(data.error || "Não foi possível concluir a análise.");
+          renderList(positiveListEl, [], "Nenhum resultado disponível.");
+          renderList(improvementListEl, [data.error || "Verifique a configuração do serviço."], "Nenhum resultado disponível.");
+          return;
+        }
+
+        finalScoreEl.textContent =
+          typeof data.final_score === "number"
+            ? data.final_score.toFixed(1)
+            : (data.final_score || "-");
+
+        renderRecommendation(data.recomendacao_final || "Avaliação concluída");
+        renderScores(data.scores);
+        renderList(positiveListEl, data.pontos_positivos, "Nenhum ponto positivo informado.");
+        renderList(improvementListEl, data.pontos_melhoria, "Nenhum ponto de melhoria informado.");
+        statusEl.textContent = "Validação concluída com sucesso.";
+      } catch (error) {
+        finalScoreEl.textContent = "-";
+        rawOutputEl.textContent = JSON.stringify({ error: error.message }, null, 2);
+        statusEl.textContent = "Erro ao enviar a solicitação.";
+        renderRecommendation("Reprovado");
+        renderList(positiveListEl, [], "Nenhum resultado disponível.");
+        renderList(improvementListEl, [error.message], "Nenhum resultado disponível.");
+      } finally {
+        validateButtonEl.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
