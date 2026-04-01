@@ -1,792 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Validador de Conteúdo | BIP</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  >
+  <meta charset="UTF-8">
+  <title>Validador BIP</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --bip-blue: #0C2340;
-      --bip-red: #DA291C;
-      --bip-white: #FFFFFF;
-
-      --blue-600: #354159;
-      --blue-500: #546579;
-      --blue-300: #9DA7B3;
-      --blue-100: #DADEE2;
-
-      --red-400: #ED4239;
-      --red-100: #FFE3E3;
-
-      --neutral-bg: #F5F7FA;
-      --neutral-soft: #F1F2F3;
-      --text-main: #0C2340;
-      --text-soft: #546579;
-      --border: #DADEE2;
-
-      --success-bg: #EEF7F1;
-      --success-text: #1F6B3B;
-      --warning-bg: #FFF5E8;
-      --warning-text: #9A6700;
-      --danger-bg: #FDEEEE;
-      --danger-text: #A12622;
-
-      --shadow-sm: 0 8px 20px rgba(12, 35, 64, 0.08);
-      --shadow-md: 0 18px 40px rgba(12, 35, 64, 0.10);
-
-      --radius-lg: 4px;
-      --radius-md: 3px;
-      --radius-sm: 2px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: "Work Sans", Arial, sans-serif;
-      background: linear-gradient(180deg, #F7F9FB 0%, #F1F4F8 100%);
-      color: var(--text-main);
+      font-family: "Work Sans", sans-serif;
+      background: #F5F7FA;
+      color: #0C2340;
     }
 
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 28px 20px 48px;
-    }
-
-    .hero {
-      background: var(--bip-blue);
-      color: var(--bip-white);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      box-shadow: var(--shadow-md);
-      margin-bottom: 20px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 0.8fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 6px 10px;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: var(--radius-sm);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .hero h1 {
-      margin: 0 0 12px;
-      font-size: 38px;
-      line-height: 0.95;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      text-align: left;
-    }
-
-    .hero p {
-      margin: 0;
-      max-width: 760px;
-      color: rgba(255, 255, 255, 0.88);
-      line-height: 1.6;
-      font-size: 15px;
-      text-align: left;
-    }
-
-    .hero-panel {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-md);
-      padding: 18px;
-    }
-
-    .hero-panel-title {
-      margin: 0 0 10px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .hero-panel p {
-      font-size: 14px;
-      margin: 0;
-      color: rgba(255, 255, 255, 0.92);
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1.12fr 0.88fr;
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--bip-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .card-header {
-      padding: 22px 22px 0;
-    }
-
-    .card-title {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      color: var(--bip-blue);
-      text-align: left;
-    }
-
-    .card-subtitle {
-      margin: 10px 0 0;
-      color: var(--text-soft);
-      font-size: 14px;
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    .card-body {
-      padding: 22px;
-    }
-
-    .field {
-      margin-bottom: 20px;
-    }
-
-    .field:last-child {
-      margin-bottom: 0;
-    }
-
-    .field label {
+    .center {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
+      height: 100vh;
     }
 
-    .field-label {
-      color: var(--bip-blue);
-      font-size: 14px;
-      font-weight: 500;
+    .box {
+      background: white;
+      padding: 32px;
+      border-radius: 6px;
+      border: 1px solid #DADEE2;
+      width: 320px;
+      text-align: center;
     }
 
-    .field-note {
-      color: var(--text-soft);
-      font-size: 12px;
-      font-weight: 400;
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      border: 1px solid #DADEE2;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 10px;
+      width: 100%;
+      background: #DA291C;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #app {
+      display: none;
+      padding: 24px;
     }
 
     textarea {
       width: 100%;
-      min-height: 180px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      font: inherit;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-main);
-      background: #fff;
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      text-align: left;
-    }
-
-    textarea::placeholder {
-      color: var(--blue-500);
-    }
-
-    textarea:focus {
-      border-color: var(--bip-red);
-      box-shadow: 0 0 0 3px rgba(218, 41, 28, 0.10);
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .button-primary {
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 14px 22px;
-      background: var(--bip-red);
-      color: var(--bip-white);
-      font-weight: 500;
-      cursor: pointer;
-      transition: opacity 0.2s ease, background 0.2s ease;
-      min-width: 190px;
-    }
-
-    .button-primary:hover {
-      background: var(--red-400);
-    }
-
-    .button-primary:disabled {
-      opacity: 0.72;
-      cursor: not-allowed;
-    }
-
-    .button-secondary {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 14px 20px;
-      background: transparent;
-      color: var(--bip-blue);
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    .status {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-soft);
-      text-align: left;
-    }
-
-    .results-stack {
-      display: grid;
-      gap: 14px;
-    }
-
-    .score-card {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FB 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-
-    .score-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .score-value {
-      font-size: 46px;
-      line-height: 1;
-      font-weight: 300;
-      color: var(--bip-blue);
-      letter-spacing: -0.04em;
-      text-align: left;
-    }
-
-    .score-meta {
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--text-soft);
-      text-align: left;
-    }
-
-    .recommendation {
-      border-radius: var(--radius-md);
-      padding: 15px 16px;
-      font-size: 15px;
-      font-weight: 500;
-      border: 1px solid transparent;
-      text-align: left;
-    }
-
-    .recommendation.aprovado {
-      background: var(--success-bg);
-      color: var(--success-text);
-      border-color: #CDE8D6;
-    }
-
-    .recommendation.ajustes {
-      background: var(--warning-bg);
-      color: var(--warning-text);
-      border-color: #F0DEB5;
-    }
-
-    .recommendation.reprovado {
-      background: var(--danger-bg);
-      color: var(--danger-text);
-      border-color: #F2CACA;
-    }
-
-    .recommendation.hidden {
-      display: none;
-    }
-
-    .section-box {
-      background: var(--neutral-soft);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-    }
-
-    .section-box h3 {
-      margin: 0 0 12px;
-      font-size: 15px;
-      color: var(--bip-blue);
-      font-weight: 500;
-      text-align: left;
-    }
-
-    .scores-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    .scores-table th,
-    .scores-table td {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(84, 101, 121, 0.16);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .scores-table th {
-      color: var(--text-soft);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 500;
-    }
-
-    .scores-table td:last-child,
-    .scores-table th:last-child {
-      text-align: right;
-    }
-
-    .list {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text-soft);
-      font-size: 14px;
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    .list li + li {
-      margin-top: 8px;
-    }
-
-    .raw-output {
-      background: var(--bip-blue);
-      color: #E6EDF5;
-      border-radius: var(--radius-md);
-      padding: 16px;
-      font-size: 13px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-word;
-      overflow: auto;
-      max-height: 320px;
-      text-align: left;
-    }
-
-    .microcopy {
       margin-top: 10px;
-      font-size: 12px;
-      color: var(--text-soft);
-      text-align: left;
-    }
-
-    .footer-bar {
-      margin-top: 18px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 9px 11px;
-      border-radius: var(--radius-sm);
-      background: #fff;
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.84);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        padding: 18px 14px 32px;
-      }
-
-      .hero,
-      .card-body,
-      .card-header {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-      .hero {
-        padding-top: 22px;
-        padding-bottom: 22px;
-      }
-
-      .button-primary,
-      .button-secondary {
-        width: 100%;
-      }
-
-      .actions {
-        align-items: stretch;
-      }
+      padding: 10px;
     }
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">BIP . Content Validation Assistant</div>
-          <h1>Validador de conteúdo para social media</h1>
-          <p>
-            Avalie legenda e texto de arte com base em critérios de clareza,
-            qualidade textual, consistência das informações, aderência ao tom de
-            voz institucional e complementaridade entre copy e layout.
-          </p>
 
-          <div class="footer-bar">
-            <div class="tag">Tom institucional</div>
-            <div class="tag">Clareza e fluidez</div>
-            <div class="tag">Legenda + arte</div>
-          </div>
-        </div>
+<!-- LOGIN -->
+<div id="login" class="center">
+  <div class="box">
+    <h3>Acesso restrito</h3>
+    <p>Digite a senha</p>
 
-        <div class="hero-panel">
-          <div class="hero-panel-title">Como utilizar</div>
-          <p>
-            Preencha a legenda, o texto da arte ou ambos. O sistema retorna
-            avaliação estruturada, nota final, recomendação e comentários de
-            melhoria para apoiar a revisão antes da publicação.
-          </p>
-        </div>
-      </div>
-    </section>
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
 
-    <div class="layout">
-      <section class="card">
-        <div class="card-header">
-          <h2 class="card-title">Entrada de conteúdo</h2>
-          <p class="card-subtitle">
-            Insira os elementos que deseja validar. Quando os dois campos forem
-            preenchidos, a análise também considera a relação entre arte e legenda.
-          </p>
-        </div>
-
-        <div class="card-body">
-          <div class="field">
-            <label for="caption">
-              <span class="field-label">Legenda</span>
-              <span class="field-note">Campo opcional, mas recomendado</span>
-            </label>
-            <textarea
-              id="caption"
-              placeholder="Cole aqui a legenda completa do post"
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label for="artworkText">
-              <span class="field-label">Texto da arte</span>
-              <span class="field-note">Campo opcional</span>
-            </label>
-            <textarea
-              id="artworkText"
-              placeholder="Cole aqui o texto presente na arte ou no frame"
-            ></textarea>
-          </div>
-
-          <div class="actions">
-            <button id="validateButton" class="button-primary">Validar conteúdo</button>
-            <button id="clearButton" class="button-secondary" type="button">Limpar campos</button>
-            <div class="status" id="status">Aguardando envio.</div>
-          </div>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div class="card-header">
-          <h2 class="card-title">Resultado da avaliação</h2>
-          <p class="card-subtitle">
-            A saída é organizada por critérios e consolidada em uma recomendação final.
-          </p>
-        </div>
-
-        <div class="card-body">
-          <div class="results-stack">
-            <div class="score-card">
-              <div class="score-label">Nota final</div>
-              <div class="score-value" id="finalScore">-</div>
-              <div class="score-meta">Escala de 1 a 5</div>
-            </div>
-
-            <div id="recommendationBox" class="recommendation hidden">
-              <span id="recommendationText"></span>
-            </div>
-
-            <div class="section-box">
-              <h3>Notas por critério</h3>
-              <table class="scores-table">
-                <thead>
-                  <tr>
-                    <th>Critério</th>
-                    <th>Nota</th>
-                  </tr>
-                </thead>
-                <tbody id="scoresTableBody">
-                  <tr>
-                    <td colspan="2" style="color:#546579;">Os resultados aparecerão aqui.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="section-box">
-              <h3>Pontos positivos</h3>
-              <ul class="list" id="positiveList">
-                <li>A análise aparecerá aqui após a validação.</li>
-              </ul>
-            </div>
-
-            <div class="section-box">
-              <h3>Pontos de melhoria</h3>
-              <ul class="list" id="improvementList">
-                <li>A análise aparecerá aqui após a validação.</li>
-              </ul>
-            </div>
-
-            <div class="section-box">
-              <h3>Saída técnica</h3>
-              <div class="raw-output" id="rawOutput">O resultado bruto em JSON aparecerá aqui.</div>
-              <div class="microcopy">
-                Use esta seção para validação técnica e troubleshooting.
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </div>
+    <p id="error" style="color:red;"></p>
   </div>
+</div>
 
-  <script>
-    const captionEl = document.getElementById("caption");
-    const artworkTextEl = document.getElementById("artworkText");
-    const validateButtonEl = document.getElementById("validateButton");
-    const clearButtonEl = document.getElementById("clearButton");
-    const statusEl = document.getElementById("status");
-    const finalScoreEl = document.getElementById("finalScore");
-    const recommendationBoxEl = document.getElementById("recommendationBox");
-    const recommendationTextEl = document.getElementById("recommendationText");
-    const scoresTableBodyEl = document.getElementById("scoresTableBody");
-    const positiveListEl = document.getElementById("positiveList");
-    const improvementListEl = document.getElementById("improvementList");
-    const rawOutputEl = document.getElementById("rawOutput");
+<!-- APP -->
+<div id="app">
+  <h2>Validador de conteúdo</h2>
 
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+  <label>Legenda</label>
+  <textarea id="caption"></textarea>
+
+  <label>Texto da arte</label>
+  <textarea id="artwork"></textarea>
+
+  <br><br>
+
+  <button onclick="validate()">Validar</button>
+
+  <pre id="result"></pre>
+</div>
+
+<script>
+  const PASSWORD = "bip2026"; // 🔑 ALTERE AQUI
+
+  function login() {
+    const input = document.getElementById("password").value;
+
+    if (input === PASSWORD) {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("app").style.display = "block";
+    } else {
+      document.getElementById("error").innerText = "Senha incorreta";
     }
+  }
 
-    function renderList(element, items, fallbackText) {
-      if (!Array.isArray(items) || items.length === 0) {
-        element.innerHTML = `<li>${escapeHtml(fallbackText)}</li>`;
-        return;
-      }
+  async function validate() {
+    const caption = document.getElementById("caption").value;
+    const artworkText = document.getElementById("artwork").value;
 
-      element.innerHTML = items
-        .map((item) => `<li>${escapeHtml(item)}</li>`)
-        .join("");
-    }
-
-    function formatLabel(key) {
-      const map = {
-        clareza: "Clareza",
-        tom_de_voz: "Tom de voz",
-        qualidade_redacao: "Qualidade da redação",
-        consistencia_informacoes: "Consistência das informações",
-        relacao_legenda_arte: "Relação legenda e arte"
-      };
-
-      return map[key] || key;
-    }
-
-    function renderScores(scores) {
-      if (!scores || typeof scores !== "object") {
-        scoresTableBodyEl.innerHTML = `
-          <tr>
-            <td colspan="2" style="color:#546579;">Não foi possível exibir as notas por critério.</td>
-          </tr>
-        `;
-        return;
-      }
-
-      const rows = Object.entries(scores)
-        .map(([key, value]) => `
-          <tr>
-            <td>${escapeHtml(formatLabel(key))}</td>
-            <td>${escapeHtml(value)}</td>
-          </tr>
-        `)
-        .join("");
-
-      scoresTableBodyEl.innerHTML = rows || `
-        <tr>
-          <td colspan="2" style="color:#546579;">Nenhuma nota recebida.</td>
-        </tr>
-      `;
-    }
-
-    function renderRecommendation(text) {
-      if (!text) {
-        recommendationBoxEl.className = "recommendation hidden";
-        recommendationTextEl.textContent = "";
-        return;
-      }
-
-      const normalized = String(text).toLowerCase();
-      let variantClass = "ajustes";
-
-      if (normalized.includes("aprovado com ajustes")) {
-        variantClass = "ajustes";
-      } else if (normalized.includes("aprovado")) {
-        variantClass = "aprovado";
-      } else if (normalized.includes("reprovado")) {
-        variantClass = "reprovado";
-      }
-
-      recommendationBoxEl.className = `recommendation ${variantClass}`;
-      recommendationTextEl.textContent = text;
-    }
-
-    function resetUI() {
-      finalScoreEl.textContent = "-";
-      renderRecommendation("");
-      scoresTableBodyEl.innerHTML = `
-        <tr>
-          <td colspan="2" style="color:#546579;">Os resultados aparecerão aqui.</td>
-        </tr>
-      `;
-      positiveListEl.innerHTML = "<li>A análise aparecerá aqui após a validação.</li>";
-      improvementListEl.innerHTML = "<li>A análise aparecerá aqui após a validação.</li>";
-      rawOutputEl.textContent = "O resultado bruto em JSON aparecerá aqui.";
-      statusEl.textContent = "Aguardando envio.";
-    }
-
-    clearButtonEl.addEventListener("click", () => {
-      captionEl.value = "";
-      artworkTextEl.value = "";
-      resetUI();
+    const res = await fetch("/validate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ caption, artworkText })
     });
 
-    validateButtonEl.addEventListener("click", async () => {
-      const caption = captionEl.value.trim();
-      const artworkText = artworkTextEl.value.trim();
+    const data = await res.json();
 
-      if (!caption && !artworkText) {
-        statusEl.textContent = "Preencha pelo menos um dos campos para iniciar a validação.";
-        return;
-      }
+    document.getElementById("result").innerText =
+      JSON.stringify(data, null, 2);
+  }
+</script>
 
-      validateButtonEl.disabled = true;
-      statusEl.textContent = "Validando conteúdo...";
-      rawOutputEl.textContent = "";
-      finalScoreEl.textContent = "...";
-      renderRecommendation("");
-      renderScores(null);
-      renderList(positiveListEl, [], "A análise está em processamento.");
-      renderList(improvementListEl, [], "A análise está em processamento.");
-
-      try {
-        const response = await fetch("/validate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            caption,
-            artworkText
-          })
-        });
-
-        const data = await response.json();
-        rawOutputEl.textContent = JSON.stringify(data, null, 2);
-
-        if (!response.ok) {
-          finalScoreEl.textContent = "-";
-          statusEl.textContent = "Erro na validação.";
-          renderRecommendation(data.error || "Não foi possível concluir a análise.");
-          renderList(positiveListEl, [], "Nenhum resultado disponível.");
-          renderList(improvementListEl, [data.error || "Verifique a configuração do serviço."], "Nenhum resultado disponível.");
-          return;
-        }
-
-        finalScoreEl.textContent =
-          typeof data.final_score === "number"
-            ? data.final_score.toFixed(1)
-            : (data.final_score || "-");
-
-        renderRecommendation(data.recomendacao_final || "Avaliação concluída");
-        renderScores(data.scores);
-        renderList(positiveListEl, data.pontos_positivos, "Nenhum ponto positivo informado.");
-        renderList(improvementListEl, data.pontos_melhoria, "Nenhum ponto de melhoria informado.");
-        statusEl.textContent = "Validação concluída com sucesso.";
-      } catch (error) {
-        finalScoreEl.textContent = "-";
-        rawOutputEl.textContent = JSON.stringify({ error: error.message }, null, 2);
-        statusEl.textContent = "Erro ao enviar a solicitação.";
-        renderRecommendation("Reprovado");
-        renderList(positiveListEl, [], "Nenhum resultado disponível.");
-        renderList(improvementListEl, [error.message], "Nenhum resultado disponível.");
-      } finally {
-        validateButtonEl.disabled = false;
-      }
-    });
-  </script>
 </body>
 </html>
