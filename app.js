@@ -2,28 +2,42 @@ import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// 👉 (Opcional, mas recomendado)
-// Se quiser usar arquivo separado de exemplos:
+// Exemplos opcionais
 let examples = "";
 try {
-  examples = fs.readFileSync("./data/good-examples.txt", "utf-8");
+  examples = fs.readFileSync(path.join(__dirname, "data", "good-examples.txt"), "utf-8");
 } catch (err) {
   console.log("No examples file found, continuing without it.");
 }
 
-// 🔹 FUNÇÃO PRINCIPAL DE VALIDAÇÃO
+// Rota da página inicial
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// Função principal de validação
 app.post("/validate", async (req, res) => {
   try {
-    const { caption, visualText } = req.body;
+    const { caption, visualText, artworkText } = req.body;
+
+    const finalCaption = caption || "";
+    const finalVisualText = visualText || artworkText || "";
 
     const prompt = `
 You are a content validation specialist for a business consulting firm (BIP).
@@ -35,10 +49,10 @@ Your role is to evaluate social media content (caption + visual text) based on s
 ## INPUT
 
 Caption:
-${caption}
+${finalCaption}
 
 Visual text:
-${visualText && visualText.trim() !== "" ? visualText : "not provided"}
+${finalVisualText && finalVisualText.trim() !== "" ? finalVisualText : "not provided"}
 
 ---
 
@@ -77,59 +91,59 @@ If visual text is empty, null, or not provided:
 ## VALIDATION RUBRIC
 
 ### 1. Tone of Voice (0–5)
-+1 professional and technical language  
-+1 no informal expressions  
-+1 demonstrates authority  
-+1 avoids empty adjectives  
-+1 direct and objective  
++1 professional and technical language
++1 no informal expressions
++1 demonstrates authority
++1 avoids empty adjectives
++1 direct and objective
 
 ---
 
 ### 2. Clarity and Structure (0–5)
-+1 clear main message  
-+1 concise sentences (~max 25 words)  
-+1 logical flow  
-+1 no ambiguity  
-+1 easy to understand  
++1 clear main message
++1 concise sentences (~max 25 words)
++1 logical flow
++1 no ambiguity
++1 easy to understand
 
 ---
 
 ### 3. Quality and Writing (0–5)
-+1 no grammar errors  
-+1 no repetition of words nearby  
-+1 no redundancy  
-+1 strong vocabulary  
-+1 fluid reading  
++1 no grammar errors
++1 no repetition of words nearby
++1 no redundancy
++1 strong vocabulary
++1 fluid reading
 
 ---
 
 ### 4. Brand Alignment (0–5)
-+1 aligned with consulting positioning  
-+1 business-oriented  
-+1 avoids generic phrases  
-+1 reflects expertise  
-+1 delivers insight/value  
++1 aligned with consulting positioning
++1 business-oriented
++1 avoids generic phrases
++1 reflects expertise
++1 delivers insight/value
 
 ---
 
 ### 5. Caption vs Visual (0–5)
 (ONLY if visual exists)
 
-+1 complements (does not repeat)  
-+1 adds new information  
-+1 consistent message  
-+1 no contradiction  
-+1 enhances understanding  
++1 complements (does not repeat)
++1 adds new information
++1 consistent message
++1 no contradiction
++1 enhances understanding
 
 ---
 
 ## SCORE INTERPRETATION
 
-1 = Poor  
-2 = Weak  
-3 = Acceptable  
-4 = Good  
-5 = Excellent  
+1 = Poor
+2 = Weak
+3 = Acceptable
+4 = Good
+5 = Excellent
 
 Score 5 must be given ONLY when:
 - No issues found
@@ -178,15 +192,13 @@ ${examples}
 
     let output = response.choices[0].message.content;
 
-    // 🔹 tenta garantir JSON válido
     try {
       output = JSON.parse(output);
     } catch (e) {
-      console.log("⚠️ JSON parsing failed, returning raw output");
+      console.log("JSON parsing failed, returning raw output");
     }
 
     res.json(output);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -195,7 +207,6 @@ ${examples}
   }
 });
 
-// 🔹 SERVER
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
