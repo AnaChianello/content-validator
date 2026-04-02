@@ -1,182 +1,203 @@
 import express from "express";
+import cors from "cors";
 import OpenAI from "openai";
 import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
 });
 
-function readTextFile(filename, fallback = "") {
-  try {
-    return fs.readFileSync(path.join(__dirname, filename), "utf-8");
-  } catch (error) {
-    console.error(`Erro ao ler ${filename}:`, error.message);
-    return fallback;
-  }
+// 👉 (Opcional, mas recomendado)
+// Se quiser usar arquivo separado de exemplos:
+let examples = "";
+try {
+  examples = fs.readFileSync("./data/good-examples.txt", "utf-8");
+} catch (err) {
+  console.log("No examples file found, continuing without it.");
 }
 
-const guidelines = readTextFile("guidelines.txt", "Diretrizes não encontradas.");
-
-const examples = readTextFile(
-  "examples.txt",
-  `
-EXEMPLOS DE REFERÊNCIA (ESTILO ESPERADO)
-
-1.
-Legenda:
-A formalização de uma Política de Qualidade da Informação é um dos pilares centrais da RC 18/2025.
-
-Arte:
-Requisitos mínimos da Política de Qualidade da Informação
-
----
-
-2.
-Legenda:
-O Brasil ocupa uma posição singular na crise energética global ao combinar reservas offshore competitivas com estabilidade institucional.
-
-Arte:
-O Brasil como eixo de estabilidade energética global
-
----
-
-3.
-Legenda:
-A governança de dados fortalece a conformidade regulatória e a tomada de decisão baseada em evidências auditáveis.
-
-Arte:
-Pilares da governança de dados
-`
-);
-
+// 🔹 FUNÇÃO PRINCIPAL DE VALIDAÇÃO
 app.post("/validate", async (req, res) => {
   try {
-    const { caption, artworkText } = req.body;
+    const { caption, visualText } = req.body;
 
-    const userContent = `
-LEGENDA:
-${caption || "Não informada"}
+    const prompt = `
+You are a content validation specialist for a business consulting firm (BIP).
 
-TEXTO DA ARTE:
-${artworkText || "Não informado"}
-`;
+Your role is to evaluate social media content (caption + visual text) based on strict brand guidelines.
 
-    const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0.2,
-      messages: [
-        {
-          role: "system",
-          content: `
-Você é um especialista sênior em comunicação estratégica de consultorias globais.
+---
 
-Seu papel NÃO é apenas validar, mas criticar com rigor técnico e visão consultiva.
+## INPUT
 
-Use obrigatoriamente:
+Caption:
+${caption}
 
-DIRETRIZES:
-${guidelines}
+Visual text:
+${visualText && visualText.trim() !== "" ? visualText : "not provided"}
 
-EXEMPLOS:
+---
+
+## GLOBAL RULES
+
+- The evaluation must be deterministic.
+- The same input must always generate the same score.
+- Be strict but fair.
+- Score 5 must be achievable.
+- Do not be overly punitive.
+
+---
+
+## CONDITIONAL RULE
+
+If visual text is empty, null, or not provided:
+- Ignore the "caption vs visual relation" criterion
+- Do NOT penalize the score
+- Set "caption_visual_relation" as null
+- Final score must be calculated only with the remaining criteria
+
+---
+
+## BRAND GUIDELINES
+
+- Tone: institucional, técnico, claro e confiável
+- Must demonstrate authority and business impact
+- Avoid informal language (e.g. "galera", "imperdível", "super")
+- Avoid empty adjectives
+- Prefer clarity over embellishment
+- Avoid redundancy
+- Focus on insight and value
+
+---
+
+## VALIDATION RUBRIC
+
+### 1. Tone of Voice (0–5)
++1 professional and technical language  
++1 no informal expressions  
++1 demonstrates authority  
++1 avoids empty adjectives  
++1 direct and objective  
+
+---
+
+### 2. Clarity and Structure (0–5)
++1 clear main message  
++1 concise sentences (~max 25 words)  
++1 logical flow  
++1 no ambiguity  
++1 easy to understand  
+
+---
+
+### 3. Quality and Writing (0–5)
++1 no grammar errors  
++1 no repetition of words nearby  
++1 no redundancy  
++1 strong vocabulary  
++1 fluid reading  
+
+---
+
+### 4. Brand Alignment (0–5)
++1 aligned with consulting positioning  
++1 business-oriented  
++1 avoids generic phrases  
++1 reflects expertise  
++1 delivers insight/value  
+
+---
+
+### 5. Caption vs Visual (0–5)
+(ONLY if visual exists)
+
++1 complements (does not repeat)  
++1 adds new information  
++1 consistent message  
++1 no contradiction  
++1 enhances understanding  
+
+---
+
+## SCORE INTERPRETATION
+
+1 = Poor  
+2 = Weak  
+3 = Acceptable  
+4 = Good  
+5 = Excellent  
+
+Score 5 must be given ONLY when:
+- No issues found
+- Fully aligned with brand
+- Clear, concise, and impactful
+
+---
+
+## FEW-SHOT EXAMPLES
+
 ${examples}
 
-OBJETIVO DA AVALIAÇÃO:
-Avaliar legenda e texto de arte com alto nível de exigência, considerando padrão de conteúdo executivo.
+---
 
-CRITÉRIOS DE ANÁLISE:
-- Clareza e precisão do argumento
-- Sofisticação do raciocínio
-- Qualidade da narrativa consultiva
-- Consistência lógica entre os blocos
-- Profundidade
-- Redundância entre legenda e arte
-- Aderência ao tom institucional
-- Para conteúdos em inglês, aderência ao padrão de comunicação corporativa internacional
-
-REGRAS CRÍTICAS:
-- Não forneça feedback genérico
-- Não elogie sem justificar
-- Sempre traga pontos específicos e acionáveis
-- Identifique fragilidades mesmo em conteúdos bons
-- Priorize análise crítica sobre validação superficial
-- Evite respostas óbvias
-
-ESCALA DE NOTAS:
-- 1 = fraco
-- 2 = abaixo do esperado
-- 3 = aceitável
-- 4 = bom
-- 5 = excelente, padrão consultoria global
-
-REGRAS DE SCORE:
-- Todos os scores devem estar entre 1 e 5
-- final_score deve estar entre 1 e 5, podendo usar decimal
-- Nunca ultrapassar 5
-
-IDIOMA:
-- Se o conteúdo estiver em português, responda em português
-- Se estiver em inglês, responda em inglês
-- Não misture idiomas
-
-FORMATO DE RESPOSTA:
-Responda apenas em JSON válido:
+## OUTPUT FORMAT (JSON ONLY)
 
 {
-  "idioma": "pt ou en",
+  "final_score": number,
   "scores": {
-    "clareza": 0,
-    "tom_de_voz": 0,
-    "qualidade_redacao": 0,
-    "consistencia_informacoes": 0,
-    "relacao_legenda_arte": 0
+    "tone": number,
+    "clarity": number,
+    "quality": number,
+    "brand_alignment": number,
+    "caption_visual_relation": number or null
   },
-  "final_score": 0,
-  "pontos_positivos": [
-    "ponto específico"
+  "issues": [
+    "objective issues only"
   ],
-  "pontos_melhoria": [
-    "ponto específico"
+  "improvements": [
+    "clear and actionable suggestions"
   ],
-  "recomendacao_final": "Aprovado, Aprovado com ajustes ou Reprovado"
+  "rewrite_suggestion": "improved version of the caption"
 }
-`
-        },
+`;
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      temperature: 0,
+      messages: [
         {
           role: "user",
-          content: userContent
+          content: prompt
         }
       ]
     });
 
-    const raw = response.choices[0].message.content;
-    const parsed = JSON.parse(raw);
+    let output = response.choices[0].message.content;
 
-    res.json(parsed);
+    // 🔹 tenta garantir JSON válido
+    try {
+      output = JSON.parse(output);
+    } catch (e) {
+      console.log("⚠️ JSON parsing failed, returning raw output");
+    }
+
+    res.json(output);
+
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
-      error: "Erro ao validar conteúdo",
-      detail: error.message
+      error: "Error validating content"
     });
   }
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
+// 🔹 SERVER
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("Servidor rodando na porta " + PORT);
+  console.log(`Server running on port ${PORT}`);
 });
