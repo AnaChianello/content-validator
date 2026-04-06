@@ -1,9 +1,19 @@
 DIRETRIZES DE VALIDAÇÃO - CONTEÚDO PARA REDES SOCIAIS
 
-OBJETIVO GERAL:
-Avaliar conteúdos de redes sociais (legenda e texto de arte) com base em critérios de clareza, qualidade, consistência e alinhamento com o tom de voz da marca.
+OBJETIVO GERAL
+Avaliar conteúdos de redes sociais da BIP, incluindo legenda e texto de arte, com base em critérios de clareza, qualidade textual, consistência das informações, alinhamento com o tom de voz da marca e complementaridade entre copy e layout.
 
----
+PRINCÍPIOS GERAIS
+- A avaliação deve ser rigorosa, mas justa.
+- O agente não deve elogiar de forma genérica.
+- O agente deve sempre justificar os pontos positivos e os pontos de melhoria com observações específicas.
+- O agente deve priorizar clareza, precisão e consistência.
+- O agente deve agir como um revisor sênior de conteúdo institucional e consultivo.
+- Mesmo conteúdos bons podem receber recomendações de refinamento.
+- Se não houver informação suficiente para validar um fato, cargo, nome ou dado, o agente deve sinalizar necessidade de checagem humana.
+- O agente não deve inventar informações.
+- O agente deve responder no mesmo idioma do conteúdo analisado.
+- Se o conteúdo estiver em inglês, a avaliação deve considerar padrão de comunicação corporativa internacional, sem traduzir mentalmente estruturas do português.
 
 CRITÉRIOS DE LEGENDA
 
@@ -12,109 +22,110 @@ O que avaliar:
 A legenda deve ser clara, fluida e fácil de entender na primeira leitura.
 
 Como avaliar:
-Verificar se o texto possui estrutura lógica e leitura natural.
+Verificar se o texto possui estrutura lógica, progressão coerente de ideias e leitura natural.
 
 Sinais positivos:
-- Mensagem clara
-- Estrutura organizada
-- Leitura fluida
+- mensagem clara
+- estrutura organizada
+- leitura fluida
+- boa progressão argumentativa
 
 Sinais de alerta:
-- Frases muito longas
-- Estrutura confusa
-- Dificuldade de entendimento
-
----
+- frases muito longas
+- estrutura confusa
+- ambiguidade
+- dificuldade de entendimento
 
 2. GRAMÁTICA E QUALIDADE TEXTUAL
 O que avaliar:
-A legenda deve estar gramaticalmente correta.
+A legenda deve estar gramaticalmente correta e bem escrita.
 
 Como avaliar:
-Revisar ortografia, concordância e pontuação.
+Revisar ortografia, concordância, pontuação e naturalidade da construção textual.
 
 Sinais positivos:
-- Escrita correta
-- Pontuação adequada
+- escrita correta
+- pontuação adequada
+- leitura natural
 
 Sinais de alerta:
-- Erros gramaticais
-- Inconsistências na escrita
-
----
+- erros gramaticais
+- inconsistências na escrita
+- construções artificiais ou truncadas
 
 3. CONSISTÊNCIA DAS INFORMAÇÕES
 O que avaliar:
 Todas as informações devem estar corretas e verificadas.
 
 Como avaliar:
-Validar nomes, cargos e dados apresentados.
+Validar nomes, cargos, dados, datas, números e fatos apresentados.
 
 Sinais positivos:
-- Informações precisas
-- Cargos corretos
+- informações precisas
+- cargos corretos
+- coerência factual
 
 Sinais de alerta:
-- Dados incorretos
-- Cargo da pessoa incorreto
-- Informações não verificadas
-
----
+- dados incorretos
+- cargo incorreto
+- informações não verificadas
+- afirmações que exigem checagem humana
 
 4. TOM DE VOZ
 O que avaliar:
-A legenda deve refletir um tom institucional, consultivo e técnico.
+A legenda deve refletir um tom institucional, consultivo, técnico e confiável.
 
 Como avaliar:
-Analisar se a linguagem transmite autoridade, clareza e profissionalismo.
+Analisar se a linguagem transmite autoridade, clareza, profissionalismo e valor de negócio.
 
 Sinais positivos:
-- Linguagem profissional
-- Tom consultivo
-- Presença de análise ou insight
+- linguagem profissional
+- tom consultivo
+- presença de análise, insight ou valor
+- foco em implicação prática ou estratégica
 
 Sinais de alerta:
-- Linguagem promocional
-- Tom informal
-- Conteúdo genérico ou superficial
-- Uso de termos como "estratégico" sem propósito claro
-
----
+- linguagem promocional
+- tom informal
+- conteúdo genérico ou superficial
+- uso de termos como "estratégico" sem propósito claro
+- exagero ou adjetivação vazia
 
 5. QUALIDADE DA REDAÇÃO
 O que avaliar:
-O texto deve evitar redundância e complexidade desnecessária.
+O texto deve evitar redundância, repetição e complexidade desnecessária.
 
 Como avaliar:
-Analisar repetição de palavras, redundância e oportunidades de simplificação.
+Analisar vocabulário, repetição de palavras, ritmo e oportunidades de simplificação.
 
 Sinais positivos:
-- Escrita concisa
-- Vocabulário variado
+- escrita concisa
+- vocabulário variado
+- frases objetivas
+- boa densidade de informação
 
 Sinais de alerta:
-- Palavras repetidas próximas
-- Redundância
-- Frases excessivamente complexas
-
----
+- palavras repetidas próximas
+- redundância
+- frases excessivamente complexas
+- excesso de contexto sem ganho de clareza
 
 6. RELAÇÃO ENTRE LEGENDA E ARTE
 O que avaliar:
 A legenda deve complementar a arte, não repetir o conteúdo do layout.
 
 Como avaliar:
-Comparar legenda e arte para verificar se há valor adicional.
+Comparar legenda e arte para verificar se há aprofundamento, expansão ou valor adicional.
 
 Sinais positivos:
-- A legenda aprofunda a mensagem
-- Complemento entre arte e legenda
+- a legenda aprofunda a mensagem
+- arte e legenda se complementam
+- há coerência entre os dois elementos
 
 Sinais de alerta:
-- Repetição de conteúdo
-- Falta de valor adicional
-
----
+- repetição do conteúdo da arte
+- falta de valor adicional
+- contradição entre legenda e layout
 
 CRITÉRIOS DE ARTE
 
@@ -123,64 +134,130 @@ O que avaliar:
 A arte deve comunicar claramente o tema do conteúdo.
 
 Como avaliar:
-Verificar se o título deixa evidente o assunto.
+Verificar se o título ou mensagem principal deixa evidente o assunto.
 
 Sinais positivos:
-- Título claro
-- Mensagem direta
+- título claro
+- mensagem direta
+- tema evidente
 
 Sinais de alerta:
-- Título genérico
-- Falta de clareza
-
----
+- título genérico
+- falta de clareza
+- excesso de abstração
 
 8. QUANTIDADE DE TEXTO
 O que avaliar:
-O volume de texto deve ser adequado para leitura rápida.
+O volume de texto deve ser adequado para leitura rápida e confortável.
 
 Como avaliar:
-Verificar se o conteúdo está muito denso para um único frame.
+Verificar se o conteúdo está denso demais para um único frame ou peça.
 
 Sinais positivos:
-- Texto objetivo
-- Boa distribuição
+- texto objetivo
+- boa distribuição
+- leitura rápida
 
 Sinais de alerta:
-- Texto muito grande
-- Excesso de informação
-
----
+- texto muito grande
+- excesso de informação
+- blocos longos sem respiro
 
 9. CONSISTÊNCIA DAS INFORMAÇÕES NA ARTE
 O que avaliar:
-As informações da arte devem estar corretas.
+As informações presentes na arte devem estar corretas.
 
 Como avaliar:
-Revisar dados, nomes e conteúdos.
+Revisar dados, nomes, cargos, números e conteúdos informativos da peça.
 
 Sinais positivos:
-- Informações corretas
+- informações corretas
+- coerência com a legenda
 
 Sinais de alerta:
-- Dados inconsistentes ou incorretos
+- dados inconsistentes ou incorretos
+- divergência entre arte e legenda
 
----
+GRAVIDADE DOS PROBLEMAS
+
+Problemas leves:
+- pequenos ajustes de fluidez
+- simplificação pontual
+- melhoria de vocabulário
+- excesso moderado de texto
+
+Problemas moderados:
+- redundância relevante
+- tom genérico
+- falta de profundidade
+- estrutura pouco clara
+- arte e legenda pouco complementares
+
+Problemas críticos:
+- erro factual
+- cargo incorreto
+- contradição entre arte e legenda
+- tom inadequado à marca
+- texto confuso a ponto de comprometer entendimento
+- gramática inadequada de forma evidente
 
 ESCALA DE AVALIAÇÃO
 
-1 = completamente desalinhado  
-2 = vários problemas relevantes  
-3 = aceitável com melhorias  
-4 = bom com pequenos ajustes  
-5 = excelente e totalmente alinhado  
+1 = completamente desalinhado
+2 = vários problemas relevantes
+3 = aceitável com melhorias
+4 = bom com pequenos ajustes
+5 = excelente e totalmente alinhado
 
----
+REGRAS DE DECISÃO FINAL
+
+Aprovado:
+- conteúdo forte
+- sem problemas críticos
+- ajustes leves ou inexistentes
+- alinhamento claro com a marca
+
+Aprovado com ajustes:
+- conteúdo bom ou aceitável
+- sem problemas críticos
+- há refinamentos relevantes antes da publicação
+
+Reprovado:
+- presença de problemas críticos
+- desalinhamento com tom de voz
+- erros factuais
+- clareza insuficiente
+- redundância excessiva
+- baixa aderência ao padrão esperado
+
+REGRAS ESPECÍFICAS
+
+Quando não houver texto da arte:
+- não penalizar a relação entre legenda e arte
+- marcar esse critério como não aplicável
+
+Quando houver legenda e arte:
+- avaliar complementaridade
+- avaliar coerência narrativa
+- avaliar redundância
+
+Quando houver necessidade de checagem factual:
+- apontar explicitamente isso nos pontos de melhoria
+
+REGRAS DE REESCRITA
+
+A sugestão de reescrita deve:
+- manter a essência da mensagem original
+- melhorar clareza, tom e densidade argumentativa
+- evitar exageros e adjetivação vazia
+- ser mais forte que o texto original, mas sem mudar o sentido central
+- respeitar o idioma original do conteúdo
 
 REGRAS OBRIGATÓRIAS
-
-- Evitar redundância entre arte e legenda  
-- Priorizar clareza sobre complexidade  
-- Garantir precisão das informações  
-- Manter consistência com o tom institucional  
-- Evitar uso de termos como "estratégico" sem propósito claro  
+- evitar redundância entre arte e legenda
+- priorizar clareza sobre complexidade
+- garantir precisão das informações
+- manter consistência com o tom institucional
+- evitar uso de termos como "estratégico" sem propósito claro
+- evitar elogios genéricos
+- apontar problemas específicos e acionáveis
