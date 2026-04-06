@@ -1,0 +1,416 @@
+EXEMPLO 1 (PT)
+Tema:
+Serviços Financeiros / Regulação / Governança de dados
+
+Legenda:
+A Resolução Conjunta nº 18/2025 estabelece um novo patamar para a gestão da qualidade da informação no sistema financeiro, exigindo governança estruturada e responsabilidade institucional sobre os dados utilizados na supervisão prudencial do Banco Central.
+
+Na prática, a adequação exige a superação de desafios estruturais, como arquiteturas descentralizadas, indicadores inconsistentes e baixa rastreabilidade. A BIP atua no setor financeiro conduzindo diagnósticos de maturidade, estruturando dicionários de dados corporativos e definindo modelos operacionais com responsabilidades claras.
+
+Acesse o artigo completo de Juan Carlos Lamas Las Casas em nosso site:
+https://lnkd.in/dp27TudX
+
+Arte:
+Frame 1:
+Capa
+Título: RC 18/2025: A Adequação Regulatória na Prática
+Subtítulo: Como estruturamos a governança de dados em instituições financeiras.
+
+Frame 2:
+O Desafio da Conformidade
+A Resolução Conjunta nº 18/2025 exige um modelo estruturado de governança, processos e controles capazes de assegurar rastreabilidade e confiabilidade ao longo de todo o ciclo de vida dos dados regulatórios.
+O Banco Central espera observar um conjunto consistente de práticas organizacionais, tecnológicas e de controle até 31 de dezembro de 2026.
+A responsabilidade pela consistência dos dados deixa de ser apenas técnica e passa a ser institucional.
+
+Frame 3:
+Case 1 – Serviços Financeiros (Indústria Automotiva)
+Cenário: O crescimento acelerado no uso de dados evidenciou conceitos não padronizados, baixa rastreabilidade e ausência de controles consistentes em relatórios regulatórios.
+Solução BIP: Realização de diagnóstico de maturidade, definição de modelo operacional com papéis e responsabilidades, e estabelecimento de diretrizes de qualidade da informação.
+Resultado: Maior visibilidade sobre os riscos financeiros e criação de um roadmap estruturado para a padronização das métricas utilizadas pela instituição.
+
+Frame 4:
+Case 2 – Instituição da Indústria Financeira
+Conteúdo original do frame presente na base, com mesma linha narrativa de governança, maturidade e qualidade da informação.
+
+Observação:
+Bom exemplo de tom técnico e consultivo, com tese clara, densidade argumentativa e relação consistente entre legenda e arte.
+
+---
+
+EXEMPLO 2 (PT)
+Tema:
+Serviços Financeiros / RC 18/2025 / Visão BIP
+
+Legenda:
+A Resolução Conjunta nº 18/2025 exige que instituições financeiras demonstrem governança e rastreabilidade de dados até dezembro de 2026. Na BIP Brasil, ajudamos nossos clientes a transformarem essa exigência em um modelo estruturado de controles, processos e transparência operacional.
+
+Nossa visão combina diagnósticos de maturidade com a implementação prática de políticas de qualidade e infraestrutura tecnológica. O foco é garantir que a responsabilidade institucional pela integridade dos dados seja suportada por mecanismos de monitoramento contínuo e evidências auditáveis.
+
+Confira em nosso novo artigo como estamos apoiando grandes players do setor financeiro a elevarem o patamar de sua governança de dados e mitigarem riscos regulatórios:
+https://lnkd.in/dp27TudX
+
+Arte:
+Título:
+Pilares da Visão BIP para a RC 18/2025
+
+Diagnóstico de Maturidade:
+Avaliação do gap atual frente às 12 dimensões da RC 18/2025 e definição de roadmaps de adequação.
+
+Modelo Operacional de Governança:
+Estruturação de papéis, responsabilidades e fóruns de decisão para garantir accountability.
+
+Ativos de Dados:
+Criação de Políticas de Qualidade, Dicionários de Dados e Glossários Corporativos para rastreabilidade total.
+
+Monitoramento e Melhoria:
+Implementação de testes periódicos e automação de controles para reporte contínuo ao Banco Central.
+
+Observação:
+Exemplo forte de posicionamento consultivo, com framing claro da oferta e valor entregue.
+
+---
+
+EXEMPLO 3 (PT)
+Tema:
+Energia / Geopolítica / Petróleo e gás
+
+Legenda:
+O Brasil ocupa uma posição singular em meio à crise energética global por possuir reservas offshore altamente competitivas e estabilidade institucional. A combinação de baixo custo de extração no pré-sal com a alta do barril abre uma janela de oportunidade financeira sem precedentes.
+
+Além do ganho imediato, o país reforça sua autonomia como uma alternativa logística segura para grandes mercados consumidores, como o asiático. A crise no Oriente Médio acelera a necessidade de fornecedores confiáveis e o fortalecimento de matrizes renováveis locais.
+
+Na BIP Brasil, analisamos como transformar essa vantagem estrutural em estratégia de longo prazo para liderar a transição energética mundial. Confira o artigo completo sobre como o Brasil pode capitalizar este momento de transformação do setor:
+https://lnkd.in/dggCtzmy
+
+Disclaimer: Este artigo reflete exclusivamente a análise técnica do autor, tem caráter informativo e se baseia em dados públicos disponíveis até a data de sua elaboração. Não constitui recomendação de investimento, opinião política, previsão de mercado ou posicionamento oficial da BIP.
+
+Arte:
+Frame 1:
+Capa
+Título: O Brasil como Eixo de Estabilidade Energética Global
+Subtítulo: Como o país pode capitalizar o choque de curto prazo e liderar a autonomia energética de longo prazo.
+
+Frame 2:
+Eficiência e Captura de Valor
+O pré-sal brasileiro opera com break-even altamente competitivo entre US$ 25 e US$ 30 por barril.
+Margem bruta atual de US$ 55 por barril, impulsionada pelo Brent acima de US$ 84, representa o maior ganho em anos.
+Potencial de receita extraordinária estimado entre US$ 8 e US$ 12 bilhões para o semestre no setor de óleo e gás.
+
+Frame 3:
+Posição de Barganha Ativa
+A China, destino de 40% das exportações brasileiras de petróleo, possui incentivo direto para acelerar contratos fora de áreas instáveis.
+
+Observação:
+Bom exemplo de thought leadership com contexto geopolítico, visão estratégica e linguagem executiva.
+
+---
+
+EXEMPLO 4 (PT)
+Tema:
+Serviços Financeiros / Política de Qualidade da Informação
+
+Legenda:
+A formalização de uma Política de Qualidade da Informação é um dos pilares centrais da Resolução Conjunta nº 18 de 2025. Este documento deve estabelecer diretrizes claras que assegurem a integridade dos dados ao longo de todo o seu ciclo de vida, desde a geração até o envio final ao órgão regulador.
+
+A norma exige que as instituições demonstrem controles estruturados, abrangendo desde a definição de responsabilidades da alta administração até a manutenção de dicionários de dados detalhados. A ausência desses requisitos mínimos amplia a exposição a riscos operacionais e pode resultar em questionamentos diretos do Banco Central sobre a governança institucional.
+
+Entender as exigências técnicas da nova política é fundamental para garantir uma adequação segura e eficiente. Confira em nosso artigo detalhado como estruturar esses mecanismos de controle e monitoramento para atender ao novo patamar da supervisão prudencial:
+https://lnkd.in/dp27TudX
+
+Arte:
+Frame 1:
+Capa
+Título: Requisitos mínimos da Política de Qualidade da Informação
+Subtítulo: Conheça os elementos essenciais que devem estruturar a governança de dados na sua instituição conforme a RC 18/2025.
+
+Frame 2:
+Infraestrutura e Monitoramento
+Título: Controles e Rastreabilidade
+Conteúdo:
+- Definição da arquitetura de dados e infraestrutura de TI para produção e validação
+- Manutenção de dicionário de dados estruturado com conteúdo e regras de negócio
+- Implementação de mecanismos para monitoramento contínuo e testes periódicos
+- Procedimentos para tratamento de irregularidades ou inconsistências identificadas
+
+Frame 3:
+Diretrizes e Responsabilidades
+Título: O Ciclo de Vida da Informação
+Conteúdo:
+- Estabelecimento de diretrizes claras para produção, validação e monitoramento de dados
+- Definição formal de atribuições e responsabilidades, incluindo a alta administração
+- Garantia de recursos humanos e tecnológicos adequados para a gestão da qualidade
+- Formalização de processos de elaboração, validação e aprovação regulatória
+
+Observação:
+Exemplo técnico, claro e com forte complementaridade entre legenda e arte.
+
+---
+
+EXEMPLO 5 (PT)
+Tema:
+Energia / Geopolítica / Mercado de petróleo
+
+Legenda:
+A escalada militar no Oriente Médio trouxe o cenário energético global para o centro das tensões geopolíticas. O Estreito de Ormuz atua como o principal ponto de sensibilidade, onde qualquer instabilidade reflete imediatamente nos preços e na segurança das cadeias de suprimento.
+
+O impacto logístico de um possível redirecionamento de rotas pelo Cabo da Boa Esperança eleva custos operacionais e prazos de entrega em níveis críticos. Para executivos e empresas de energia, compreender os desdobramentos desse cenário é fundamental para gerir prêmios de risco e volatilidade.
+
+Analisamos os dados e indicadores estratégicos que ajudam a compreender a dinâmica atual do mercado sob pressão geopolítica. A leitura completa sobre as consequências desse conflito para a indústria de petróleo e gás está disponível no link:
+https://lnkd.in/dggCtzmy
+
+Disclaimer: Este artigo reflete exclusivamente a análise técnica do autor, tem caráter informativo e se baseia em dados públicos disponíveis até a data de sua elaboração. Não constitui recomendação de investimento, opinião política, previsão de mercado ou posicionamento oficial da BIP.
+
+Arte:
+Frame 1:
+Capa
+Título: O que muda no mercado de petróleo com a crise em Ormuz?
+Subtítulo: Entenda os impactos da escalada geopolítica nos custos logísticos e na volatilidade do petróleo em 2026.
+
+Frame 2:
+A Relevância Crítica da Rota
+- Aproximadamente 20 milhões de barris de petróleo por dia transitam pela região
+- O estreito responde por parcela crítica do GNL global
+- A interrupção do fluxo compromete cadeias de abastecimento e eleva a sensibilidade do mercado
+
+Frame 3:
+Impactos Logísticos e de Custo
+Conteúdo sobre redirecionamento de rotas, aumento de custos operacionais e pressão sobre prazos de entrega.
+
+Observação:
+Exemplo forte de análise setorial com framing executivo e boa densidade de informação.
+
+---
+
+EXEMPLO 6 (PT)
+Tema:
+Serviços Financeiros / RC 18/2025 / Qualidade da informação
+
+Legenda:
+A Resolução Conjunta nº 18/2025 estabelece um modelo rigoroso para a avaliação de dados regulatórios por meio de 12 dimensões específicas de qualidade. Esses critérios estruturam como o Banco Central verifica a consistência das informações, exigindo mecanismos robustos de medição e controle das instituições financeiras.
+
+A conformidade com essas dimensões transforma a governança em ativo estratégico para a supervisão prudencial. Da acurácia à rastreabilidade, cada pilar assegura transparência operacional em todo o ecossistema de dados.
+
+Nosso novo artigo detalha os impactos da RC 18/2025 na política de qualidade e os passos para adequação.
+Acesse:
+https://lnkd.in/dp27TudX
+
+Arte:
+Frame 1:
+Capa
+Título: RC 18/2025: As 12 dimensões da qualidade da informação
+Subtítulo: Conheça os critérios do Banco Central para garantir integridade e confiabilidade dos dados regulatórios.
+
+Frame 2:
+Acurácia, Acessibilidade e Integridade
+Título: A base da confiança regulatória
+Conteúdo:
+- Acurácia: aderência fiel dos dados à realidade dos fatos
+- Acessibilidade: disponibilidade da informação para usuários autorizados
+- Integridade: proteção contra alterações indevidas ou inconsistentes
+- Clareza: definições objetivas e ausência de ambiguidades
+
+Frame 3:
+Consistência, Rastreabilidade e Tempestividade
+Título: Visibilidade e controle de ponta a ponta
+Conteúdo:
+- Consistência: ausência de divergências entre sistemas e bases distintas
+- Rastreabilidade: capacidade de identificar a origem e a transformação do dado
+- Tempestividade: entrega das informações dentro dos prazos
+- Confiabilidade: estabilidade e coerência dos dados ao longo do tempo
+
+Frame 4:
+Relevância, Adaptabilidade e Comparabilidade
+Título: Utilidade e evolução dos dados
+Conteúdo sobre utilidade da informação, capacidade de adaptação e comparabilidade entre períodos, bases ou estruturas.
+
+Observação:
+Exemplo bom de conteúdo regulatório com recorte claro e valor informativo.
+
+---
+
+EXEMPLO 7 (PT)
+Tema:
+Institucional / Pessoas / Vozes Femininas
+
+Legenda:
+Neste novo episódio da série Vozes Femininas, Adriana Barreto Costa, Consultora Especialista, com sete anos de trajetória na BIP Brasil, compartilha sua visão sobre liderança e representatividade. Com mais de duas décadas de mercado, Adriana destaca como sua atuação em Gestão de Mudanças serve de referência e motivação para outras mulheres no ambiente corporativo.
+
+A conversa enfatiza a importância das redes de apoio para fortalecer o posicionamento feminino e superar conceitos pré-concebidos. Adriana reforça que sua área é um espaço de potência estratégica, onde a ousadia do DNA Here to Dare permitiu a criação de metodologias inovadoras para a transformação digital de nossos clientes.
+
+O depoimento encerra com um convite para que as mulheres ocupem espaços com confiança, transformando redes de apoio em conquistas reais. Para Adriana, o futuro deve focar na celebração dos resultados extraordinários e da potência criativa que as mulheres entregam diariamente às organizações.
+
+Arte:
+Sem arte
+
+Observação:
+Exemplo institucional com boa carga narrativa e alinhamento com branding e cultura.
+
+---
+
+EXEMPLO 8 (EN)
+Tema:
+Institutional / Company presentation
+
+Caption:
+BIP is a global consulting group driven by one purpose: helping organizations transform complexity into opportunity.
+Founded in Italy and rapidly expanding worldwide, BIP brings together multidisciplinary teams that combine deep industry knowledge with cutting-edge technology expertise.
+We partner with businesses and institutions to design bold strategies, implement innovative solutions, and generate long-lasting value.
+Learn more about BIP:
+
+Visual:
+Cover:
+Meet the BIP Group
+
+Frame 2:
+About the BIP Group:
+Founded in 2003 in Italy, BIP is now an international consulting group with over 5,000 professionals across 15+ countries. From strategy to technology, we partner with organizations around the world to shape the future.
+
+Frame 3:
+5.6K+ BIPers all over the world
+47 Nationalities
+12 Countries
+
+Frame 4:
+21 Years in Business
+24 offices worldwide
+
+Frame 5:
+Our expertise
+• CIO Tech
+• Finance
+• HR
+• Innovation
+• Marketing
+• Operations
+• Procurement
+• Sales
+• Strategy
+• Sustainability
+
+Note:
+Strong institutional tone, clear value proposition, global positioning, and good consistency between caption and visual.
+
+---
+
+EXEMPLO 9 (EN)
+Tema:
+Recruitment / Employer branding
+
+Caption:
+We're growing - and looking for professionals who are ready to grow with us.
+At BIP, you’ll work on high-impact projects alongside talented teams across industries like financial services, energy, and technology. If you're ready to bring your expertise to a fast-paced, global environment, we’d love to hear from you.
+Explore our current openings and take the next step in your career with BIP:
+
+Visual:
+Not provided
+
+Note:
+Clear employer-branding message, concise structure, direct call to action, and professional tone.
+
+---
+
+EXEMPLO 10 (EN)
+Tema:
+People development / Learning / Internal culture
+
+Caption:
+BIPeducation is our global initiative for advancing people development across all regions. Through an integrated platform and structured learning journeys, we support our professionals at every stage, from onboarding to leadership.
+
+With this program, we deliver a consistent learning experience worldwide while respecting each market’s unique needs. Our goal is simple: help every BIPer grow with purpose, confidence, and real impact.
+
+Learn more about how we develop talent at every step of the journey.
+
+Visual:
+Cover:
+How do we create a global knowledge network?
+Find out how BIPeducation builds skills, culture, and connection
+
+Frame 1:
+Skills That Shape the Future
+Our programs focus on:
+• Advisory Skills, for delivering exceptional client service
+• Business Skills, for understanding the industries we serve
+• Technological Skills, to stay ahead of innovation
+• Life Skills, to strengthen collaboration and leadership
+
+Frame 3:
+Concrete Paths to Development
+BIPeducation offers structured training tracks for every stage and role:
+• BIP Singularity, to reinforce our shared values and identity
+• Cutting Edge Track, to boost innovation and tech fluency
+• Milestone Track, to develop leadership and unlock career transitions
+• Special Track, to promote continuous growth for all
+
+Note:
+Well-structured, people-centered, clear, and aligned with institutional and global communication standards.
+
+---
+
+EXEMPLO 11 (EN)
+Tema:
+Industry / Manufacturing / Technology
+
+Caption:
+The implementation of a Manufacturing Execution System (MES) is more than a technological step — it is a strategic choice.
+By optimizing operations, eliminating inefficiencies, ensuring real-time visibility, and enabling continuous improvement, MES strengthens performance, quality, and profitability across the production environment.
+Discover more in our eBook: https://www.bipconsulting.us/manufacturing-execution-systems-industry-4-0/
+
+Visual:
+Cover:
+Benefits of MES Implementation
+
+Frame 1:
+Reasons to Adopt MES
+
+Operational Optimization
+Maximize efficiency and minimize losses in production lines.
+
+Combating “Hidden Factories”
+Identify and eliminate unplanned activities, rework, and losses that compromise overall quality and efficiency.
+
+Real-Time Visibility
+Gain immediate access to accurate data on the status of each workstation, allowing quick identification of deviations and proactive intervention.
+
+Continuous Improvement
+Contribute to the constant analysis of production performance, identifying patterns for optimization and increased quality and profitability.
+
+Note:
+Strong business framing, good balance between strategy and operational value, and clear complementarity between caption and visual.
+
+---
+
+EXEMPLO 12 (EN)
+Tema:
+AI / Technology / Governance
+
+Caption:
+Agentic AI offers transformative potential, but adoption requires rigor.
+Challenges like fragmentation, cost visibility and reliability demand proactive planning and structured frameworks. Companies must view adoption not as a technical upgrade, but as an organizational shift that touches governance, security, and culture.
+At BIP xTech, we help organizations move beyond pilots and into responsible scaling - ensuring agents act with clarity, trust, and business alignment.
+Learn more: (link)
+
+Visual:
+Cover:
+Agentic AI: Key Adoption Challenges
+Know what to watch before scaling
+
+Frame 1:
+Governance & Costs
+• Fragmentation → Isolated agents undermine governance and consistency.
+• Operational Costs → Continuous monitoring and support may generate unexpected expenses.
+
+Reliability
+• Off-the-shelf models → Rarely work without adjustments and require continuous improvement.
+
+Frame 2:
+Security & Compliance
+• Unsupervised agents → Create vulnerabilities unless backed by strong data governance and policies.
+
+Ethics & Responsibility
+• Transparency → Decisions must be explainable to build trust.
+• Accountability → Clear ownership of outcomes and oversight responsibilities.
+• Bias Mitigation → Continuous monitoring to prevent distorted outputs.
+• Data Protection → Robust security and compliance with privacy regulations.
+
+Note:
+High-quality thought leadership, strong governance lens, clear business framing, and mature consulting tone.
