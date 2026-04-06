@@ -18,170 +18,162 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// Exemplos opcionais
-let examples = "";
-try {
-  examples = fs.readFileSync(path.join(__dirname, "data", "good-examples.txt"), "utf-8");
-} catch (err) {
-  console.log("No examples file found, continuing without it.");
+function readTextFile(relativePath, fallback = "") {
+  try {
+    return fs.readFileSync(path.join(__dirname, relativePath), "utf-8");
+  } catch (error) {
+    console.log(`Arquivo não encontrado: ${relativePath}`);
+    return fallback;
+  }
 }
 
-// Rota da página inicial
+const guidelines = readTextFile(
+  "guidelines.txt",
+  "Sem diretrizes adicionais."
+);
+
+const examples = readTextFile(
+  path.join("data", "good-examples.txt"),
+  ""
+);
+
+function normalizeScore(value) {
+  if (value === null || value === undefined || value === "") return null;
+
+  const num = Number(value);
+
+  if (Number.isNaN(num)) return null;
+  if (num < 1) return 1;
+  if (num > 5) return 5;
+
+  return Math.round(num * 10) / 10;
+}
+
+function calculateFinalScore(scores) {
+  const validScores = Object.values(scores).filter(
+    (value) => value !== null && value !== undefined && !Number.isNaN(value)
+  );
+
+  if (validScores.length === 0) return null;
+
+  const sum = validScores.reduce((acc, value) => acc + value, 0);
+  return Math.round((sum / validScores.length) * 10) / 10;
+}
+
+function getRecommendation(finalScore) {
+  if (finalScore === null) return "Ajustar manualmente";
+  if (finalScore >= 4.5) return "Aprovado";
+  if (finalScore >= 3.5) return "Aprovado com ajustes";
+  return "Reprovado";
+}
+
+function ensureArray(value, fallback) {
+  if (!Array.isArray(value) || value.length === 0) {
+    return fallback;
+  }
+
+  return value.map((item) => String(item).trim()).filter(Boolean);
+}
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Função principal de validação
 app.post("/validate", async (req, res) => {
   try {
     const { caption, visualText, artworkText } = req.body;
 
-    const finalCaption = caption || "";
-    const finalVisualText = visualText || artworkText || "";
+    const finalCaption = (caption || "").trim();
+    const finalVisualText = (visualText || artworkText || "").trim();
+
+    if (!finalCaption && !finalVisualText) {
+      return res.status(400).json({
+        error: "Envie pelo menos uma legenda ou um texto de arte."
+      });
+    }
 
     const prompt = `
-You are a content validation specialist for a business consulting firm (BIP).
+Você é um especialista sênior em validação de conteúdo para uma consultoria de negócios.
 
-Your role is to evaluate social media content (caption + visual text) based on strict brand guidelines.
+Sua função é avaliar com rigor conteúdos de social media da BIP.
+Você não deve ser genérico.
+Você deve agir como uma revisora sênior de conteúdo institucional e consultivo.
 
----
+CONTEÚDO RECEBIDO
 
-## INPUT
+Legenda:
+${finalCaption || "Não informada"}
 
-Caption:
-${finalCaption}
+Texto da arte:
+${finalVisualText || "Não informado"}
 
-Visual text:
-${finalVisualText && finalVisualText.trim() !== "" ? finalVisualText : "not provided"}
+DIRETRIZES DA MARCA
+${guidelines}
 
----
+EXEMPLOS DE REFERÊNCIA
+${examples || "Sem exemplos adicionais."}
 
-## GLOBAL RULES
+REGRAS DE AVALIAÇÃO
 
-- The evaluation must be deterministic.
-- The same input must always generate the same score.
-- Be strict but fair.
-- Score 5 must be achievable.
-- Do not be overly punitive.
+1. Seja rigoroso, mas justo.
+2. Não elogie sem justificar.
+3. Sempre aponte pontos específicos.
+4. Mesmo textos bons devem receber ao menos um refinamento útil.
+5. Se o texto da arte não existir, não penalize a relação entre legenda e arte.
+6. Se o conteúdo estiver em inglês, responda em inglês.
+7. Se o conteúdo estiver em português, responda em português.
+8. Não misture idiomas.
+9. Não invente fatos.
+10. Responda apenas em JSON válido.
 
----
+CRITÉRIOS
+- clareza
+- tom_de_voz
+- qualidade_redacao
+- alinhamento_marca
+- relacao_legenda_arte
 
-## CONDITIONAL RULE
+ESCALA
+1 = fraco
+2 = abaixo do esperado
+3 = aceitável
+4 = bom
+5 = excelente
 
-If visual text is empty, null, or not provided:
-- Ignore the "caption vs visual relation" criterion
-- Do NOT penalize the score
-- Set "caption_visual_relation" as null
-- Final score must be calculated only with the remaining criteria
+REGRAS DE PREENCHIMENTO
+- Todos os scores devem ir de 1 a 5
+- relacao_legenda_arte deve ser null se não houver texto da arte
+- Não calcule a nota final somando critérios
+- Traga pelo menos 2 pontos positivos, se houver
+- Traga pelo menos 2 pontos de melhoria, se houver
+- Sempre traga uma sugestão de reescrita da legenda
+- A sugestão de reescrita pode manter a essência original, mas deve elevar a qualidade
 
----
-
-## BRAND GUIDELINES
-
-- Tone: institucional, técnico, claro e confiável
-- Must demonstrate authority and business impact
-- Avoid informal language (e.g. "galera", "imperdível", "super")
-- Avoid empty adjectives
-- Prefer clarity over embellishment
-- Avoid redundancy
-- Focus on insight and value
-
----
-
-## VALIDATION RUBRIC
-
-### 1. Tone of Voice (0–5)
-+1 professional and technical language
-+1 no informal expressions
-+1 demonstrates authority
-+1 avoids empty adjectives
-+1 direct and objective
-
----
-
-### 2. Clarity and Structure (0–5)
-+1 clear main message
-+1 concise sentences (~max 25 words)
-+1 logical flow
-+1 no ambiguity
-+1 easy to understand
-
----
-
-### 3. Quality and Writing (0–5)
-+1 no grammar errors
-+1 no repetition of words nearby
-+1 no redundancy
-+1 strong vocabulary
-+1 fluid reading
-
----
-
-### 4. Brand Alignment (0–5)
-+1 aligned with consulting positioning
-+1 business-oriented
-+1 avoids generic phrases
-+1 reflects expertise
-+1 delivers insight/value
-
----
-
-### 5. Caption vs Visual (0–5)
-(ONLY if visual exists)
-
-+1 complements (does not repeat)
-+1 adds new information
-+1 consistent message
-+1 no contradiction
-+1 enhances understanding
-
----
-
-## SCORE INTERPRETATION
-
-1 = Poor
-2 = Weak
-3 = Acceptable
-4 = Good
-5 = Excellent
-
-Score 5 must be given ONLY when:
-- No issues found
-- Fully aligned with brand
-- Clear, concise, and impactful
-
----
-
-## FEW-SHOT EXAMPLES
-
-${examples}
-
----
-
-## OUTPUT FORMAT (JSON ONLY)
+FORMATO OBRIGATÓRIO DE RESPOSTA
 
 {
-  "final_score": number,
+  "idioma": "pt ou en",
   "scores": {
-    "tone": number,
-    "clarity": number,
-    "quality": number,
-    "brand_alignment": number,
-    "caption_visual_relation": number or null
+    "clareza": 0,
+    "tom_de_voz": 0,
+    "qualidade_redacao": 0,
+    "alinhamento_marca": 0,
+    "relacao_legenda_arte": 0
   },
-  "issues": [
-    "objective issues only"
+  "pontos_positivos": [
+    "..."
   ],
-  "improvements": [
-    "clear and actionable suggestions"
+  "pontos_melhoria": [
+    "..."
   ],
-  "rewrite_suggestion": "improved version of the caption"
+  "sugestao_reescrita": "..."
 }
 `;
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0,
+      response_format: { type: "json_object" },
       messages: [
         {
           role: "user",
@@ -190,19 +182,46 @@ ${examples}
       ]
     });
 
-    let output = response.choices[0].message.content;
+    const rawOutput = response.choices[0].message.content;
+    const parsed = JSON.parse(rawOutput);
 
-    try {
-      output = JSON.parse(output);
-    } catch (e) {
-      console.log("JSON parsing failed, returning raw output");
-    }
+    const normalizedScores = {
+      clareza: normalizeScore(parsed?.scores?.clareza),
+      tom_de_voz: normalizeScore(parsed?.scores?.tom_de_voz),
+      qualidade_redacao: normalizeScore(parsed?.scores?.qualidade_redacao),
+      alinhamento_marca: normalizeScore(parsed?.scores?.alinhamento_marca),
+      relacao_legenda_arte: finalVisualText
+        ? normalizeScore(parsed?.scores?.relacao_legenda_arte)
+        : null
+    };
+
+    const finalScore = calculateFinalScore(normalizedScores);
+
+    const output = {
+      idioma: parsed?.idioma || "pt",
+      final_score: finalScore,
+      scores: normalizedScores,
+      pontos_positivos: ensureArray(parsed?.pontos_positivos, [
+        "Nenhum ponto positivo específico foi informado."
+      ]),
+      pontos_melhoria: ensureArray(parsed?.pontos_melhoria, [
+        "Nenhum ponto de melhoria específico foi informado."
+      ]),
+      recomendacao_final: getRecommendation(finalScore),
+      sugestao_reescrita:
+        typeof parsed?.sugestao_reescrita === "string" &&
+        parsed.sugestao_reescrita.trim() !== ""
+          ? parsed.sugestao_reescrita.trim()
+          : "Nenhuma sugestão de reescrita foi informada."
+    };
 
     res.json(output);
   } catch (error) {
     console.error(error);
+
     res.status(500).json({
-      error: "Error validating content"
+      error: "Erro ao validar conteúdo",
+      detail: error.message
     });
   }
 });
