@@ -1,515 +1,305 @@
-{
-  "input_schema": {
-    "texto_arte": "",
-    "legenda": "",
-    "contexto": "",
-    "tipo_conteudo": "",
-    "business_unit": "",
-    "publico_alvo": "",
-    "objetivo_comunicacao": ""
+import express from "express";
+import cors from "cors";
+import OpenAI from "openai";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static(__dirname));
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+const validationConfig = {
+  input_schema: {
+    caption: "",
+    artworkText: "",
+    visualText: "",
+    context: "",
+    contentType: "",
+    businessUnit: ""
   },
-  "content_types": {
-    "institucional": {
-      "descricao": "Conteúdo voltado para posicionamento da marca, reputação, cultura, presença institucional, eventos, conquistas, movimentos da empresa e fortalecimento de imagem.",
-      "tom_esperado": "institucional, claro, executivo, confiável, fluido",
-      "foco": [
-        "reputacao",
-        "credibilidade",
-        "posicionamento",
-        "marca",
-        "relacionamento"
-      ]
+
+  content_types: {
+    institucional: {
+      descricao: "Conteúdo voltado para posicionamento da marca, reputação, presença institucional, cultura, eventos, conquistas e fortalecimento de imagem.",
+      tom_esperado: "institucional, claro, executivo, confiável"
     },
-    "tecnico": {
-      "descricao": "Conteúdo voltado para demonstrar conhecimento técnico, visão de mercado, capacidade analítica, domínio metodológico e experiência setorial.",
-      "tom_esperado": "tecnico, consultivo, objetivo, claro, aprofundado",
-      "foco": [
-        "especializacao",
-        "diagnostico",
-        "solucao",
-        "impacto no negocio",
-        "leitura de contexto"
-      ]
+    tecnico: {
+      descricao: "Conteúdo voltado para demonstrar conhecimento técnico, visão de mercado, capacidade analítica e experiência setorial.",
+      tom_esperado: "técnico, consultivo, objetivo e analítico"
     }
   },
-  "default_audience_options": [
-    "C-level",
-    "diretores",
-    "gerentes",
-    "liderancas",
-    "decisores de negocio",
-    "decisores tecnicos",
-    "clientes",
-    "prospects",
-    "mercado",
-    "publico interno",
-    "candidatos",
-    "parceiros"
-  ],
-  "default_objective_options": [
-    "fortalecer posicionamento",
-    "gerar autoridade",
-    "explicar tema complexo",
-    "divulgar evento",
-    "divulgar case",
-    "apresentar ponto de vista",
-    "reforcar marca empregadora",
-    "gerar conexao com mercado",
-    "apoiar acao comercial",
-    "dar visibilidade a lideranca"
-  ],
-  "business_units": {
-    "Institutional": {
-      "descricao": "Conteúdos corporativos e institucionais da BIP, incluindo marca, cultura, presença global, conquistas, eventos, comunicados e iniciativas transversais.",
-      "tom": "institucional, elegante, confiavel, claro",
-      "publico_mais_comum": [
-        "mercado",
-        "clientes",
-        "prospects",
-        "publico interno",
-        "candidatos"
-      ],
-      "objetivos_mais_comuns": [
-        "fortalecer posicionamento",
-        "reforcar reputacao",
-        "dar visibilidade a marca",
-        "comunicar movimentos institucionais"
-      ],
-      "palavras_chave": [
-        "posicionamento",
-        "presenca global",
-        "expertise",
-        "transformacao",
-        "valor",
-        "cultura",
-        "marca",
-        "lideranca"
-      ]
+
+  business_units: {
+    Institutional: {
+      descricao: "Conteúdos corporativos e institucionais da BIP.",
+      tom: "institucional, elegante, confiável",
+      palavras_chave: ["marca", "posicionamento", "cultura", "presença global"]
     },
-    "xTech": {
-      "descricao": "Atuacao relacionada a tecnologia, dados, inteligencia artificial, integracao tecnologica, arquitetura, produtos digitais e transformacao suportada por tecnologia.",
-      "tom": "tecnico, atual, consultivo, claro, orientado a negocio",
-      "publico_mais_comum": [
-        "C-level",
-        "decisores tecnicos",
-        "liderancas",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "explicar tema complexo",
-        "apoiar acao comercial",
-        "apresentar ponto de vista"
-      ],
-      "palavras_chave": [
-        "dados",
-        "tecnologia",
-        "inteligencia artificial",
-        "integracao",
-        "arquitetura",
-        "cloud",
-        "analytics",
-        "plataformas",
-        "automacao",
-        "transformacao digital"
-      ]
+
+    xTech: {
+      descricao: "Atuação em tecnologia, dados, inteligência artificial, integração tecnológica e transformação digital.",
+      tom: "técnico, atual, orientado a negócio",
+      palavras_chave: ["dados", "IA", "cloud", "analytics", "transformação digital"]
     },
+
     "Oil & Gas": {
-      "descricao": "Atuacao em upstream, downstream, midstream, logistica, eficiencia operacional, regulacao, performance industrial e transformacao no setor de oleo e gas.",
-      "tom": "tecnico, setorial, objetivo, analitico, executivo",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "liderancas",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "apresentar ponto de vista",
-        "explicar tema complexo",
-        "apoiar acao comercial"
-      ],
-      "palavras_chave": [
-        "upstream",
-        "downstream",
-        "midstream",
-        "logistica",
-        "eficiencia operacional",
-        "ANP",
-        "producao",
-        "OPEX",
-        "performance",
-        "regulacao"
-      ]
+      descricao: "Atuação em upstream, downstream, midstream, logística e eficiência operacional.",
+      tom: "técnico, operacional e setorial",
+      palavras_chave: ["upstream", "ANP", "produção", "logística", "OPEX"]
     },
+
     "Energy & Utilities": {
-      "descricao": "Atuacao em energia, distribuicao, geracao, comercializacao, resiliencia operacional, regulacao, performance e transformacao no setor eletrico e utilities.",
-      "tom": "tecnico, regulatorio, objetivo, claro, orientado a operacao",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "decisores tecnicos",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "explicar tema complexo",
-        "apresentar ponto de vista",
-        "apoiar acao comercial"
-      ],
-      "palavras_chave": [
-        "distribuicao",
-        "geracao",
-        "comercializacao",
-        "ANEEL",
-        "resiliencia",
-        "eficiencia operacional",
-        "rede",
-        "SLA",
-        "mercado livre",
-        "regulacao"
-      ]
+      descricao: "Atuação em energia, distribuição, geração, comercialização e regulação.",
+      tom: "técnico, regulatório e orientado à operação",
+      palavras_chave: ["ANEEL", "distribuição", "geração", "resiliência", "SLA"]
     },
+
     "Financial Services": {
-      "descricao": "Atuacao em bancos, pagamentos, seguros, regulacao, risco, compliance, Open Finance, PIX, eficiencia operacional e transformacao no setor financeiro.",
-      "tom": "tecnico, confiavel, consultivo, regulatorio, executivo",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "decisores tecnicos",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "explicar tema complexo",
-        "apresentar ponto de vista",
-        "apoiar acao comercial"
-      ],
-      "palavras_chave": [
-        "bancos",
-        "pagamentos",
-        "seguros",
-        "compliance",
-        "risco",
-        "Open Finance",
-        "PIX",
-        "regulacao",
-        "governanca",
-        "eficiencia"
-      ]
+      descricao: "Atuação em bancos, pagamentos, risco, compliance e regulação.",
+      tom: "técnico, confiável e consultivo",
+      palavras_chave: ["Open Finance", "PIX", "compliance", "risco", "governança"]
     },
+
     "Industrial & Manufacturing": {
-      "descricao": "Atuacao em industria e manufatura com foco em excelencia operacional, Industria 4.0 e 5.0, performance, digitalizacao, supply chain, processos e produtividade.",
-      "tom": "tecnico, analitico, claro, orientado a performance e operacao",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "decisores tecnicos",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "explicar tema complexo",
-        "apresentar ponto de vista",
-        "apoiar acao comercial"
-      ],
-      "palavras_chave": [
-        "Industria 4.0",
-        "Industria 5.0",
-        "eficiencia operacional",
-        "produtividade",
-        "MES",
-        "MOM",
-        "OEE",
-        "digital twin",
-        "processos",
-        "manufatura"
-      ]
+      descricao: "Atuação em indústria, manufatura, digitalização e excelência operacional.",
+      tom: "técnico, analítico e orientado a performance",
+      palavras_chave: ["Indústria 4.0", "OEE", "MES", "produtividade"]
     },
-    "Retail": {
-      "descricao": "Atuacao em varejo com foco em jornada do consumidor, transformacao digital, omnicanalidade, eficiencia comercial, dados, marketing e operacao.",
-      "tom": "consultivo, dinamico, claro, orientado a negocio e experiencia",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "apresentar ponto de vista",
-        "apoiar acao comercial",
-        "explicar tema complexo"
-      ],
-      "palavras_chave": [
-        "varejo",
-        "consumidor",
-        "jornada",
-        "omnicanalidade",
-        "digital",
-        "performance comercial",
-        "dados",
-        "experiencia",
-        "sustentabilidade",
-        "transformacao"
-      ]
+
+      Sustainability: {
+      descricao: "Atuação em sustentabilidade, ESG, descarbonização, transição energética e geração de valor de longo prazo.",
+      tom: "consultivo, claro, técnico e orientado a impacto",
+      palavras_chave: ["ESG", "sustentabilidade", "descarbonização", "transição energética", "governança"]
     },
-    "Operations": {
-      "descricao": "Atuacao em melhoria de performance, excelencia operacional, redesenho de processos, produtividade, eficiencia, automacao e captura de valor.",
-      "tom": "consultivo, tecnico, objetivo, orientado a resultado",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "apoiar acao comercial",
-        "explicar tema complexo",
-        "apresentar ponto de vista"
-      ],
-      "palavras_chave": [
-        "excelencia operacional",
-        "processos",
-        "eficiencia",
-        "produtividade",
-        "performance",
-        "captura de valor",
-        "automacao",
-        "melhoria continua",
-        "Lean",
-        "operacao"
-      ]
-    },
-    "Strategy": {
-      "descricao": "Atuacao em estrategia empresarial, crescimento, reposicionamento, transformacao, desenho de modelo de negocio, priorizacao e agenda executiva.",
-      "tom": "executivo, consultivo, claro, sofisticado, orientado a impacto",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "liderancas",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "apresentar ponto de vista",
-        "fortalecer posicionamento",
-        "apoiar acao comercial"
-      ],
-      "palavras_chave": [
-        "estrategia",
-        "crescimento",
-        "transformacao",
-        "modelo de negocio",
-        "priorizacao",
-        "agenda executiva",
-        "vantagem competitiva",
-        "valor",
-        "mercado",
-        "decisao"
-      ]
-    },
-    "Finance": {
-      "descricao": "Atuacao em financas, performance economica, planejamento financeiro, eficiencia, governanca, controle e suporte a decisoes de negocio.",
-      "tom": "tecnico, claro, confiavel, executivo",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "explicar tema complexo",
-        "apoiar acao comercial",
-        "apresentar ponto de vista"
-      ],
-      "palavras_chave": [
-        "financas",
-        "performance",
-        "planejamento",
-        "governanca",
-        "controle",
-        "margem",
-        "rentabilidade",
-        "eficiencia",
-        "valor",
-        "decisao"
-      ]
-    },
-    "HR": {
-      "descricao": "Atuacao em recursos humanos, transformacao organizacional, cultura, gestao de talentos, change management, desenvolvimento e performance de pessoas.",
-      "tom": "consultivo, claro, humano sem perder profissionalismo, orientado a negocio",
-      "publico_mais_comum": [
-        "diretores",
-        "gerentes",
-        "liderancas",
-        "clientes",
-        "prospects",
-        "publico interno",
-        "candidatos"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "fortalecer posicionamento",
-        "explicar tema complexo",
-        "reforcar marca empregadora"
-      ],
-      "palavras_chave": [
-        "pessoas",
-        "cultura",
-        "talentos",
-        "transformacao organizacional",
-        "lideranca",
-        "engajamento",
-        "change management",
-        "desenvolvimento",
-        "performance",
-        "RH"
-      ]
-    },
-    "Marketing": {
-      "descricao": "Atuacao em marketing, growth, posicionamento, experiencia, comunicacao, geracao de demanda, marca e relacionamento com mercado.",
-      "tom": "consultivo, claro, estrategico, orientado a impacto",
-      "publico_mais_comum": [
-        "diretores",
-        "gerentes",
-        "clientes",
-        "prospects",
-        "mercado"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "fortalecer posicionamento",
-        "apoiar acao comercial",
-        "apresentar ponto de vista"
-      ],
-      "palavras_chave": [
-        "marketing",
-        "marca",
-        "growth",
-        "posicionamento",
-        "experiencia",
-        "demanda",
-        "comunicacao",
-        "go to market",
-        "relacionamento",
-        "mercado"
-      ]
-    },
-    "Sales": {
-      "descricao": "Atuacao em estrategia comercial, performance de vendas, canais, relacionamento com clientes, funil, conversao e crescimento.",
-      "tom": "consultivo, direto, executivo, orientado a resultado",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "apoiar acao comercial",
-        "gerar autoridade",
-        "apresentar ponto de vista",
-        "explicar tema complexo"
-      ],
-      "palavras_chave": [
-        "vendas",
-        "performance comercial",
-        "conversao",
-        "clientes",
-        "canais",
-        "receita",
-        "relacionamento",
-        "funil",
-        "crescimento",
-        "go to market"
-      ]
-    },
-    "Procurement": {
-      "descricao": "Atuacao em compras, strategic sourcing, eficiencia de gastos, fornecedores, negociacao, cadeia de suprimentos e governanca de procurement.",
-      "tom": "tecnico, objetivo, claro, orientado a eficiencia e valor",
-      "publico_mais_comum": [
-        "diretores",
-        "gerentes",
-        "decisores tecnicos",
-        "clientes",
-        "prospects"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "explicar tema complexo",
-        "apoiar acao comercial",
-        "apresentar ponto de vista"
-      ],
-      "palavras_chave": [
-        "procurement",
-        "compras",
-        "strategic sourcing",
-        "fornecedores",
-        "negociacao",
-        "eficiencia",
-        "cadeia de suprimentos",
-        "governanca",
-        "custo",
-        "valor"
-      ]
-    },
-    "Sustainability": {
-      "descricao": "Atuacao em sustentabilidade, ESG, descarbonizacao, transicao energetica, cadeias responsaveis, regulacao e geracao de valor de longo prazo.",
-      "tom": "consultivo, claro, tecnico, orientado a impacto e futuro do negocio",
-      "publico_mais_comum": [
-        "C-level",
-        "diretores",
-        "gerentes",
-        "clientes",
-        "prospects",
-        "mercado"
-      ],
-      "objetivos_mais_comuns": [
-        "gerar autoridade",
-        "apresentar ponto de vista",
-        "fortalecer posicionamento",
-        "explicar tema complexo"
-      ],
-      "palavras_chave": [
-        "ESG",
-        "sustentabilidade",
-        "descarbonizacao",
-        "transicao energetica",
-        "cadeia responsavel",
-        "valor de longo prazo",
-        "regulacao",
-        "impacto",
-        "clima",
-        "governanca"
-      ]
+
+    Retail: {
+      descricao: "Atuação em varejo com foco em jornada do consumidor, omnicanalidade, transformação digital e eficiência comercial.",
+      tom: "consultivo, dinâmico, claro e orientado a negócio",
+      palavras_chave: ["varejo", "consumidor", "jornada", "omnicanalidade", "experiência"]
     }
-  },
-  "validation_instructions": {
-    "usar_contexto": true,
-    "usar_tipo_conteudo": true,
-    "usar_business_unit": true,
-    "orientacoes": [
-      "Considerar o contexto informado pelo usuario para entender intencao, publico e momento do conteudo.",
-      "Considerar o tipo de conteudo para ajustar profundidade, tom e expectativa de linguagem.",
-      "Considerar a business unit para interpretar melhor o repertorio setorial, vocabulario e foco do conteudo.",
-      "Avaliar se legenda e arte estao adequadas ao publico esperado.",
-      "Evitar avaliar o texto de forma generica, sem considerar setor, objetivo e audiencia."
-    ]
+  }
+};
+
+function readTextFile(relativePath, fallback = "") {
+  try {
+    return fs.readFileSync(path.join(__dirname, relativePath), "utf-8");
+  } catch (error) {
+    console.log(`Arquivo não encontrado: ${relativePath}`);
+    return fallback;
   }
 }
+
+const guidelines = readTextFile("guidelines.txt", "Sem diretrizes.");
+const examples = readTextFile(path.join("data", "good-examples.txt"), "");
+
+function normalizeScore(value) {
+  if (value === null || value === undefined) return null;
+  const num = Number(value);
+  if (Number.isNaN(num)) return null;
+  return Math.min(5, Math.max(1, Math.round(num * 10) / 10));
+}
+
+function calculateFinalScore(scores) {
+  const valid = Object.values(scores).filter((v) => v !== null);
+  if (valid.length === 0) return null;
+  const avg = valid.reduce((a, b) => a + b, 0) / valid.length;
+  return Math.round(avg * 10) / 10;
+}
+
+function getRecommendation(score) {
+  if (score === null) return "Sem avaliação";
+  if (score >= 4.5) return "Aprovado";
+  if (score >= 3.5) return "Aprovado com ajustes";
+  return "Reprovado";
+}
+
+function ensureArray(arr, fallback) {
+  if (!Array.isArray(arr) || arr.length === 0) return fallback;
+  return arr;
+}
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.post("/validate", async (req, res) => {
+  try {
+    const {
+      caption,
+      artworkText,
+      visualText,
+      context,
+      contentType,
+      businessUnit
+    } = req.body;
+
+    const finalCaption = (caption || "").trim();
+    const finalVisualText = (artworkText || visualText || "").trim();
+    const finalContext = (context || "").trim();
+    const finalContentType = (contentType || "").trim();
+    const finalBusinessUnit = (businessUnit || "").trim();
+
+    const selectedContentType =
+      validationConfig.content_types[finalContentType] || null;
+
+    const selectedBU =
+      validationConfig.business_units[finalBusinessUnit] || null;
+
+    const prompt = `
+Você é um especialista sênior em validação de conteúdo para uma consultoria global, a BIP.
+
+Sua função é avaliar conteúdos de social media, legenda e texto de arte, com rigor profissional, como uma revisora experiente.
+
+---
+
+ENTRADAS DO USUÁRIO
+
+Legenda:
+${finalCaption || "Não informada"}
+
+Texto da arte:
+${finalVisualText || "Não informado"}
+
+Contexto do conteúdo:
+${finalContext || "Não informado"}
+
+Tipo de conteúdo:
+${finalContentType || "Não informado"}
+
+Detalhes do tipo de conteúdo:
+${selectedContentType ? JSON.stringify(selectedContentType, null, 2) : "Não informado"}
+
+Business Unit:
+${finalBusinessUnit || "Não informada"}
+
+Detalhes da Business Unit:
+${selectedBU ? JSON.stringify(selectedBU, null, 2) : "Não informado"}
+
+---
+
+PRINCÍPIOS DE AVALIAÇÃO:
+- Seja rigoroso, mas justo
+- Não elogie genericamente
+- Sempre justifique observações
+- Priorize clareza, precisão e consistência
+- Não invente fatos
+- Considere contexto, tipo de conteúdo e business unit antes de avaliar
+- Responda no idioma predominante do conteúdo
+- Se houver contexto suficiente para entender o público, use isso na avaliação
+- Evite feedback genérico e superficial
+
+---
+
+SE O CONTEÚDO ESTIVER EM INGLÊS:
+- Use padrão corporativo global
+- Seja direto e conciso
+- Evite linguagem genérica
+- Garanta naturalidade de nativo
+
+---
+
+DIRETRIZES:
+${guidelines}
+
+EXEMPLOS:
+${examples}
+
+---
+
+CRITÉRIOS:
+- clareza
+- tom_de_voz
+- qualidade_redacao
+- alinhamento_marca
+- relacao_legenda_arte
+
+---
+
+REGRAS:
+- Use escala de 1 a 5
+- Não penalize relacao_legenda_arte se não houver texto de arte
+- Sempre trazer pontos positivos e melhorias
+- Sempre sugerir reescrita
+- Avalie se a profundidade do conteúdo faz sentido para o contexto informado
+- Avalie se o tom está adequado ao tipo de conteúdo informado
+- Avalie se o repertório e a linguagem estão adequados à business unit, quando informada
+
+---
+
+FORMATO JSON OBRIGATÓRIO:
+
+{
+  "idioma": "pt ou en",
+  "scores": {
+    "clareza": number,
+    "tom_de_voz": number,
+    "qualidade_redacao": number,
+    "alinhamento_marca": number,
+    "relacao_legenda_arte": number ou null
+  },
+  "pontos_positivos": ["string", "string"],
+  "pontos_melhoria": ["string", "string"],
+  "recomendacao_final": "string",
+  "sugestao_reescrita": "string"
+}
+`;
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      temperature: 0,
+      response_format: { type: "json_object" },
+      messages: [{ role: "user", content: prompt }]
+    });
+
+    const content = response.choices?.[0]?.message?.content || "{}";
+    const parsed = JSON.parse(content);
+
+    const scores = {
+      clareza: normalizeScore(parsed.scores?.clareza),
+      tom_de_voz: normalizeScore(parsed.scores?.tom_de_voz),
+      qualidade_redacao: normalizeScore(parsed.scores?.qualidade_redacao),
+      alinhamento_marca: normalizeScore(parsed.scores?.alinhamento_marca),
+      relacao_legenda_arte: finalVisualText
+        ? normalizeScore(parsed.scores?.relacao_legenda_arte)
+        : null
+    };
+
+    const finalScore = calculateFinalScore(scores);
+
+    res.json({
+      idioma: parsed.idioma || "pt",
+      final_score: finalScore,
+      scores,
+      contexto_recebido: finalContext || null,
+      tipo_conteudo_recebido: finalContentType || null,
+      business_unit_recebida: finalBusinessUnit || null,
+      pontos_positivos: ensureArray(parsed.pontos_positivos, [
+        "Sem pontos positivos claros."
+      ]),
+      pontos_melhoria: ensureArray(parsed.pontos_melhoria, [
+        "Sem melhorias claras."
+      ]),
+      recomendacao_final: parsed.recomendacao_final || getRecommendation(finalScore),
+      sugestao_reescrita: parsed.sugestao_reescrita || "Sem sugestão"
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro na validação" });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor rodando na porta", PORT);
+});
