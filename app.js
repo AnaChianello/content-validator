@@ -40,52 +40,147 @@ const validationConfig = {
   },
 
   business_units: {
-    Institutional: {
-      descricao: "Conteúdos corporativos e institucionais da BIP.",
-      tom: "institucional, elegante, confiável",
-      palavras_chave: ["marca", "posicionamento", "cultura", "presença global"]
-    },
-
-    xTech: {
-      descricao: "Atuação em tecnologia, dados, inteligência artificial, integração tecnológica e transformação digital.",
-      tom: "técnico, atual, orientado a negócio",
-      palavras_chave: ["dados", "IA", "cloud", "analytics", "transformação digital"]
-    },
-
     "Oil & Gas": {
-      descricao: "Atuação em upstream, downstream, midstream, logística e eficiência operacional.",
-      tom: "técnico, operacional e setorial",
-      palavras_chave: ["upstream", "ANP", "produção", "logística", "OPEX"]
+      descricao: "Atuação em upstream, downstream, midstream, logística, eficiência operacional e transformação no setor de óleo e gás.",
+      tom: "técnico, setorial, objetivo e orientado à operação",
+      palavras_chave: [
+        "upstream",
+        "downstream",
+        "ANP",
+        "logística",
+        "eficiência operacional",
+        "OPEX"
+      ]
     },
 
-    "Energy & Utilities": {
-      descricao: "Atuação em energia, distribuição, geração, comercialização e regulação.",
-      tom: "técnico, regulatório e orientado à operação",
-      palavras_chave: ["ANEEL", "distribuição", "geração", "resiliência", "SLA"]
+    "Retail & CG": {
+      descricao: "Atuação em varejo e consumer goods, com foco em transformação comercial, experiência do cliente, eficiência e crescimento.",
+      tom: "consultivo, dinâmico, claro e orientado a negócio",
+      palavras_chave: [
+        "varejo",
+        "consumer goods",
+        "jornada do cliente",
+        "performance comercial",
+        "experiência",
+        "crescimento"
+      ]
     },
 
     "Financial Services": {
-      descricao: "Atuação em bancos, pagamentos, risco, compliance e regulação.",
-      tom: "técnico, confiável e consultivo",
-      palavras_chave: ["Open Finance", "PIX", "compliance", "risco", "governança"]
+      descricao: "Atuação em bancos, pagamentos, seguros, risco, compliance e transformação no setor financeiro.",
+      tom: "técnico, confiável, consultivo e executivo",
+      palavras_chave: [
+        "Open Finance",
+        "PIX",
+        "compliance",
+        "risco",
+        "governança",
+        "regulação"
+      ]
     },
 
-    "Industrial & Manufacturing": {
-      descricao: "Atuação em indústria, manufatura, digitalização e excelência operacional.",
-      tom: "técnico, analítico e orientado a performance",
-      palavras_chave: ["Indústria 4.0", "OEE", "MES", "produtividade"]
+    "Mineração": {
+      descricao: "Atuação no setor de mineração com foco em eficiência, transformação operacional, sustentabilidade e geração de valor.",
+      tom: "técnico, analítico, setorial e orientado a performance",
+      palavras_chave: [
+        "mineração",
+        "operações",
+        "eficiência",
+        "sustentabilidade",
+        "cadeia de valor",
+        "performance"
+      ]
     },
 
-      Sustainability: {
+    "Telco & Media": {
+      descricao: "Atuação em telecomunicações e mídia, apoiando transformação, inovação, eficiência operacional e evolução dos modelos de negócio.",
+      tom: "consultivo, técnico, atual e orientado à transformação",
+      palavras_chave: [
+        "telecomunicações",
+        "mídia",
+        "transformação digital",
+        "conectividade",
+        "inovação",
+        "eficiência"
+      ]
+    },
+
+    "Energy & Utilities": {
+      descricao: "Atuação em energia e utilities, com foco em geração, distribuição, comercialização, regulação e sustentabilidade.",
+      tom: "técnico, regulatório, claro e orientado à operação",
+      palavras_chave: [
+        "energia",
+        "utilities",
+        "ANEEL",
+        "distribuição",
+        "geração",
+        "sustentabilidade"
+      ]
+    },
+
+    "Life Sciences": {
+      descricao: "Atuação em life sciences, da estratégia à execução em ambientes regulados.",
+      tom: "técnico, preciso, consultivo e orientado à conformidade",
+      palavras_chave: [
+        "life sciences",
+        "ambientes regulados",
+        "compliance",
+        "saúde",
+        "regulação",
+        "execução"
+      ]
+    },
+
+    "Agronegócio": {
+      descricao: "Atuação no agronegócio, conectando produção, eficiência, cadeia de valor e posicionamento global.",
+      tom: "consultivo, setorial, claro e orientado a impacto de negócio",
+      palavras_chave: [
+        "agronegócio",
+        "cadeia de valor",
+        "produção",
+        "eficiência",
+        "mercado global",
+        "sustentabilidade"
+      ]
+    },
+
+    "Indústria 5.0": {
+      descricao: "Atuação em manufatura competitiva com inteligência tecnológica, eficiência operacional e transformação industrial.",
+      tom: "técnico, analítico, moderno e orientado a performance",
+      palavras_chave: [
+        "indústria 5.0",
+        "manufatura",
+        "inteligência tecnológica",
+        "produtividade",
+        "eficiência",
+        "transformação industrial"
+      ]
+    },
+
+    "Sustainability": {
       descricao: "Atuação em sustentabilidade, ESG, descarbonização, transição energética e geração de valor de longo prazo.",
       tom: "consultivo, claro, técnico e orientado a impacto",
-      palavras_chave: ["ESG", "sustentabilidade", "descarbonização", "transição energética", "governança"]
+      palavras_chave: [
+        "ESG",
+        "sustentabilidade",
+        "descarbonização",
+        "transição energética",
+        "governança",
+        "impacto"
+      ]
     },
 
-    Retail: {
-      descricao: "Atuação em varejo com foco em jornada do consumidor, omnicanalidade, transformação digital e eficiência comercial.",
-      tom: "consultivo, dinâmico, claro e orientado a negócio",
-      palavras_chave: ["varejo", "consumidor", "jornada", "omnicanalidade", "experiência"]
+    "xTech": {
+      descricao: "Atuação em tecnologia, dados, inteligência artificial, integração tecnológica e transformação digital.",
+      tom: "técnico, atual, consultivo e orientado a negócio",
+      palavras_chave: [
+        "dados",
+        "IA",
+        "cloud",
+        "analytics",
+        "integração",
+        "transformação digital"
+      ]
     }
   }
 };
