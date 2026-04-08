@@ -222,9 +222,9 @@
       font-weight: 400;
     }
 
-    textarea {
+    textarea,
+    select {
       width: 100%;
-      min-height: 180px;
       border: 1px solid var(--border);
       border-radius: 3px;
       padding: 16px 18px;
@@ -233,16 +233,22 @@
       line-height: 1.6;
       color: var(--text-main);
       background: #fff;
-      resize: vertical;
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
     }
 
-    textarea::placeholder {
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    textarea::placeholder,
+    select {
       color: var(--blue-500);
     }
 
-    textarea:focus {
+    textarea:focus,
+    select:focus {
       border-color: var(--bip-red);
       box-shadow: 0 0 0 4px rgba(218, 41, 28, 0.10);
     }
@@ -457,7 +463,6 @@
       display: inline-block;
     }
 
-    /* Login overlay */
     .login-screen {
       position: fixed;
       inset: 0;
@@ -635,9 +640,10 @@
         <div class="hero-panel">
           <div class="hero-panel-title">Como utilizar</div>
           <p>
-            Preencha a legenda, o texto da arte ou ambos. O sistema retorna
-            avaliação estruturada, nota final, recomendação e comentários de
-            melhoria para apoiar a revisão antes da publicação.
+            Preencha a legenda, o texto da arte ou ambos. Você também pode incluir
+            contexto, tipo de conteúdo e business unit para tornar a avaliação mais precisa.
+            O sistema retorna avaliação estruturada, nota final, recomendação e comentários
+            de melhoria para apoiar a revisão antes da publicação.
           </p>
         </div>
       </div>
@@ -674,6 +680,51 @@
               id="artworkText"
               placeholder="Cole aqui o texto que aparece na arte ou no frame"
             ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="context">
+              <span class="field-label">Contexto do conteúdo</span>
+              <span class="field-note">Campo opcional, mas recomendado</span>
+            </label>
+            <textarea
+              id="context"
+              placeholder="Ex: Post para C-level sobre eficiência operacional após nova regulação"
+              style="min-height: 100px;"
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="contentType">
+              <span class="field-label">Tipo de conteúdo</span>
+              <span class="field-note">Campo opcional</span>
+            </label>
+            <select id="contentType">
+              <option value="">Selecione</option>
+              <option value="institucional">Institucional</option>
+              <option value="tecnico">Técnico</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="businessUnit">
+              <span class="field-label">Business Unit</span>
+              <span class="field-note">Campo opcional</span>
+            </label>
+            <select id="businessUnit">
+              <option value="">Selecione</option>
+              <option value="Oil & Gas">Oil & Gas</option>
+              <option value="Retail & CG">Retail & CG</option>
+              <option value="Financial Services">Financial Services</option>
+              <option value="Mineração">Mineração</option>
+              <option value="Telco & Media">Telco & Media</option>
+              <option value="Energy & Utilities">Energy & Utilities</option>
+              <option value="Life Sciences">Life Sciences</option>
+              <option value="Agronegócio">Agronegócio</option>
+              <option value="Indústria 5.0">Indústria 5.0</option>
+              <option value="Sustainability">Sustainability</option>
+              <option value="xTech">xTech</option>
+            </select>
           </div>
 
           <div class="actions">
@@ -754,6 +805,9 @@
 
     const captionEl = document.getElementById("caption");
     const artworkTextEl = document.getElementById("artworkText");
+    const contextEl = document.getElementById("context");
+    const contentTypeEl = document.getElementById("contentType");
+    const businessUnitEl = document.getElementById("businessUnit");
     const validateButtonEl = document.getElementById("validateButton");
     const clearButtonEl = document.getElementById("clearButton");
     const statusEl = document.getElementById("status");
@@ -874,12 +928,18 @@
     clearButtonEl.addEventListener("click", () => {
       captionEl.value = "";
       artworkTextEl.value = "";
+      contextEl.value = "";
+      contentTypeEl.value = "";
+      businessUnitEl.value = "";
       resetUI();
     });
 
     validateButtonEl.addEventListener("click", async () => {
       const caption = captionEl.value.trim();
       const artworkText = artworkTextEl.value.trim();
+      const context = contextEl.value.trim();
+      const contentType = contentTypeEl.value;
+      const businessUnit = businessUnitEl.value;
 
       if (!caption && !artworkText) {
         statusEl.textContent = "Preencha pelo menos um dos campos para iniciar a validação.";
@@ -903,7 +963,10 @@
           },
           body: JSON.stringify({
             caption,
-            artworkText
+            artworkText,
+            context,
+            contentType,
+            businessUnit
           })
         });
 
