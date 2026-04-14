@@ -311,8 +311,10 @@ DIRETRIZES:
 ${guidelines}
 
 EXEMPLOS:
-${examples}
+${goodExamples}
 
+BAD EXAMPLES (learn what to avoid):
+${badExamples}
 ---
 
 CRITÉRIOS:
