@@ -1,0 +1,219 @@
+Bad examples
+Tema:
+Tecnologia / Sustentabilidade / Energia
+
+Legenda:
+A integração entre tecnologia e sustentabilidade rendeu um reconhecimento fundamental para a BIP Brasil. O Case SIGMA, desenvolvido para a Eletrobras, foi premiado pela AXIA por sua excelência em gestão e inteligência ambiental, consolidando-se como uma referência em inovação para o setor.
+O SIGMA é uma plataforma que utiliza IA Generativa para simplificar a gestão de dados complexos, centralizando informações de diversos sistemas. Na prática, a solução permitiu que a Eletrobras automatizasse o cruzamento de licenças e obrigações, reduzindo o tempo de análise manual e eliminando gargalos na rastreabilidade de documentos para garantir conformidade total em operações de grande escala.
+Este projeto reforça o compromisso com práticas ESG sólidas e gera valor real para o negócio. Parabenizamos Karinne Miranda, Roberta Calazans, Willian e Bernardo Calzadilla pela parceria estratégica, além do time da BIP envolvido nesta conquista: Werley Fayer, EduardoPozzi, Fernanda Poiano, Kaique Valim e Amanda. Confira mais detalhes sobre como estamos redefinindo a gestão ambiental através de dados no link: https://bipbrasil.com.br/industrias
+
+Problemas:
+1. Tom de voz e posicionamento
+Uso de expressões genéricas e pouco técnicas, como “reconhecimento fundamental”, "estratégica" e “referência em inovação”, sem evidência concreta
+Trechos com linguagem mais promocional do que consultiva
+Falta de maior densidade analítica para sustentar o valor entregue
+
+2. Clareza e objetividade
+Parágrafos longos, com excesso de informações em uma mesma frase
+Estrutura pouco escaneável, dificultando leitura rápida (especialmente para social)
+Repetição de ideias semelhantes sobre inovação, valor e ESG
+
+3. Redundância
+Reforço duplicado de conceitos como “inovação”, “valor para o negócio” e “excelência”
+Parte final retoma mensagens já ditas sem acrescentar nova camada de insight
+
+4. Estrutura narrativa
+Início pouco orientado a problema ou contexto de mercado
+Não deixa claro de forma imediata qual dor foi resolvida
+Sequência mais descritiva do que estratégica
+
+5. Coesão com a arte (potencial problema)
+Alto risco de repetir informações que podem já estar no layout (ex: descrição do case e da solução)
+Pouca complementaridade narrativa com possíveis frames
+
+6. Call to action
+Link não contextualizado com um benefício claro para o usuário
+---
+
+EXEMPLO 2 (PT)
+Tema:
+Serviços Financeiros / RC 18/2025 / Visão BIP
+
+Frame 1: Capa
+Título Principal: Hannover Messe 2026
+Subtítulo: A jornada da inteligência artificial industrial e a delegação brasileira no ecossistema de inovação.
+Frame 2: Detalhes do Evento
+Palestrantes: Pedro Cunha (Partner), Bruno Pereira (Partner), Jefferson Alves (Senior Manager) e Pagoti (Senior Manager).
+Palco: Siemens Stage e THE IMPULSE Visitor Center.
+Tema: Brazilian Delegation at THE IMPULSE – Da ideia ao valor com IA Industrial.
+Dia: 20 de abril de 2026.
+Hora: 15:55 (CEST).
+Endereço: Hall 27, Hannover Messe / Amberg, Alemanha.
+
+Legenda (Padrão BIP)
+A BIP confirma sua participação na Hannover Messe 2026 com o objetivo de acompanhar as principais discussões sobre a aplicação da inteligência artificial industrial no mercado global. Representando a consultoria no evento estarão presentes Pedro Cunha, Partner, Bruno Pereira, Partner, Jefferson Alves, Senior Manager, e Pagoti, Senior Manager.
+A agenda contempla a participação na delegação brasileira que visitará o centro de visitantes THE IMPULSE e os laboratórios de inovação em Amberg. O foco reside no entendimento de como as soluções de IA para o mundo real podem acelerar a validação de ideias e otimizar a eficiência operacional através de infraestruturas resilientes e produções flexíveis.
+A integração entre o mundo real e o digital é um pilar fundamental para a construção de vantagens competitivas sustentáveis. Acompanhar essas tendências permite que a BIP continue viabilizando estratégias de maturidade digital sólidas para seus parceiros. As inscrições para o evento podem ser realizadas através do link abaixo.
+https://www.siemens.com/en-us/events/hannover-messe/?acz=1
+
+Problema:
+
+1. Clareza e objetividade
+Excesso de informações institucionais no primeiro parágrafo, sem hierarquia clara
+Falta de destaque para o que realmente é mais relevante para o público
+
+2. Estrutura narrativa
+Início descritivo, pouco orientado a contexto ou relevância do evento
+Não deixa claro rapidamente por que o evento importa para o mercado ou para o público
+Progressão do texto pouco dinâmica, com blocos muito homogêneos
+
+3. Redundância
+Repetição de conceitos como “inteligência artificial industrial”, “eficiência operacional” e “vantagens competitivas”
+Ideias similares reaparecem sem adicionar nova perspectiva
+
+4. Profundidade e credibilidade
+Falta de dados ou exemplos concretos sobre impacto de IA industrial
+Evento citado sem contextualização mais robusta da sua relevância global
+
+5. Foco no valor
+Não evidencia claramente o que a BIP leva ou traz de diferencial para o evento
+Ausência de posicionamento como protagonista, ficando mais como participante observador
+Pouco destaque para aprendizados ou aplicações práticas
+
+6. Coesão com a arte
+Forte repetição de informações já presentes nos frames (nomes, evento, data, agenda)
+A legenda não complementa, apenas reforça o conteúdo do layout
+Baixa agregação de valor em relação ao que já está visualmente exposto
+
+7. Padronização e consistência
+Uso inconsistente de cargos em inglês (Partner, Senior Manager) sem contextualização
+Estrutura de apresentação dos nomes pouco fluida
+
+9. Call to action
+CTA genérico (“inscrições podem ser realizadas…”), afinal não faz sentido convidar para um evento na Alemanha
+Link apresentado sem contextualização de benefício claro
+Falta de estímulo mais direcionado ao público-alvo
+---
+
+EXEMPLO 3 (ENG)
+Legenda:
+At BIP, we approach sustainability as a catalyst for growth, efficiency, and long-term impact. Our work goes beyond compliance to unlock innovation and growth.
+By combining expert insight with digital platforms, we help organizations embed responsible practices into their business models. Because building a more resilient future means making sustainability part of how decisions are made, progress is measured, and impact is delivered.
+🔗 Learn how BIP supports businesses in turning ambition into action: Sustainability | BIP U.S.
+
+Problemas:
+1. Tom de voz e posicionamento
+Tom excessivamente genérico e institucional, com pouca diferenciação
+Uso de expressões amplas como “catalisador de crescimento” e “desbloquear inovação” sem sustentação
+Baixa densidade técnica para o posicionamento de consultoria
+
+2. Clareza e objetividade
+Linguagem abstrata, dificultando a compreensão prática da proposta
+Conceitos apresentados de forma ampla, sem explicitar como o valor é gerado
+Mensagem pouco tangível para o leitor
+
+3. Redundância
+Repetição de ideias relacionadas a crescimento, impacto e sustentabilidade
+Conceitos semelhantes aparecem mais de uma vez sem aprofundamento
+
+4. Profundidade e credibilidade
+Ausência de dados, métricas ou exemplos concretos
+Benefícios descritos apenas de forma qualitativa
+Falta de evidências que reforcem autoridade técnica
+
+5. Proposta de valor
+Não deixa claro o diferencial da BIP em sustentabilidade
+Ausência de menção a metodologias, entregáveis ou resultados
+Conteúdo se aproxima de um discurso institucional genérico
+
+6. Estrutura e narrativa
+Abertura pouco estratégica, sem contexto ou provocação inicial
+Progressão do texto linear, sem construção de insight
+Falta de um direcionamento claro para o leitor
+
+7. Concretude da mensagem
+Uso excessivo de termos abstratos como “futuro resiliente”, “impacto entregue” e “práticas responsáveis”
+Pouca tradução desses conceitos em aplicações reais de negócio
+
+8. Call to action
+Link sem contextualização de benefício claro
+Não gera senso de urgência ou interesse específico
+
+9. Adequação para social media
+Conteúdo excessivamente conceitual para performance no LinkedIn
+Baixa escaneabilidade, sem elementos de destaque ou quebra de leitura
+Falta de um gancho mais forte na abertura
+
+---
+
+EXEMPLO 4 (ENG)
+Cover
+Learning as Part of BIP’s Culture
+Discover how continuous development is embedded in how we work
+
+FRAME 1
+Learning through everyday collaboration
+At BIP, learning is not confined to formal programs or isolated training sessions. It is shaped through daily collaboration, exposure to diverse perspectives, and active participation in complex initiatives that challenge individuals to expand their thinking and refine their judgment.
+
+FRAME 2
+Structured development and shared knowledge
+Continuous development is supported by structured learning opportunities, consistent feedback, and knowledge exchange across teams. By encouraging open dialogue and cross-functional interaction, BIP fosters an environment where learning becomes a shared responsibility rather than an individual effort.
+
+FRAME 3
+A culture that evolves with its people
+Sustained growth requires curiosity, discipline, and long-term commitment. By integrating learning into daily execution and maintaining high standards of performance, BIP creates a culture where professionals continuously strengthen their capabilities while contributing to collective progress.
+
+Caption:
+Learning at BIP is integrated into how we collaborate, deliver, and evolve as professionals, shaping development through daily interaction and shared experience.
+By combining structured opportunities with exposure to diverse perspectives and meaningful responsibility, we create an environment where knowledge expands through execution and collective accountability.
+Continuous learning strengthens individual capability while reinforcing our standards of excellence, allowing our culture to evolve alongside the people who contribute to it.
+Learn more about BIP and explore opportunities on our website
+
+Problemas:
+1. Tom de voz e posicionamento
+Linguagem excessivamente genérica, com pouca diferenciação real
+Uso recorrente de conceitos amplos como “continuous learning”, “standards of excellence” e “collective accountability” sem aprofundamento
+
+2. Clareza e objetividade
+Baixa escaneabilidade, sem quebras ou destaques claros
+Mensagens pouco diretas, exigindo esforço maior de interpretação
+
+3. Redundância
+Repetição de ideias entre frames e legenda (aprendizado contínuo, colaboração, evolução)
+Conceitos semelhantes aparecem com variações de wording, sem adicionar novas camadas de insight
+A legenda reforça o conteúdo dos frames sem trazer informação complementar
+
+4. Profundidade e credibilidade
+Ausência de exemplos concretos, iniciativas reais ou evidências práticas
+Falta de dados, métricas ou elementos que comprovem o impacto do modelo de desenvolvimento
+Conteúdo mais conceitual do que aplicado
+
+5. Proposta de valor
+Não deixa claro o que diferencia o modelo de desenvolvimento da BIP de outras empresas
+Falta de elementos tangíveis como programas, metodologias ou experiências específicas
+Posicionamento genérico, aplicável a diversas organizações
+
+6. Estrutura narrativa
+Falta de um gancho inicial mais forte ou provocativo
+Progressão linear, sem construção clara de tensão ou insight
+Mensagem final pouco memorável
+
+7. Concretude da mensagem
+Uso excessivo de termos abstratos como “shared experience”, “collective progress” e “environment where knowledge expands”
+Baixa tradução desses conceitos em situações reais de trabalho
+Dificuldade de visualizar na prática como o aprendizado acontece
+
+8. Coesão entre arte e legenda
+Alta sobreposição entre os frames e a legenda
+A legenda não agrega novas perspectivas, apenas resume o conteúdo visual
+Perda de oportunidade de aprofundar ou trazer um ângulo mais estratégico
+
+9. Call to action
+Não explicita claramente o que o usuário encontrará ao clicar
+Falta de estímulo mais específico para o público-alvo
+
+10. Adequação para social media
+Conteúdo excessivamente conceitual para engajamento no LinkedIn
+Falta de elementos de destaque (ex: dado, insight forte, provocação)
+Estrutura pouco dinâmica para retenção de leitura
+
