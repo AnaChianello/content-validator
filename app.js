@@ -30,18 +30,21 @@ const validationConfig = {
 
   content_types: {
     institucional: {
-      descricao: "Conteúdo voltado para posicionamento da marca, reputação, presença institucional, cultura, eventos, conquistas e fortalecimento de imagem.",
+      descricao:
+        "Conteúdo voltado para posicionamento da marca, reputação, presença institucional, cultura, eventos, conquistas e fortalecimento de imagem.",
       tom_esperado: "institucional, claro, executivo, confiável"
     },
     tecnico: {
-      descricao: "Conteúdo voltado para demonstrar conhecimento técnico, visão de mercado, capacidade analítica e experiência setorial.",
+      descricao:
+        "Conteúdo voltado para demonstrar conhecimento técnico, visão de mercado, capacidade analítica e experiência setorial.",
       tom_esperado: "técnico, consultivo, objetivo e analítico"
     }
   },
 
   business_units: {
     "Oil & Gas": {
-      descricao: "Atuação em upstream, downstream, midstream, logística, eficiência operacional e transformação no setor de óleo e gás.",
+      descricao:
+        "Atuação em upstream, downstream, midstream, logística, eficiência operacional e transformação no setor de óleo e gás.",
       tom: "técnico, setorial, objetivo e orientado à operação",
       palavras_chave: [
         "upstream",
@@ -54,7 +57,8 @@ const validationConfig = {
     },
 
     "Retail & CG": {
-      descricao: "Atuação em varejo e consumer goods, com foco em transformação comercial, experiência do cliente, eficiência e crescimento.",
+      descricao:
+        "Atuação em varejo e consumer goods, com foco em transformação comercial, experiência do cliente, eficiência e crescimento.",
       tom: "consultivo, dinâmico, claro e orientado a negócio",
       palavras_chave: [
         "varejo",
@@ -67,7 +71,8 @@ const validationConfig = {
     },
 
     "Financial Services": {
-      descricao: "Atuação em bancos, pagamentos, seguros, risco, compliance e transformação no setor financeiro.",
+      descricao:
+        "Atuação em bancos, pagamentos, seguros, risco, compliance e transformação no setor financeiro.",
       tom: "técnico, confiável, consultivo e executivo",
       palavras_chave: [
         "Open Finance",
@@ -80,7 +85,8 @@ const validationConfig = {
     },
 
     "Mineração": {
-      descricao: "Atuação no setor de mineração com foco em eficiência, transformação operacional, sustentabilidade e geração de valor.",
+      descricao:
+        "Atuação no setor de mineração com foco em eficiência, transformação operacional, sustentabilidade e geração de valor.",
       tom: "técnico, analítico, setorial e orientado a performance",
       palavras_chave: [
         "mineração",
@@ -93,7 +99,8 @@ const validationConfig = {
     },
 
     "Telco & Media": {
-      descricao: "Atuação em telecomunicações e mídia, apoiando transformação, inovação, eficiência operacional e evolução dos modelos de negócio.",
+      descricao:
+        "Atuação em telecomunicações e mídia, apoiando transformação, inovação, eficiência operacional e evolução dos modelos de negócio.",
       tom: "consultivo, técnico, atual e orientado à transformação",
       palavras_chave: [
         "telecomunicações",
@@ -106,7 +113,8 @@ const validationConfig = {
     },
 
     "Energy & Utilities": {
-      descricao: "Atuação em energia e utilities, com foco em geração, distribuição, comercialização, regulação e sustentabilidade.",
+      descricao:
+        "Atuação em energia e utilities, com foco em geração, distribuição, comercialização, regulação e sustentabilidade.",
       tom: "técnico, regulatório, claro e orientado à operação",
       palavras_chave: [
         "energia",
@@ -119,7 +127,8 @@ const validationConfig = {
     },
 
     "Life Sciences": {
-      descricao: "Atuação em life sciences, da estratégia à execução em ambientes regulados.",
+      descricao:
+        "Atuação em life sciences, da estratégia à execução em ambientes regulados.",
       tom: "técnico, preciso, consultivo e orientado à conformidade",
       palavras_chave: [
         "life sciences",
@@ -132,7 +141,8 @@ const validationConfig = {
     },
 
     "Agronegócio": {
-      descricao: "Atuação no agronegócio, conectando produção, eficiência, cadeia de valor e posicionamento global.",
+      descricao:
+        "Atuação no agronegócio, conectando produção, eficiência, cadeia de valor e posicionamento global.",
       tom: "consultivo, setorial, claro e orientado a impacto de negócio",
       palavras_chave: [
         "agronegócio",
@@ -145,7 +155,8 @@ const validationConfig = {
     },
 
     "Indústria 5.0": {
-      descricao: "Atuação em manufatura competitiva com inteligência tecnológica, eficiência operacional e transformação industrial.",
+      descricao:
+        "Atuação em manufatura competitiva com inteligência tecnológica, eficiência operacional e transformação industrial.",
       tom: "técnico, analítico, moderno e orientado a performance",
       palavras_chave: [
         "indústria 5.0",
@@ -158,7 +169,8 @@ const validationConfig = {
     },
 
     "Sustainability": {
-      descricao: "Atuação em sustentabilidade, ESG, descarbonização, transição energética e geração de valor de longo prazo.",
+      descricao:
+        "Atuação em sustentabilidade, ESG, descarbonização, transição energética e geração de valor de longo prazo.",
       tom: "consultivo, claro, técnico e orientado a impacto",
       palavras_chave: [
         "ESG",
@@ -170,8 +182,9 @@ const validationConfig = {
       ]
     },
 
-    "xTech": {
-      descricao: "Atuação em tecnologia, dados, inteligência artificial, integração tecnológica e transformação digital.",
+    xTech: {
+      descricao:
+        "Atuação em tecnologia, dados, inteligência artificial, integração tecnológica e transformação digital.",
       tom: "técnico, atual, consultivo e orientado a negócio",
       palavras_chave: [
         "dados",
@@ -196,21 +209,22 @@ function readTextFile(relativePath, fallback = "") {
 
 const guidelines = readTextFile("guidelines.txt", "Sem diretrizes.");
 const goodExamples = readTextFile(path.join("data", "good-examples.txt"), "");
-const badExamples = readTextFile(
-  path.join("data", "bad-examples.txt"),
-  ""
-);
+const badExamples = readTextFile(path.join("data", "bad-examples.txt"), "");
 
 function normalizeScore(value) {
   if (value === null || value === undefined) return null;
+
   const num = Number(value);
   if (Number.isNaN(num)) return null;
+
   return Math.min(5, Math.max(1, Math.round(num * 10) / 10));
 }
 
 function calculateFinalScore(scores) {
   const valid = Object.values(scores).filter((v) => v !== null);
+
   if (valid.length === 0) return null;
+
   const avg = valid.reduce((a, b) => a + b, 0) / valid.length;
   return Math.round(avg * 10) / 10;
 }
@@ -247,6 +261,12 @@ app.post("/validate", async (req, res) => {
     const finalContext = (context || "").trim();
     const finalContentType = (contentType || "").trim();
     const finalBusinessUnit = (businessUnit || "").trim();
+
+    if (!finalCaption && !finalVisualText) {
+      return res.status(400).json({
+        error: "Envie pelo menos uma legenda ou um texto de arte."
+      });
+    }
 
     const selectedContentType =
       validationConfig.content_types[finalContentType] || null;
@@ -315,6 +335,7 @@ ${goodExamples}
 
 BAD EXAMPLES (learn what to avoid):
 ${badExamples}
+
 ---
 
 CRITÉRIOS:
@@ -334,6 +355,9 @@ REGRAS:
 - Avalie se a profundidade do conteúdo faz sentido para o contexto informado
 - Avalie se o tom está adequado ao tipo de conteúdo informado
 - Avalie se o repertório e a linguagem estão adequados à business unit, quando informada
+- Traga pelo menos 2 pontos positivos, se existirem
+- Traga pelo menos 2 pontos de melhoria, se existirem
+- Não dê nota alta para conteúdo apenas “ok”
 
 ---
 
@@ -390,12 +414,15 @@ FORMATO JSON OBRIGATÓRIO:
       pontos_melhoria: ensureArray(parsed.pontos_melhoria, [
         "Sem melhorias claras."
       ]),
-      recomendacao_final: parsed.recomendacao_final || getRecommendation(finalScore),
+      recomendacao_final: getRecommendation(finalScore),
       sugestao_reescrita: parsed.sugestao_reescrita || "Sem sugestão"
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Erro na validação" });
+    res.status(500).json({
+      error: "Erro na validação",
+      detail: error.message
+    });
   }
 });
 
