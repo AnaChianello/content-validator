@@ -196,6 +196,10 @@ function readTextFile(relativePath, fallback = "") {
 
 const guidelines = readTextFile("guidelines.txt", "Sem diretrizes.");
 const examples = readTextFile(path.join("data", "good-examples.txt"), "");
+const badExamples = readTextFile(
+  path.join("data", "bad-examples.txt"),
+  ""
+);
 
 function normalizeScore(value) {
   if (value === null || value === undefined) return null;
