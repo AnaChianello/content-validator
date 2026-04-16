@@ -45,155 +45,57 @@ const validationConfig = {
     "Oil & Gas": {
       descricao:
         "Atuação em upstream, downstream, midstream, logística, eficiência operacional e transformação no setor de óleo e gás.",
-      tom: "técnico, setorial, objetivo e orientado à operação",
-      palavras_chave: [
-        "upstream",
-        "downstream",
-        "ANP",
-        "logística",
-        "eficiência operacional",
-        "OPEX"
-      ]
+      tom: "técnico, setorial, objetivo e orientado à operação"
     },
-
     "Retail & CG": {
       descricao:
         "Atuação em varejo e consumer goods, com foco em transformação comercial, experiência do cliente, eficiência e crescimento.",
-      tom: "consultivo, dinâmico, claro e orientado a negócio",
-      palavras_chave: [
-        "varejo",
-        "consumer goods",
-        "jornada do cliente",
-        "performance comercial",
-        "experiência",
-        "crescimento"
-      ]
+      tom: "consultivo, dinâmico, claro e orientado a negócio"
     },
-
     "Financial Services": {
       descricao:
         "Atuação em bancos, pagamentos, seguros, risco, compliance e transformação no setor financeiro.",
-      tom: "técnico, confiável, consultivo e executivo",
-      palavras_chave: [
-        "Open Finance",
-        "PIX",
-        "compliance",
-        "risco",
-        "governança",
-        "regulação"
-      ]
+      tom: "técnico, confiável, consultivo e executivo"
     },
-
     "Mineração": {
       descricao:
         "Atuação no setor de mineração com foco em eficiência, transformação operacional, sustentabilidade e geração de valor.",
-      tom: "técnico, analítico, setorial e orientado a performance",
-      palavras_chave: [
-        "mineração",
-        "operações",
-        "eficiência",
-        "sustentabilidade",
-        "cadeia de valor",
-        "performance"
-      ]
+      tom: "técnico, analítico, setorial e orientado a performance"
     },
-
     "Telco & Media": {
       descricao:
         "Atuação em telecomunicações e mídia, apoiando transformação, inovação, eficiência operacional e evolução dos modelos de negócio.",
-      tom: "consultivo, técnico, atual e orientado à transformação",
-      palavras_chave: [
-        "telecomunicações",
-        "mídia",
-        "transformação digital",
-        "conectividade",
-        "inovação",
-        "eficiência"
-      ]
+      tom: "consultivo, técnico, atual e orientado à transformação"
     },
-
     "Energy & Utilities": {
       descricao:
         "Atuação em energia e utilities, com foco em geração, distribuição, comercialização, regulação e sustentabilidade.",
-      tom: "técnico, regulatório, claro e orientado à operação",
-      palavras_chave: [
-        "energia",
-        "utilities",
-        "ANEEL",
-        "distribuição",
-        "geração",
-        "sustentabilidade"
-      ]
+      tom: "técnico, regulatório, claro e orientado à operação"
     },
-
     "Life Sciences": {
       descricao:
         "Atuação em life sciences, da estratégia à execução em ambientes regulados.",
-      tom: "técnico, preciso, consultivo e orientado à conformidade",
-      palavras_chave: [
-        "life sciences",
-        "ambientes regulados",
-        "compliance",
-        "saúde",
-        "regulação",
-        "execução"
-      ]
+      tom: "técnico, preciso, consultivo e orientado à conformidade"
     },
-
     "Agronegócio": {
       descricao:
         "Atuação no agronegócio, conectando produção, eficiência, cadeia de valor e posicionamento global.",
-      tom: "consultivo, setorial, claro e orientado a impacto de negócio",
-      palavras_chave: [
-        "agronegócio",
-        "cadeia de valor",
-        "produção",
-        "eficiência",
-        "mercado global",
-        "sustentabilidade"
-      ]
+      tom: "consultivo, setorial, claro e orientado a impacto de negócio"
     },
-
     "Indústria 5.0": {
       descricao:
         "Atuação em manufatura competitiva com inteligência tecnológica, eficiência operacional e transformação industrial.",
-      tom: "técnico, analítico, moderno e orientado a performance",
-      palavras_chave: [
-        "indústria 5.0",
-        "manufatura",
-        "inteligência tecnológica",
-        "produtividade",
-        "eficiência",
-        "transformação industrial"
-      ]
+      tom: "técnico, analítico, moderno e orientado a performance"
     },
-
     Sustainability: {
       descricao:
         "Atuação em sustentabilidade, ESG, descarbonização, transição energética e geração de valor de longo prazo.",
-      tom: "consultivo, claro, técnico e orientado a impacto",
-      palavras_chave: [
-        "ESG",
-        "sustentabilidade",
-        "descarbonização",
-        "transição energética",
-        "governança",
-        "impacto"
-      ]
+      tom: "consultivo, claro, técnico e orientado a impacto"
     },
-
     xTech: {
       descricao:
         "Atuação em tecnologia, dados, inteligência artificial, integração tecnológica e transformação digital.",
-      tom: "técnico, atual, consultivo e orientado a negócio",
-      palavras_chave: [
-        "dados",
-        "IA",
-        "cloud",
-        "analytics",
-        "integração",
-        "transformação digital"
-      ]
+      tom: "técnico, atual, consultivo e orientado a negócio"
     }
   }
 };
@@ -213,32 +115,45 @@ const badExamples = readTextFile(path.join("data", "bad-examples.txt"), "");
 
 function normalizeScore(value) {
   if (value === null || value === undefined) return null;
-
   const num = Number(value);
   if (Number.isNaN(num)) return null;
-
   return Math.min(5, Math.max(1, Math.round(num * 10) / 10));
 }
 
-function calculateFinalScore(scores) {
-  const valid = Object.values(scores).filter((v) => v !== null);
-
-  if (valid.length === 0) return null;
-
-  const avg = valid.reduce((a, b) => a + b, 0) / valid.length;
-  return Math.round(avg * 10) / 10;
+function ensureArray(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map((item) => String(item).trim()).filter(Boolean);
 }
 
-function getRecommendation(score) {
+function getRecommendationFromScore(score) {
   if (score === null) return "Sem avaliação";
   if (score >= 4.5) return "Aprovado";
   if (score >= 3.5) return "Aprovado com ajustes";
   return "Reprovado";
 }
 
-function ensureArray(arr) {
-  if (!Array.isArray(arr)) return [];
-  return arr.map((item) => String(item).trim()).filter(Boolean);
+function normalizeSeverity(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+
+  if (
+    normalized === "alta" ||
+    normalized === "high" ||
+    normalized === "crítica" ||
+    normalized === "critica"
+  ) {
+    return "alta";
+  }
+
+  if (
+    normalized === "moderada" ||
+    normalized === "medium" ||
+    normalized === "média" ||
+    normalized === "media"
+  ) {
+    return "moderada";
+  }
+
+  return "leve";
 }
 
 app.get("/", (req, res) => {
@@ -279,8 +194,6 @@ Você é um especialista sênior em validação de conteúdo para uma consultori
 
 Sua função é avaliar conteúdos de social media, legenda e texto de arte, com rigor profissional, como uma revisora experiente.
 
----
-
 ENTRADAS DO USUÁRIO
 
 Legenda:
@@ -304,8 +217,6 @@ ${finalBusinessUnit || "Não informada"}
 Detalhes da Business Unit:
 ${selectedBU ? JSON.stringify(selectedBU, null, 2) : "Não informado"}
 
----
-
 PRINCÍPIOS DE AVALIAÇÃO
 - Seja rigoroso, mas justo
 - Não elogie genericamente
@@ -314,10 +225,8 @@ PRINCÍPIOS DE AVALIAÇÃO
 - Não invente fatos
 - Considere contexto, tipo de conteúdo e business unit antes de avaliar
 - Responda no idioma predominante do conteúdo
-- Se houver contexto suficiente para entender o público, use isso na avaliação
 - Evite feedback genérico e superficial
-
----
+- Não dê nota alta para conteúdo apenas razoável
 
 SE O CONTEÚDO ESTIVER EM INGLÊS
 - Use padrão corporativo global
@@ -325,18 +234,14 @@ SE O CONTEÚDO ESTIVER EM INGLÊS
 - Evite linguagem genérica
 - Garanta naturalidade de nativo
 
----
-
 DIRETRIZES:
 ${guidelines}
 
 EXEMPLOS BONS:
 ${goodExamples}
 
-EXEMPLOS RUINS (aprenda o que evitar):
+EXEMPLOS RUINS:
 ${badExamples}
-
----
 
 CRITÉRIOS
 - clareza
@@ -345,24 +250,33 @@ CRITÉRIOS
 - alinhamento_marca
 - relacao_legenda_arte
 
----
+CALIBRAÇÃO DE NOTA FINAL
+- 5.0 = excelente, padrão consultoria global, sem fragilidades relevantes
+- 4.5 a 4.9 = muito forte, com ajustes mínimos
+- 3.8 a 4.4 = bom, mas com melhorias relevantes antes da publicação
+- 3.0 a 3.7 = aceitável, porém genérico, redundante, pouco sofisticado ou inconsistente em partes
+- 2.0 a 2.9 = fraco, com problemas importantes de clareza, profundidade ou aderência à marca
+- 1.0 a 1.9 = inadequado, com falhas críticas
+
+GRAVIDADE GERAL
+Classifique a gravidade geral como:
+- leve
+- moderada
+- alta
 
 REGRAS
-- Use escala de 1 a 5
+- Use escala de 1 a 5 para cada critério
 - Não penalize relacao_legenda_arte se não houver texto de arte
+- Traga apenas os pontos positivos realmente relevantes
+- Traga apenas os pontos de melhoria realmente relevantes
+- A quantidade de comentários deve variar de acordo com a qualidade e complexidade do conteúdo
 - Sempre sugerir reescrita
-- Avalie se a profundidade do conteúdo faz sentido para o contexto informado
+- Avalie se a profundidade faz sentido para o contexto informado
 - Avalie se o tom está adequado ao tipo de conteúdo informado
 - Avalie se o repertório e a linguagem estão adequados à business unit, quando informada
-- Não dê nota alta para conteúdo apenas “ok”
-- Traga apenas os pontos positivos que forem realmente relevantes
-- Traga apenas os pontos de melhoria que forem realmente relevantes
-- A quantidade de comentários deve variar de acordo com a qualidade e a complexidade do conteúdo
-- Não force uma quantidade fixa de comentários
-- Não invente elogios ou críticas apenas para preencher lista
-- Priorize qualidade e especificidade, não volume
-
----
+- A nota final sugerida NÃO deve ser a média automática dos critérios. Ela deve refletir julgamento crítico global.
+- Se houver problema crítico, a nota final sugerida deve cair de forma relevante.
+- Se o conteúdo estiver apenas “ok”, a nota final sugerida não deve ficar acima de 4.0.
 
 FORMATO JSON OBRIGATÓRIO
 
@@ -375,6 +289,8 @@ FORMATO JSON OBRIGATÓRIO
     "alinhamento_marca": number,
     "relacao_legenda_arte": number ou null
   },
+  "nota_final_sugerida": number,
+  "gravidade_geral": "leve | moderada | alta",
   "pontos_positivos": ["string"],
   "pontos_melhoria": ["string"],
   "recomendacao_final": "string",
@@ -402,7 +318,25 @@ FORMATO JSON OBRIGATÓRIO
         : null
     };
 
-    const finalScore = calculateFinalScore(scores);
+    let finalScore = normalizeScore(parsed.nota_final_sugerida);
+
+    if (finalScore === null) {
+      const valid = Object.values(scores).filter((v) => v !== null);
+      if (valid.length > 0) {
+        finalScore =
+          Math.round((valid.reduce((a, b) => a + b, 0) / valid.length) * 10) / 10;
+      }
+    }
+
+    const gravidadeGeral = normalizeSeverity(parsed.gravidade_geral);
+
+    if (gravidadeGeral === "alta" && finalScore !== null && finalScore > 2.9) {
+      finalScore = 2.9;
+    }
+
+    if (gravidadeGeral === "moderada" && finalScore !== null && finalScore > 4.2) {
+      finalScore = 4.2;
+    }
 
     const pontosPositivos = ensureArray(parsed.pontos_positivos);
     const pontosMelhoria = ensureArray(parsed.pontos_melhoria);
@@ -410,13 +344,14 @@ FORMATO JSON OBRIGATÓRIO
     res.json({
       idioma: parsed.idioma || "pt",
       final_score: finalScore,
+      gravidade_geral: gravidadeGeral,
       scores,
       contexto_recebido: finalContext || null,
       tipo_conteudo_recebido: finalContentType || null,
       business_unit_recebida: finalBusinessUnit || null,
       pontos_positivos: pontosPositivos,
       pontos_melhoria: pontosMelhoria,
-      recomendacao_final: getRecommendation(finalScore),
+      recomendacao_final: getRecommendationFromScore(finalScore),
       sugestao_reescrita: parsed.sugestao_reescrita || "Sem sugestão"
     });
   } catch (error) {
