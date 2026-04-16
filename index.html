@@ -16,18 +16,9 @@
       --bip-red: #DA291C;
       --bip-white: #FFFFFF;
 
-      --blue-700: #0C2340;
-      --blue-600: #354159;
       --blue-500: #546579;
-      --blue-300: #9DA7B3;
       --blue-100: #DADEE2;
 
-      --red-500: #DA291C;
-      --red-400: #ED4239;
-      --red-200: #FCB7B3;
-      --red-100: #FFE3E3;
-
-      --neutral-bg: #F5F7FA;
       --neutral-surface: #FFFFFF;
       --neutral-soft: #F1F2F3;
       --text-main: #0C2340;
@@ -43,10 +34,6 @@
 
       --shadow-sm: 0 8px 20px rgba(12, 35, 64, 0.08);
       --shadow-md: 0 18px 40px rgba(12, 35, 64, 0.10);
-
-      --radius-lg: 4px;
-      --radius-md: 3px;
-      --radius-sm: 2px;
     }
 
     * {
@@ -77,17 +64,6 @@
       padding: 32px;
       box-shadow: var(--shadow-md);
       margin-bottom: 24px;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -40px -60px auto;
-      width: 260px;
-      height: 260px;
-      background:
-        radial-gradient(circle, rgba(218, 41, 28, 0.22) 0%, rgba(218, 41, 28, 0.08) 35%, transparent 70%);
-      pointer-events: none;
     }
 
     .hero-grid {
@@ -197,10 +173,6 @@
       margin-bottom: 22px;
     }
 
-    .field:last-child {
-      margin-bottom: 0;
-    }
-
     .field label {
       display: flex;
       justify-content: space-between;
@@ -222,9 +194,9 @@
       font-weight: 400;
     }
 
-    textarea,
-    select {
+    textarea {
       width: 100%;
+      min-height: 180px;
       border: 1px solid var(--border);
       border-radius: 3px;
       padding: 16px 18px;
@@ -233,22 +205,16 @@
       line-height: 1.6;
       color: var(--text-main);
       background: #fff;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
-    }
-
-    textarea {
-      min-height: 180px;
       resize: vertical;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    textarea::placeholder,
-    select {
+    textarea::placeholder {
       color: var(--blue-500);
     }
 
-    textarea:focus,
-    select:focus {
+    textarea:focus {
       border-color: var(--bip-red);
       box-shadow: 0 0 0 4px rgba(218, 41, 28, 0.10);
     }
@@ -269,19 +235,12 @@
       color: var(--bip-white);
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
       min-width: 190px;
-    }
-
-    .button-primary:hover {
-      transform: translateY(-1px);
-      background: var(--red-400);
     }
 
     .button-primary:disabled {
       opacity: 0.72;
       cursor: not-allowed;
-      transform: none;
     }
 
     .button-secondary {
@@ -374,18 +333,6 @@
       font-weight: 600;
     }
 
-    .list {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text-soft);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .list li + li {
-      margin-top: 8px;
-    }
-
     .scores-table {
       width: 100%;
       border-collapse: collapse;
@@ -413,6 +360,68 @@
       text-align: right;
     }
 
+    .feedback-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .feedback-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 14px;
+    }
+
+    .feedback-meta {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--bip-blue);
+      background: #F8F9FB;
+    }
+
+    .feedback-line {
+      margin: 6px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+
+    .feedback-line strong {
+      color: var(--bip-blue);
+    }
+
+    .rewrite-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 16px;
+      color: var(--text-main);
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .copy-button {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--bip-blue);
+      border-radius: 2px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+    }
+
     .raw-output {
       background: var(--bip-blue);
       color: #E6EDF5;
@@ -420,20 +429,10 @@
       padding: 18px;
       font-size: 13px;
       overflow: auto;
-      max-height: 300px;
+      max-height: 260px;
       white-space: pre-wrap;
       word-break: break-word;
       line-height: 1.6;
-    }
-
-    .footer-note {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .hidden {
-      display: none;
     }
 
     .footer-bar {
@@ -483,25 +482,6 @@
       border-radius: 4px;
       box-shadow: var(--shadow-md);
       padding: 28px;
-    }
-
-    .login-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--bip-blue);
-    }
-
-    .login-eyebrow-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--bip-red);
-      border-radius: 2px;
-      display: inline-block;
     }
 
     .login-box h2 {
@@ -555,6 +535,10 @@
       color: var(--bip-red);
     }
 
+    .hidden {
+      display: none;
+    }
+
     @media (max-width: 980px) {
       .hero-grid,
       .layout {
@@ -571,18 +555,6 @@
         padding: 20px 14px 36px;
       }
 
-      .hero,
-      .card-body,
-      .card-header {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-      .hero {
-        padding-top: 24px;
-        padding-bottom: 24px;
-      }
-
       .button-primary,
       .button-secondary {
         width: 100%;
@@ -597,10 +569,6 @@
 <body>
   <div id="loginScreen" class="login-screen">
     <div class="login-box">
-      <div class="login-eyebrow">
-        <span class="login-eyebrow-dot"></span>
-        <span>BIP . Restricted Access</span>
-      </div>
       <h2>Acesso restrito</h2>
       <p>Digite a senha para acessar o validador de conteúdo.</p>
       <input
@@ -640,10 +608,9 @@
         <div class="hero-panel">
           <div class="hero-panel-title">Como utilizar</div>
           <p>
-            Preencha a legenda, o texto da arte ou ambos. Você também pode incluir
-            contexto, tipo de conteúdo e business unit para tornar a avaliação mais precisa.
-            O sistema retorna avaliação estruturada, nota final, recomendação e comentários
-            de melhoria para apoiar a revisão antes da publicação.
+            Preencha a legenda, o texto da arte ou ambos. O sistema retorna
+            avaliação estruturada, nota final, recomendação e comentários de
+            melhoria para apoiar a revisão antes da publicação.
           </p>
         </div>
       </div>
@@ -665,10 +632,7 @@
               <span class="field-label">Legenda</span>
               <span class="field-note">Campo opcional, mas recomendado</span>
             </label>
-            <textarea
-              id="caption"
-              placeholder="Cole aqui a legenda completa do post"
-            ></textarea>
+            <textarea id="caption" placeholder="Cole aqui a legenda completa do post"></textarea>
           </div>
 
           <div class="field">
@@ -676,55 +640,7 @@
               <span class="field-label">Texto da arte</span>
               <span class="field-note">Campo opcional</span>
             </label>
-            <textarea
-              id="artworkText"
-              placeholder="Cole aqui o texto que aparece na arte ou no frame"
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label for="context">
-              <span class="field-label">Contexto do conteúdo</span>
-              <span class="field-note">Campo opcional, mas recomendado</span>
-            </label>
-            <textarea
-              id="context"
-              placeholder="Ex: Post para C-level sobre eficiência operacional após nova regulação"
-              style="min-height: 100px;"
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label for="contentType">
-              <span class="field-label">Tipo de conteúdo</span>
-              <span class="field-note">Campo opcional</span>
-            </label>
-            <select id="contentType">
-              <option value="">Selecione</option>
-              <option value="institucional">Institucional</option>
-              <option value="tecnico">Técnico</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="businessUnit">
-              <span class="field-label">Business Unit</span>
-              <span class="field-note">Campo opcional</span>
-            </label>
-            <select id="businessUnit">
-              <option value="">Selecione</option>
-              <option value="Oil & Gas">Oil & Gas</option>
-              <option value="Retail & CG">Retail & CG</option>
-              <option value="Financial Services">Financial Services</option>
-              <option value="Mineração">Mineração</option>
-              <option value="Telco & Media">Telco & Media</option>
-              <option value="Energy & Utilities">Energy & Utilities</option>
-              <option value="Life Sciences">Life Sciences</option>
-              <option value="Agronegócio">Agronegócio</option>
-              <option value="Indústria 5.0">Indústria 5.0</option>
-              <option value="Sustainability">Sustainability</option>
-              <option value="xTech">xTech</option>
-            </select>
+            <textarea id="artworkText" placeholder="Cole aqui o texto que aparece na arte ou no frame"></textarea>
           </div>
 
           <div class="actions">
@@ -739,8 +655,7 @@
         <div class="card-header">
           <h2 class="card-title">Resultado da avaliação</h2>
           <p class="card-subtitle">
-            A análise é estruturada por critérios e consolidada em uma
-            recomendação final.
+            A análise é estruturada por critérios e consolidada em uma recomendação final.
           </p>
         </div>
 
@@ -775,24 +690,27 @@
 
             <div class="section-box">
               <h3>Pontos positivos</h3>
-              <ul class="list" id="positiveList">
-                <li>A análise aparecerá aqui após a validação.</li>
+              <ul class="feedback-list" id="positiveList">
+                <li class="feedback-card">A análise aparecerá aqui após a validação.</li>
               </ul>
             </div>
 
             <div class="section-box">
               <h3>Pontos de melhoria</h3>
-              <ul class="list" id="improvementList">
-                <li>A análise aparecerá aqui após a validação.</li>
+              <ul class="feedback-list" id="improvementList">
+                <li class="feedback-card">A análise aparecerá aqui após a validação.</li>
               </ul>
             </div>
 
             <div class="section-box">
-              <h3>Saída bruta</h3>
+              <h3>Sugestão de reescrita</h3>
+              <div class="rewrite-box" id="rewriteBox">A sugestão de reescrita aparecerá aqui.</div>
+              <button class="copy-button" id="copyRewriteButton" type="button">Copiar reescrita</button>
+            </div>
+
+            <div class="section-box">
+              <h3>Saída técnica</h3>
               <div class="raw-output" id="rawOutput">O resultado bruto em JSON aparecerá aqui.</div>
-              <div class="footer-note">
-                Use esta seção para checagem técnica e troubleshooting.
-              </div>
             </div>
           </div>
         </div>
@@ -805,11 +723,9 @@
 
     const captionEl = document.getElementById("caption");
     const artworkTextEl = document.getElementById("artworkText");
-    const contextEl = document.getElementById("context");
-    const contentTypeEl = document.getElementById("contentType");
-    const businessUnitEl = document.getElementById("businessUnit");
     const validateButtonEl = document.getElementById("validateButton");
     const clearButtonEl = document.getElementById("clearButton");
+    const copyRewriteButtonEl = document.getElementById("copyRewriteButton");
     const statusEl = document.getElementById("status");
     const finalScoreEl = document.getElementById("finalScore");
     const recommendationBoxEl = document.getElementById("recommendationBox");
@@ -818,6 +734,7 @@
     const positiveListEl = document.getElementById("positiveList");
     const improvementListEl = document.getElementById("improvementList");
     const rawOutputEl = document.getElementById("rawOutput");
+    const rewriteBoxEl = document.getElementById("rewriteBox");
 
     function login() {
       const value = document.getElementById("passwordInput").value;
@@ -838,27 +755,21 @@
         .replace(/>/g, "&gt;");
     }
 
-    function renderList(element, items, fallbackText) {
-      if (!Array.isArray(items) || items.length === 0) {
-        element.innerHTML = `<li>${escapeHtml(fallbackText)}</li>`;
-        return;
-      }
-
-      element.innerHTML = items
-        .map((item) => `<li>${escapeHtml(item)}</li>`)
-        .join("");
-    }
-
     function formatLabel(key) {
       const map = {
         clareza: "Clareza",
         tom_de_voz: "Tom de voz",
         qualidade_redacao: "Qualidade da redação",
-        consistencia_informacoes: "Consistência das informações",
+        alinhamento_marca: "Alinhamento com a marca",
         relacao_legenda_arte: "Relação legenda e arte"
       };
 
       return map[key] || key;
+    }
+
+    function formatScore(value) {
+      if (value === null || value === undefined) return "Não aplicável";
+      return value;
     }
 
     function renderScores(scores) {
@@ -872,21 +783,15 @@
       }
 
       const rows = Object.entries(scores)
-        .map(([key, value]) => {
-          return `
-            <tr>
-              <td>${escapeHtml(formatLabel(key))}</td>
-              <td>${escapeHtml(value)}</td>
-            </tr>
-          `;
-        })
+        .map(([key, value]) => `
+          <tr>
+            <td>${escapeHtml(formatLabel(key))}</td>
+            <td>${escapeHtml(formatScore(value))}</td>
+          </tr>
+        `)
         .join("");
 
-      scoresTableBodyEl.innerHTML = rows || `
-        <tr>
-          <td colspan="2" style="color:#5f6b76;">Nenhuma nota recebida.</td>
-        </tr>
-      `;
+      scoresTableBodyEl.innerHTML = rows;
     }
 
     function renderRecommendation(text) {
@@ -896,7 +801,7 @@
         return;
       }
 
-      const normalized = text.toLowerCase();
+      const normalized = String(text).toLowerCase();
       let variantClass = "ajustes";
 
       if (normalized.includes("aprovado com ajustes")) {
@@ -911,6 +816,41 @@
       recommendationTextEl.textContent = text;
     }
 
+    function renderPositiveFeedback(element, items, fallbackText) {
+      if (!Array.isArray(items) || items.length === 0) {
+        element.innerHTML = `<li class="feedback-card">${escapeHtml(fallbackText)}</li>`;
+        return;
+      }
+
+      element.innerHTML = items
+        .map((item) => `
+          <li class="feedback-card">
+            <div class="feedback-meta">${escapeHtml(item.tipo || "Não informado")}</div>
+            <div class="feedback-line"><strong>Trecho:</strong> ${escapeHtml(item.trecho || "Não informado")}</div>
+            <div class="feedback-line"><strong>Motivo:</strong> ${escapeHtml(item.motivo || "Não informado")}</div>
+          </li>
+        `)
+        .join("");
+    }
+
+    function renderImprovementFeedback(element, items, fallbackText) {
+      if (!Array.isArray(items) || items.length === 0) {
+        element.innerHTML = `<li class="feedback-card">${escapeHtml(fallbackText)}</li>`;
+        return;
+      }
+
+      element.innerHTML = items
+        .map((item) => `
+          <li class="feedback-card">
+            <div class="feedback-meta">${escapeHtml(item.tipo || "Não informado")}</div>
+            <div class="feedback-line"><strong>Trecho:</strong> ${escapeHtml(item.trecho || "Não informado")}</div>
+            <div class="feedback-line"><strong>Problema:</strong> ${escapeHtml(item.problema || "Não informado")}</div>
+            <div class="feedback-line"><strong>Sugestão:</strong> ${escapeHtml(item.sugestao || "Não informado")}</div>
+          </li>
+        `)
+        .join("");
+    }
+
     function resetUI() {
       finalScoreEl.textContent = "-";
       renderRecommendation("");
@@ -919,8 +859,9 @@
           <td colspan="2" style="color:#5f6b76;">Os resultados aparecerão aqui.</td>
         </tr>
       `;
-      positiveListEl.innerHTML = "<li>A análise aparecerá aqui após a validação.</li>";
-      improvementListEl.innerHTML = "<li>A análise aparecerá aqui após a validação.</li>";
+      renderPositiveFeedback(positiveListEl, [], "A análise aparecerá aqui após a validação.");
+      renderImprovementFeedback(improvementListEl, [], "A análise aparecerá aqui após a validação.");
+      rewriteBoxEl.textContent = "A sugestão de reescrita aparecerá aqui.";
       rawOutputEl.textContent = "O resultado bruto em JSON aparecerá aqui.";
       statusEl.textContent = "Aguardando envio.";
     }
@@ -928,18 +869,28 @@
     clearButtonEl.addEventListener("click", () => {
       captionEl.value = "";
       artworkTextEl.value = "";
-      contextEl.value = "";
-      contentTypeEl.value = "";
-      businessUnitEl.value = "";
       resetUI();
+    });
+
+    copyRewriteButtonEl.addEventListener("click", async () => {
+      const text = rewriteBoxEl.textContent.trim();
+
+      if (!text || text === "A sugestão de reescrita aparecerá aqui.") return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        copyRewriteButtonEl.textContent = "Reescrita copiada";
+        setTimeout(() => {
+          copyRewriteButtonEl.textContent = "Copiar reescrita";
+        }, 1500);
+      } catch (error) {
+        console.log("Não foi possível copiar.");
+      }
     });
 
     validateButtonEl.addEventListener("click", async () => {
       const caption = captionEl.value.trim();
       const artworkText = artworkTextEl.value.trim();
-      const context = contextEl.value.trim();
-      const contentType = contentTypeEl.value;
-      const businessUnit = businessUnitEl.value;
 
       if (!caption && !artworkText) {
         statusEl.textContent = "Preencha pelo menos um dos campos para iniciar a validação.";
@@ -952,8 +903,9 @@
       finalScoreEl.textContent = "...";
       renderRecommendation("");
       renderScores(null);
-      renderList(positiveListEl, [], "A análise está em processamento.");
-      renderList(improvementListEl, [], "A análise está em processamento.");
+      renderPositiveFeedback(positiveListEl, [], "A análise está em processamento.");
+      renderImprovementFeedback(improvementListEl, [], "A análise está em processamento.");
+      rewriteBoxEl.textContent = "Gerando sugestão de reescrita...";
 
       try {
         const response = await fetch("/validate", {
@@ -963,10 +915,7 @@
           },
           body: JSON.stringify({
             caption,
-            artworkText,
-            context,
-            contentType,
-            businessUnit
+            artworkText
           })
         });
 
@@ -977,8 +926,9 @@
           finalScoreEl.textContent = "-";
           statusEl.textContent = "Erro na validação.";
           renderRecommendation(data.error || "Não foi possível concluir a análise.");
-          renderList(positiveListEl, [], "Nenhum resultado disponível.");
-          renderList(improvementListEl, [data.error || "Verifique a configuração do serviço."], "Nenhum resultado disponível.");
+          renderPositiveFeedback(positiveListEl, [], "Nenhum resultado disponível.");
+          renderImprovementFeedback(improvementListEl, [], "Nenhum resultado disponível.");
+          rewriteBoxEl.textContent = "Não foi possível gerar a reescrita.";
           return;
         }
 
@@ -989,16 +939,27 @@
 
         renderRecommendation(data.recomendacao_final || "Avaliação concluída");
         renderScores(data.scores);
-        renderList(positiveListEl, data.pontos_positivos, "Nenhum ponto positivo informado.");
-        renderList(improvementListEl, data.pontos_melhoria, "Nenhum ponto de melhoria informado.");
+        renderPositiveFeedback(
+          positiveListEl,
+          data.pontos_positivos,
+          "Nenhum ponto positivo relevante identificado."
+        );
+        renderImprovementFeedback(
+          improvementListEl,
+          data.pontos_melhoria,
+          "Nenhum ponto de melhoria relevante identificado."
+        );
+        rewriteBoxEl.textContent =
+          data.sugestao_reescrita || "Nenhuma sugestão de reescrita foi informada.";
         statusEl.textContent = "Validação concluída com sucesso.";
       } catch (error) {
         finalScoreEl.textContent = "-";
         rawOutputEl.textContent = JSON.stringify({ error: error.message }, null, 2);
         statusEl.textContent = "Erro ao enviar a solicitação.";
         renderRecommendation("Reprovado");
-        renderList(positiveListEl, [], "Nenhum resultado disponível.");
-        renderList(improvementListEl, [error.message], "Nenhum resultado disponível.");
+        renderPositiveFeedback(positiveListEl, [], "Nenhum resultado disponível.");
+        renderImprovementFeedback(improvementListEl, [], "Nenhum resultado disponível.");
+        rewriteBoxEl.textContent = "Não foi possível gerar a reescrita.";
       } finally {
         validateButtonEl.disabled = false;
       }
