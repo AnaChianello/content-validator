@@ -115,14 +115,51 @@ const badExamples = readTextFile(path.join("data", "bad-examples.txt"), "");
 
 function normalizeScore(value) {
   if (value === null || value === undefined) return null;
+
   const num = Number(value);
   if (Number.isNaN(num)) return null;
+
   return Math.min(5, Math.max(1, Math.round(num * 10) / 10));
 }
 
-function ensureArray(arr) {
+function ensureString(value, fallback = "") {
+  if (typeof value !== "string") return fallback;
+  const cleaned = value.trim();
+  return cleaned || fallback;
+}
+
+function ensureFeedbackArray(arr, type) {
   if (!Array.isArray(arr)) return [];
-  return arr.map((item) => String(item).trim()).filter(Boolean);
+
+  return arr
+    .filter((item) => item && typeof item === "object")
+    .map((item) => {
+      if (type === "positive") {
+        return {
+          tipo: ensureString(item.tipo, "legenda"),
+          trecho: ensureString(item.trecho, "Trecho não informado."),
+          motivo: ensureString(item.motivo, "Sem motivo informado.")
+        };
+      }
+
+      return {
+        tipo: ensureString(item.tipo, "legenda"),
+        trecho: ensureString(item.trecho, "Trecho não informado."),
+        problema: ensureString(item.problema, "Sem problema informado."),
+        sugestao: ensureString(item.sugestao, "Sem sugestão específica.")
+      };
+    })
+    .filter((item) => {
+      if (type === "positive") {
+        return item.trecho !== "Trecho não informado." || item.motivo !== "Sem motivo informado.";
+      }
+
+      return (
+        item.trecho !== "Trecho não informado." ||
+        item.problema !== "Sem problema informado." ||
+        item.sugestao !== "Sem sugestão específica."
+      );
+    });
 }
 
 function getRecommendationFromScore(score) {
@@ -278,6 +315,14 @@ REGRAS
 - Se houver problema crítico, a nota final sugerida deve cair de forma relevante.
 - Se o conteúdo estiver apenas “ok”, a nota final sugerida não deve ficar acima de 4.0.
 
+REGRAS DE FEEDBACK
+- Sempre que apontar um ponto positivo ou de melhoria, indique o trecho exato a que você está se referindo
+- O trecho pode vir da legenda ou do texto da arte
+- Diferencie se o comentário se refere à legenda ou à arte usando o campo "tipo"
+- Não faça comentários vagos sem apontar onde eles se aplicam
+- Se o problema for geral, associe-o ao trecho mais representativo
+- Seja específico e acionável
+
 FORMATO JSON OBRIGATÓRIO
 
 {
@@ -291,8 +336,21 @@ FORMATO JSON OBRIGATÓRIO
   },
   "nota_final_sugerida": number,
   "gravidade_geral": "leve | moderada | alta",
-  "pontos_positivos": ["string"],
-  "pontos_melhoria": ["string"],
+  "pontos_positivos": [
+    {
+      "tipo": "legenda ou arte",
+      "trecho": "trecho exato",
+      "motivo": "explicação específica"
+    }
+  ],
+  "pontos_melhoria": [
+    {
+      "tipo": "legenda ou arte",
+      "trecho": "trecho exato",
+      "problema": "explicação específica",
+      "sugestao": "ajuste recomendado"
+    }
+  ],
   "recomendacao_final": "string",
   "sugestao_reescrita": "string"
 }
@@ -338,8 +396,8 @@ FORMATO JSON OBRIGATÓRIO
       finalScore = 4.2;
     }
 
-    const pontosPositivos = ensureArray(parsed.pontos_positivos);
-    const pontosMelhoria = ensureArray(parsed.pontos_melhoria);
+    const pontosPositivos = ensureFeedbackArray(parsed.pontos_positivos, "positive");
+    const pontosMelhoria = ensureFeedbackArray(parsed.pontos_melhoria, "improvement");
 
     res.json({
       idioma: parsed.idioma || "pt",
@@ -352,7 +410,7 @@ FORMATO JSON OBRIGATÓRIO
       pontos_positivos: pontosPositivos,
       pontos_melhoria: pontosMelhoria,
       recomendacao_final: getRecommendationFromScore(finalScore),
-      sugestao_reescrita: parsed.sugestao_reescrita || "Sem sugestão"
+      sugestao_reescrita: ensureString(parsed.sugestao_reescrita, "Sem sugestão")
     });
   } catch (error) {
     console.error(error);
