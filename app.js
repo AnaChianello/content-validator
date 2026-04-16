@@ -168,7 +168,7 @@ const validationConfig = {
       ]
     },
 
-    "Sustainability": {
+    Sustainability: {
       descricao:
         "Atuação em sustentabilidade, ESG, descarbonização, transição energética e geração de valor de longo prazo.",
       tom: "consultivo, claro, técnico e orientado a impacto",
@@ -236,9 +236,9 @@ function getRecommendation(score) {
   return "Reprovado";
 }
 
-function ensureArray(arr, fallback) {
-  if (!Array.isArray(arr) || arr.length === 0) return fallback;
-  return arr;
+function ensureArray(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map((item) => String(item).trim()).filter(Boolean);
 }
 
 app.get("/", (req, res) => {
@@ -306,7 +306,7 @@ ${selectedBU ? JSON.stringify(selectedBU, null, 2) : "Não informado"}
 
 ---
 
-PRINCÍPIOS DE AVALIAÇÃO:
+PRINCÍPIOS DE AVALIAÇÃO
 - Seja rigoroso, mas justo
 - Não elogie genericamente
 - Sempre justifique observações
@@ -319,7 +319,7 @@ PRINCÍPIOS DE AVALIAÇÃO:
 
 ---
 
-SE O CONTEÚDO ESTIVER EM INGLÊS:
+SE O CONTEÚDO ESTIVER EM INGLÊS
 - Use padrão corporativo global
 - Seja direto e conciso
 - Evite linguagem genérica
@@ -330,15 +330,15 @@ SE O CONTEÚDO ESTIVER EM INGLÊS:
 DIRETRIZES:
 ${guidelines}
 
-EXEMPLOS:
+EXEMPLOS BONS:
 ${goodExamples}
 
-BAD EXAMPLES (learn what to avoid):
+EXEMPLOS RUINS (aprenda o que evitar):
 ${badExamples}
 
 ---
 
-CRITÉRIOS:
+CRITÉRIOS
 - clareza
 - tom_de_voz
 - qualidade_redacao
@@ -347,21 +347,24 @@ CRITÉRIOS:
 
 ---
 
-REGRAS:
+REGRAS
 - Use escala de 1 a 5
 - Não penalize relacao_legenda_arte se não houver texto de arte
-- Sempre trazer pontos positivos e melhorias
 - Sempre sugerir reescrita
 - Avalie se a profundidade do conteúdo faz sentido para o contexto informado
 - Avalie se o tom está adequado ao tipo de conteúdo informado
 - Avalie se o repertório e a linguagem estão adequados à business unit, quando informada
-- Traga pelo menos 2 pontos positivos, se existirem
-- Traga pelo menos 2 pontos de melhoria, se existirem
 - Não dê nota alta para conteúdo apenas “ok”
+- Traga apenas os pontos positivos que forem realmente relevantes
+- Traga apenas os pontos de melhoria que forem realmente relevantes
+- A quantidade de comentários deve variar de acordo com a qualidade e a complexidade do conteúdo
+- Não force uma quantidade fixa de comentários
+- Não invente elogios ou críticas apenas para preencher lista
+- Priorize qualidade e especificidade, não volume
 
 ---
 
-FORMATO JSON OBRIGATÓRIO:
+FORMATO JSON OBRIGATÓRIO
 
 {
   "idioma": "pt ou en",
@@ -372,8 +375,8 @@ FORMATO JSON OBRIGATÓRIO:
     "alinhamento_marca": number,
     "relacao_legenda_arte": number ou null
   },
-  "pontos_positivos": ["string", "string"],
-  "pontos_melhoria": ["string", "string"],
+  "pontos_positivos": ["string"],
+  "pontos_melhoria": ["string"],
   "recomendacao_final": "string",
   "sugestao_reescrita": "string"
 }
@@ -401,6 +404,9 @@ FORMATO JSON OBRIGATÓRIO:
 
     const finalScore = calculateFinalScore(scores);
 
+    const pontosPositivos = ensureArray(parsed.pontos_positivos);
+    const pontosMelhoria = ensureArray(parsed.pontos_melhoria);
+
     res.json({
       idioma: parsed.idioma || "pt",
       final_score: finalScore,
@@ -408,12 +414,8 @@ FORMATO JSON OBRIGATÓRIO:
       contexto_recebido: finalContext || null,
       tipo_conteudo_recebido: finalContentType || null,
       business_unit_recebida: finalBusinessUnit || null,
-      pontos_positivos: ensureArray(parsed.pontos_positivos, [
-        "Sem pontos positivos claros."
-      ]),
-      pontos_melhoria: ensureArray(parsed.pontos_melhoria, [
-        "Sem melhorias claras."
-      ]),
+      pontos_positivos: pontosPositivos,
+      pontos_melhoria: pontosMelhoria,
       recomendacao_final: getRecommendation(finalScore),
       sugestao_reescrita: parsed.sugestao_reescrita || "Sem sugestão"
     });
