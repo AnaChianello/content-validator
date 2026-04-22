@@ -399,6 +399,27 @@
       color: var(--bip-blue);
     }
 
+    .rewrite-container {
+      display: grid;
+      gap: 12px;
+    }
+
+    .rewrite-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 14px;
+    }
+
+    .rewrite-label {
+      margin: 0 0 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-soft);
+      font-weight: 700;
+    }
+
     .rewrite-box {
       background: #FFFFFF;
       border: 1px solid var(--border);
@@ -408,6 +429,15 @@
       white-space: pre-wrap;
       line-height: 1.6;
       font-size: 14px;
+    }
+
+    .rewrite-original {
+      background: #F8F9FB;
+      margin-bottom: 12px;
+    }
+
+    .rewrite-actions {
+      margin-top: 12px;
     }
 
     .copy-button {
@@ -420,6 +450,10 @@
       cursor: pointer;
       font: inherit;
       font-size: 13px;
+    }
+
+    .copy-button.no-margin {
+      margin-top: 0;
     }
 
     .raw-output {
@@ -704,8 +738,9 @@
 
             <div class="section-box">
               <h3>Sugestão de reescrita</h3>
-              <div class="rewrite-box" id="rewriteBox">A sugestão de reescrita aparecerá aqui.</div>
-              <button class="copy-button" id="copyRewriteButton" type="button">Copiar reescrita</button>
+              <div id="rewriteContainer" class="rewrite-container">
+                <div class="rewrite-box">A sugestão de reescrita aparecerá aqui.</div>
+              </div>
             </div>
 
             <div class="section-box">
@@ -725,7 +760,6 @@
     const artworkTextEl = document.getElementById("artworkText");
     const validateButtonEl = document.getElementById("validateButton");
     const clearButtonEl = document.getElementById("clearButton");
-    const copyRewriteButtonEl = document.getElementById("copyRewriteButton");
     const statusEl = document.getElementById("status");
     const finalScoreEl = document.getElementById("finalScore");
     const recommendationBoxEl = document.getElementById("recommendationBox");
@@ -734,7 +768,7 @@
     const positiveListEl = document.getElementById("positiveList");
     const improvementListEl = document.getElementById("improvementList");
     const rawOutputEl = document.getElementById("rawOutput");
-    const rewriteBoxEl = document.getElementById("rewriteBox");
+    const rewriteContainerEl = document.getElementById("rewriteContainer");
 
     function login() {
       const value = document.getElementById("passwordInput").value;
@@ -752,7 +786,9 @@
       return String(value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
     function formatLabel(key) {
@@ -851,6 +887,64 @@
         .join("");
     }
 
+    async function copyText(text, button) {
+      try {
+        await navigator.clipboard.writeText(text || "");
+        const originalText = button.textContent;
+        button.textContent = "Reescrita copiada";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1500);
+      } catch (error) {
+        console.log("Não foi possível copiar.");
+      }
+    }
+
+    function copyRewrite(index, button) {
+      const element = document.getElementById(`rewriteText_${index}`);
+      if (!element) return;
+      copyText(element.innerText, button);
+    }
+
+    function renderRewriteSuggestions(data) {
+      const rewrites = Array.isArray(data?.sugestoes_reescrita)
+        ? data.sugestoes_reescrita.filter(
+            (item) => item && (item.trecho_original || item.reescrita)
+          )
+        : [];
+
+      if (rewrites.length > 0) {
+        rewriteContainerEl.innerHTML = rewrites
+          .map((item, index) => `
+            <div class="rewrite-item">
+              <div class="rewrite-label">Trecho original</div>
+              <div class="rewrite-box rewrite-original">${escapeHtml(item.trecho_original || "Trecho não informado.")}</div>
+
+              <div class="rewrite-label">Reescrita sugerida</div>
+              <div class="rewrite-box" id="rewriteText_${index}">${escapeHtml(item.reescrita || "Reescrita não informada.")}</div>
+
+              <div class="rewrite-actions">
+                <button class="copy-button no-margin" type="button" onclick="copyRewrite(${index}, this)">Copiar reescrita</button>
+              </div>
+            </div>
+          `)
+          .join("");
+        return;
+      }
+
+      const fallback = data?.sugestao_reescrita || "Nenhuma sugestão de reescrita foi informada.";
+
+      rewriteContainerEl.innerHTML = `
+        <div class="rewrite-item">
+          <div class="rewrite-label">Reescrita sugerida</div>
+          <div class="rewrite-box" id="rewriteText_0">${escapeHtml(fallback)}</div>
+          <div class="rewrite-actions">
+            <button class="copy-button no-margin" type="button" onclick="copyRewrite(0, this)">Copiar reescrita</button>
+          </div>
+        </div>
+      `;
+    }
+
     function resetUI() {
       finalScoreEl.textContent = "-";
       renderRecommendation("");
@@ -861,7 +955,7 @@
       `;
       renderPositiveFeedback(positiveListEl, [], "A análise aparecerá aqui após a validação.");
       renderImprovementFeedback(improvementListEl, [], "A análise aparecerá aqui após a validação.");
-      rewriteBoxEl.textContent = "A sugestão de reescrita aparecerá aqui.";
+      rewriteContainerEl.innerHTML = `<div class="rewrite-box">A sugestão de reescrita aparecerá aqui.</div>`;
       rawOutputEl.textContent = "O resultado bruto em JSON aparecerá aqui.";
       statusEl.textContent = "Aguardando envio.";
     }
@@ -870,22 +964,6 @@
       captionEl.value = "";
       artworkTextEl.value = "";
       resetUI();
-    });
-
-    copyRewriteButtonEl.addEventListener("click", async () => {
-      const text = rewriteBoxEl.textContent.trim();
-
-      if (!text || text === "A sugestão de reescrita aparecerá aqui.") return;
-
-      try {
-        await navigator.clipboard.writeText(text);
-        copyRewriteButtonEl.textContent = "Reescrita copiada";
-        setTimeout(() => {
-          copyRewriteButtonEl.textContent = "Copiar reescrita";
-        }, 1500);
-      } catch (error) {
-        console.log("Não foi possível copiar.");
-      }
     });
 
     validateButtonEl.addEventListener("click", async () => {
@@ -905,7 +983,7 @@
       renderScores(null);
       renderPositiveFeedback(positiveListEl, [], "A análise está em processamento.");
       renderImprovementFeedback(improvementListEl, [], "A análise está em processamento.");
-      rewriteBoxEl.textContent = "Gerando sugestão de reescrita...";
+      rewriteContainerEl.innerHTML = `<div class="rewrite-box">Gerando sugestão de reescrita...</div>`;
 
       try {
         const response = await fetch("/validate", {
@@ -928,7 +1006,7 @@
           renderRecommendation(data.error || "Não foi possível concluir a análise.");
           renderPositiveFeedback(positiveListEl, [], "Nenhum resultado disponível.");
           renderImprovementFeedback(improvementListEl, [], "Nenhum resultado disponível.");
-          rewriteBoxEl.textContent = "Não foi possível gerar a reescrita.";
+          rewriteContainerEl.innerHTML = `<div class="rewrite-box">Não foi possível gerar a reescrita.</div>`;
           return;
         }
 
@@ -949,8 +1027,7 @@
           data.pontos_melhoria,
           "Nenhum ponto de melhoria relevante identificado."
         );
-        rewriteBoxEl.textContent =
-          data.sugestao_reescrita || "Nenhuma sugestão de reescrita foi informada.";
+        renderRewriteSuggestions(data);
         statusEl.textContent = "Validação concluída com sucesso.";
       } catch (error) {
         finalScoreEl.textContent = "-";
@@ -959,7 +1036,7 @@
         renderRecommendation("Reprovado");
         renderPositiveFeedback(positiveListEl, [], "Nenhum resultado disponível.");
         renderImprovementFeedback(improvementListEl, [], "Nenhum resultado disponível.");
-        rewriteBoxEl.textContent = "Não foi possível gerar a reescrita.";
+        rewriteContainerEl.innerHTML = `<div class="rewrite-box">Não foi possível gerar a reescrita.</div>`;
       } finally {
         validateButtonEl.disabled = false;
       }
