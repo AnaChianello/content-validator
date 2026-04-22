@@ -162,6 +162,25 @@ function ensureFeedbackArray(arr, type) {
     });
 }
 
+function ensureRewriteSuggestions(arr) {
+  if (!Array.isArray(arr)) return [];
+
+  return arr
+    .filter((item) => item && typeof item === "object")
+    .map((item) => ({
+      trecho_original: ensureString(
+        item.trecho_original,
+        "Trecho original não informado."
+      ),
+      reescrita: ensureString(item.reescrita, "Reescrita não informada.")
+    }))
+    .filter(
+      (item) =>
+        item.trecho_original !== "Trecho original não informado." ||
+        item.reescrita !== "Reescrita não informada."
+    );
+}
+
 function getRecommendationFromScore(score) {
   if (score === null) return "Sem avaliação";
   if (score >= 4.5) return "Aprovado";
@@ -387,6 +406,14 @@ REGRAS DE FEEDBACK
 - Sempre sugerir reescrita nos pontos de melhoria, de forma prática
 - Evite repetir o mesmo comentário com palavras diferentes
 
+REESCRITA OBRIGATÓRIA
+- Para cada problema relevante, gere uma reescrita concreta do trecho
+- A reescrita deve ser pronta para uso
+- Não explique o que fazer, mostre como ficaria
+- Evite reescrever o texto inteiro se não for necessário
+- Priorize os trechos mais críticos
+- A reescrita deve manter o sentido original, mas melhorar clareza, objetividade, fluidez e aderência ao tom BIP
+
 FORMATO JSON OBRIGATÓRIO
 
 Retorne apenas um JSON válido, sem texto antes ou depois, no formato:
@@ -418,7 +445,14 @@ Retorne apenas um JSON válido, sem texto antes ou depois, no formato:
     }
   ],
   "recomendacao_final": "Aprovado | Aprovado com ajustes | Reprovado",
-  "sugestao_reescrita": "string"
+  "sugestoes_reescrita": [
+    {
+      "trecho_original": "trecho problemático",
+      "reescrita": "nova versão pronta para uso"
+    }
+  ],
+  "sugestao_reescrita": "string",
+  "sugestao_reescrita_geral": "string"
 }
 
 INSTRUÇÕES FINAIS
@@ -481,6 +515,13 @@ INSTRUÇÕES FINAIS
       finalScore
     );
 
+    const sugestoesReescrita = ensureRewriteSuggestions(parsed.sugestoes_reescrita);
+
+    const sugestaoReescritaLegacy =
+      sugestoesReescrita[0]?.reescrita ||
+      ensureString(parsed.sugestao_reescrita, "") ||
+      ensureString(parsed.sugestao_reescrita_geral, "Sem sugestão");
+
     res.json({
       idioma: parsed.idioma || "pt",
       final_score: finalScore,
@@ -492,7 +533,8 @@ INSTRUÇÕES FINAIS
       pontos_positivos: pontosPositivos,
       pontos_melhoria: pontosMelhoria,
       recomendacao_final: recomendacaoFinal,
-      sugestao_reescrita: ensureString(parsed.sugestao_reescrita, "Sem sugestão")
+      sugestoes_reescrita: sugestoesReescrita,
+      sugestao_reescrita: sugestaoReescritaLegacy
     });
   } catch (error) {
     console.error(error);
