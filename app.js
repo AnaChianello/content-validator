@@ -169,6 +169,16 @@ function getRecommendationFromScore(score) {
   return "Reprovado";
 }
 
+function normalizeRecommendation(value, fallbackScore = null) {
+  const normalized = ensureString(value, "").toLowerCase();
+
+  if (normalized === "aprovado") return "Aprovado";
+  if (normalized === "aprovado com ajustes") return "Aprovado com ajustes";
+  if (normalized === "reprovado") return "Reprovado";
+
+  return getRecommendationFromScore(fallbackScore);
+}
+
 function normalizeSeverity(value) {
   const normalized = String(value || "").trim().toLowerCase();
 
@@ -226,7 +236,7 @@ app.post("/validate", async (req, res) => {
     const selectedBU =
       validationConfig.business_units[finalBusinessUnit] || null;
 
-const prompt = `
+    const prompt = `
 Você é um especialista sênior em validação de conteúdo para uma consultoria global, a BIP.
 
 Sua função é avaliar conteúdos de social media, incluindo legenda e texto de arte, com rigor profissional, como uma revisora experiente. Sua análise deve considerar padrão institucional, clareza, profundidade, aderência à marca e utilidade real do conteúdo.
@@ -285,56 +295,40 @@ ${goodExamples}
 EXEMPLOS RUINS:
 ${badExamples}
 
-CLASSIFICAÇÃO OBRIGATÓRIA
-
-Classifique o conteúdo em uma destas categorias:
+CLASSIFICAÇÃO CONCEITUAL
+Use seu julgamento para enquadrar o conteúdo como:
 - Aprovado
 - Aprovado com ajustes
 - Reprovado
 
-REPROVAÇÃO AUTOMÁTICA
-
-Classifique como "Reprovado" se houver qualquer um dos itens abaixo:
-- Texto genérico ou superficial
-- Ausência de ponto de vista claro
-- Falta de valor prático ou insight
-- Uso de clichês corporativos, como "soluções inovadoras", "crescer no mercado", "gerar valor" sem especificidade
-- Conteúdo que poderia ser de qualquer empresa
-- Baixa densidade técnica
-- Baixa aderência ao padrão institucional da BIP
-- Uso de dados, estudos, percentuais, estatísticas ou pesquisas sem fonte explícita
-- Uso recorrente de linguagem vazia, como "estratégico", "estratégica", "estratégicos", "estratégicas"
-- Repetição excessiva entre legenda e arte
-- Erros relevantes de redação, coerência ou fluidez
-- Tom inadequado ao contexto ou ao tipo de conteúdo
-
-IMPORTANTE:
-- Se a classificação for "Reprovado", a nota final não pode ser maior que 3.0
-- Problemas estruturais devem derrubar significativamente a nota
-- Conteúdo apenas "ok" não deve receber nota acima de 4.0
+CRITÉRIOS DE REPROVAÇÃO AUTOMÁTICA
+Considere o conteúdo como reprovado quando houver qualquer um dos itens abaixo:
+- texto genérico ou superficial
+- ausência de ponto de vista claro
+- falta de valor prático ou insight
+- uso de clichês corporativos, como "soluções inovadoras", "crescer no mercado" ou equivalentes
+- conteúdo que poderia ser de qualquer empresa
+- baixa densidade técnica
+- baixa aderência ao padrão institucional da BIP
+- uso de dados, estudos, percentuais, estatísticas ou pesquisas sem fonte explícita
+- uso recorrente de linguagem vazia, como "estratégico", "estratégica", "estratégicos", "estratégicas"
+- repetição excessiva entre legenda e arte
+- erros relevantes de redação, coerência ou fluidez
+- tom inadequado ao contexto ou ao tipo de conteúdo
 
 REGRAS ESPECÍFICAS
-
 FONTES:
 - Sempre que houver dados, estatísticas, percentuais, estudos, pesquisas, relatórios ou afirmações quantitativas, a fonte deve estar explicitamente indicada na legenda ou na arte
 - Menções genéricas como "segundo estudos" ou "pesquisas mostram" não são suficientes
-- Se houver uso de dado sem fonte, isso deve ser tratado como problema crítico e levar à reprovação
+- Se houver uso de dado sem fonte, trate como problema crítico
 
 USO DE "ESTRATÉGICO":
-Evitar o uso de:
-- estratégico
-- estratégica
-- estratégicos
-- estratégicas
-
-Regras:
+- Evitar o uso de estratégico, estratégica, estratégicos e estratégicas
 - Se o termo for usado de forma genérica ou vazia, penalize fortemente
 - Se aparecer de forma recorrente, trate como problema relevante
-- Se o uso for recorrente e sem conteúdo concreto, reprovar
 - Prefira linguagem concreta, específica e orientada a ação ou impacto real
 
 CRITÉRIOS DE AVALIAÇÃO
-
 Use escala de 1 a 5 para cada critério:
 - clareza
 - tom_de_voz
@@ -342,7 +336,7 @@ Use escala de 1 a 5 para cada critério:
 - alinhamento_marca
 - relacao_legenda_arte
 
-Regras dos critérios:
+REGRAS DOS CRITÉRIOS
 - Não penalize relacao_legenda_arte se não houver texto de arte
 - Em relacao_legenda_arte, avalie se há complementaridade real ou apenas repetição
 - Em alinhamento_marca, considere aderência ao padrão BIP, linguagem executiva, profundidade e diferenciação
@@ -351,8 +345,6 @@ Regras dos critérios:
 - Em clareza, considere facilidade de entendimento, progressão lógica e objetividade
 
 CALIBRAÇÃO DE NOTA FINAL
-
-Use esta referência:
 - 5.0 = excelente, padrão consultoria global, sem fragilidades relevantes
 - 4.5 a 4.9 = muito forte, com ajustes mínimos
 - 3.8 a 4.4 = bom, mas com melhorias relevantes antes da publicação
@@ -361,16 +353,17 @@ Use esta referência:
 - 1.0 a 1.9 = inadequado, com falhas críticas
 
 REGRAS DE NOTA FINAL
-- A nota final sugerida NÃO deve ser uma média automática dos critérios
+- A nota final sugerida NÃO deve ser a média automática dos critérios
 - A nota final deve refletir julgamento crítico global
 - Use toda a escala de forma proporcional
 - Evite concentrar notas entre 4.0 e 4.5
 - Se houver problema crítico, a nota final deve cair de forma relevante
 - Se o conteúdo tiver boa superfície, mas pouca substância, a nota deve refletir essa limitação
-- A classificação, a gravidade e a nota final devem ser coerentes entre si
+- Se o conteúdo estiver apenas ok, a nota final sugerida não deve ficar acima de 4.0
+- Se o conteúdo for conceitualmente reprovado, a gravidade geral deve ser alta
+- Se o conteúdo for conceitualmente reprovado, a nota final sugerida deve ficar em no máximo 3.0
 
 GRAVIDADE GERAL
-
 Classifique a gravidade geral como:
 - leve
 - moderada
@@ -382,7 +375,6 @@ Regra:
 - alta = falhas estruturais, necessidade de reescrita ou reprovação
 
 REGRAS DE FEEDBACK
-
 - Sempre que apontar um ponto positivo ou de melhoria, indique o trecho exato a que você está se referindo
 - O trecho pode vir da legenda ou do texto da arte
 - Diferencie se o comentário se refere à legenda ou à arte usando o campo "tipo"
@@ -400,32 +392,33 @@ FORMATO JSON OBRIGATÓRIO
 Retorne apenas um JSON válido, sem texto antes ou depois, no formato:
 
 {
-  "classificacao": "Aprovado | Aprovado com ajustes | Reprovado",
-  "nota_final": 0.0,
-  "gravidade": "leve | moderada | alta",
-  "criterios": {
-    "clareza": 0.0,
-    "tom_de_voz": 0.0,
-    "qualidade_redacao": 0.0,
-    "alinhamento_marca": 0.0,
-    "relacao_legenda_arte": 0.0
+  "idioma": "pt ou en",
+  "scores": {
+    "clareza": 0,
+    "tom_de_voz": 0,
+    "qualidade_redacao": 0,
+    "alinhamento_marca": 0,
+    "relacao_legenda_arte": 0
   },
+  "nota_final_sugerida": 0,
+  "gravidade_geral": "leve | moderada | alta",
   "pontos_positivos": [
     {
-      "tipo": "legenda | arte",
-      "trecho": "",
-      "comentario": ""
+      "tipo": "legenda ou arte",
+      "trecho": "trecho exato",
+      "motivo": "explicação específica"
     }
   ],
   "pontos_melhoria": [
     {
-      "tipo": "legenda | arte",
-      "trecho": "",
-      "problema": "",
-      "sugestao": ""
+      "tipo": "legenda ou arte",
+      "trecho": "trecho exato",
+      "problema": "explicação específica",
+      "sugestao": "ajuste recomendado"
     }
   ],
-  "analise_geral": ""
+  "recomendacao_final": "Aprovado | Aprovado com ajustes | Reprovado",
+  "sugestao_reescrita": "string"
 }
 
 INSTRUÇÕES FINAIS
@@ -433,7 +426,7 @@ INSTRUÇÕES FINAIS
 - Não aprove conteúdos medianos
 - Não trate problema estrutural como ajuste pontual
 - Priorize profundidade, clareza, precisão e aderência à marca
-- Quando houver reprovação, deixe isso claro na análise geral
+- Quando houver reprovação conceitual, isso deve aparecer coerentemente na nota, na gravidade e na recomendação final
 - Quando houver uso de dados sem fonte, trate como falha crítica
 - Quando houver linguagem genérica demais, derrube a nota de forma relevante
 - Quando houver repetição excessiva entre legenda e arte, aponte isso explicitamente
@@ -483,6 +476,11 @@ INSTRUÇÕES FINAIS
     const pontosPositivos = ensureFeedbackArray(parsed.pontos_positivos, "positive");
     const pontosMelhoria = ensureFeedbackArray(parsed.pontos_melhoria, "improvement");
 
+    const recomendacaoFinal = normalizeRecommendation(
+      parsed.recomendacao_final,
+      finalScore
+    );
+
     res.json({
       idioma: parsed.idioma || "pt",
       final_score: finalScore,
@@ -493,7 +491,7 @@ INSTRUÇÕES FINAIS
       business_unit_recebida: finalBusinessUnit || null,
       pontos_positivos: pontosPositivos,
       pontos_melhoria: pontosMelhoria,
-      recomendacao_final: getRecommendationFromScore(finalScore),
+      recomendacao_final: recomendacaoFinal,
       sugestao_reescrita: ensureString(parsed.sugestao_reescrita, "Sem sugestão")
     });
   } catch (error) {
