@@ -4,6 +4,7 @@ import OpenAI from "openai";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { createClient } from "@supabase/supabase-js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,6 +18,11 @@ app.use(express.static(__dirname));
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 const validationConfig = {
   input_schema: {
@@ -226,6 +232,33 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
+app.get("/test-supabase", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("validations")
+      .select("*")
+      .limit(5);
+
+    if (error) {
+      return res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Conexão com Supabase OK",
+      data
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 app.post("/validate", async (req, res) => {
   try {
     const {
@@ -255,6 +288,45 @@ app.post("/validate", async (req, res) => {
     const selectedBU =
       validationConfig.business_units[finalBusinessUnit] || null;
 
+    const { data: previousPosts, error: previousPostsError } = await supabase
+      .from("validations")
+      .select("caption, visual_text, content_type, bu, score, recomendacao_final")
+      .eq("bu", finalBusinessUnit)
+      .eq("content_type", finalContentType)
+      .order("score", { ascending: false })
+      .limit(3);
+
+    if (previousPostsError) {
+      console.log("Erro ao buscar posts anteriores:", previousPostsError.message);
+    }
+
+    const previousPostsText = previousPosts?.length
+      ? previousPosts
+          .map(
+            (post, index) => `
+EXEMPLO HISTÓRICO ${index + 1}
+Legenda:
+${post.caption || "Não informada"}
+
+Texto da arte:
+${post.visual_text || "Não informado"}
+
+Tipo de conteúdo:
+${post.content_type || "Não informado"}
+
+Business Unit:
+${post.bu || "Não informada"}
+
+Nota:
+${post.score || "Não informada"}
+
+Recomendação:
+${post.recomendacao_final || "Não informada"}
+`
+          )
+          .join("\n")
+      : "Nenhum post anterior similar encontrado.";
+
     const prompt = `
 Você é um especialista sênior em validação de conteúdo para uma consultoria global, a BIP.
 
@@ -282,6 +354,11 @@ ${finalBusinessUnit || "Não informada"}
 
 Detalhes da Business Unit:
 ${selectedBU ? JSON.stringify(selectedBU, null, 2) : "Não informado"}
+
+POSTS ANTERIORES SIMILARES
+Use os exemplos históricos abaixo apenas como referência de consistência editorial, repertório, nível de exigência e padrão de avaliação. Não copie trechos. Não reproduza estruturas automaticamente. Não deixe que exemplos medianos reduzam o rigor da análise.
+
+${previousPostsText}
 
 PRINCÍPIOS DE AVALIAÇÃO
 - Seja rigoroso, mas justo
@@ -522,7 +599,7 @@ INSTRUÇÕES FINAIS
       ensureString(parsed.sugestao_reescrita, "") ||
       ensureString(parsed.sugestao_reescrita_geral, "Sem sugestão");
 
-    res.json({
+    const result = {
       idioma: parsed.idioma || "pt",
       final_score: finalScore,
       gravidade_geral: gravidadeGeral,
@@ -535,7 +612,31 @@ INSTRUÇÕES FINAIS
       recomendacao_final: recomendacaoFinal,
       sugestoes_reescrita: sugestoesReescrita,
       sugestao_reescrita: sugestaoReescritaLegacy
+    };
+
+    const { error: insertError } = await supabase.from("validations").insert({
+      caption: finalCaption,
+      visual_text: finalVisualText,
+      context: finalContext,
+      content_type: finalContentType,
+      bu: finalBusinessUnit,
+      score: finalScore,
+      feedback: {
+        pontos_positivos: pontosPositivos,
+        pontos_melhoria: pontosMelhoria,
+        scores,
+        gravidade_geral: gravidadeGeral
+      },
+      rewrite_suggestions: sugestoesReescrita,
+      status: recomendacaoFinal,
+      recomendacao_final: recomendacaoFinal
     });
+
+    if (insertError) {
+      console.log("Erro ao salvar validação no Supabase:", insertError.message);
+    }
+
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({
