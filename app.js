@@ -288,19 +288,40 @@ app.post("/validate", async (req, res) => {
     const selectedBU =
       validationConfig.business_units[finalBusinessUnit] || null;
 
-    const { data: previousPosts, error: previousPostsError } = await supabase
+    let previousPosts = [];
+
+    const { data: goodPreviousPosts, error: goodPostsError } = await supabase
       .from("validations")
       .select("caption, visual_text, content_type, bu, score, recomendacao_final")
       .eq("bu", finalBusinessUnit)
       .eq("content_type", finalContentType)
+      .eq("is_good_example", true)
       .order("score", { ascending: false })
       .limit(3);
 
-    if (previousPostsError) {
-      console.log("Erro ao buscar posts anteriores:", previousPostsError.message);
+    if (goodPostsError) {
+      console.log("Erro ao buscar bons exemplos:", goodPostsError.message);
     }
 
-    const previousPostsText = previousPosts?.length
+    previousPosts = goodPreviousPosts || [];
+
+    if (!previousPosts.length) {
+      const { data: fallbackPosts, error: fallbackPostsError } = await supabase
+        .from("validations")
+        .select("caption, visual_text, content_type, bu, score, recomendacao_final")
+        .eq("bu", finalBusinessUnit)
+        .eq("content_type", finalContentType)
+        .order("score", { ascending: false })
+        .limit(3);
+
+      if (fallbackPostsError) {
+        console.log("Erro ao buscar posts anteriores:", fallbackPostsError.message);
+      }
+
+      previousPosts = fallbackPosts || [];
+    }
+
+    const previousPostsText = previousPosts.length
       ? previousPosts
           .map(
             (post, index) => `
@@ -356,7 +377,7 @@ Detalhes da Business Unit:
 ${selectedBU ? JSON.stringify(selectedBU, null, 2) : "Não informado"}
 
 POSTS ANTERIORES SIMILARES
-Use os exemplos históricos abaixo apenas como referência de consistência editorial, repertório, nível de exigência e padrão de avaliação. Não copie trechos. Não reproduza estruturas automaticamente. Não deixe que exemplos medianos reduzam o rigor da análise.
+Use os exemplos históricos abaixo apenas como referência de consistência editorial, repertório, nível de exigência e padrão de avaliação. Priorize exemplos de alta qualidade. Não copie trechos. Não reproduza estruturas automaticamente. Não deixe que exemplos medianos reduzam o rigor da análise.
 
 ${previousPostsText}
 
@@ -614,6 +635,9 @@ INSTRUÇÕES FINAIS
       sugestao_reescrita: sugestaoReescritaLegacy
     };
 
+    const isGoodExample = finalScore !== null && finalScore >= 4;
+    const isBadExample = finalScore !== null && finalScore < 3;
+
     const { error: insertError } = await supabase.from("validations").insert({
       caption: finalCaption,
       visual_text: finalVisualText,
@@ -629,7 +653,9 @@ INSTRUÇÕES FINAIS
       },
       rewrite_suggestions: sugestoesReescrita,
       status: recomendacaoFinal,
-      recomendacao_final: recomendacaoFinal
+      recomendacao_final: recomendacaoFinal,
+      is_good_example: isGoodExample,
+      is_bad_example: isBadExample
     });
 
     if (insertError) {
